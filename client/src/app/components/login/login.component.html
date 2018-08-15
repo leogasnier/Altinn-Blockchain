@@ -1,0 +1,35 @@
+<div class="section">
+  <h5 class="overview_title">Please, login into your account</h5>
+</div>
+<div class="container">
+  <div class="z-depth-1 grey lighten-4 row login_form">
+    <div>
+      <form class="col s12" method="GET">
+        <div class="row">
+          <div class="col s12">
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input class="validate" type="email" name="email" id="email" [(ngModel)]="email"/>
+            <label for="email">Enter your email</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input class="validate" type="password" name="password" id="password" [(ngModel)]="password"/>
+            <label for="password">Enter your password</label>
+          </div>
+          <label id="forgot_password">
+            <a class="pink-text" routerLink="/login">Forgot Password?</a>
+          </label>
+        </div>
+        <div class="row">
+          <button type="submit" name="btn_login" class="col s12 btn-large btn-large waves-effect"
+                  (click)="login(email, password)">Login
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

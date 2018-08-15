@@ -1,0 +1,16 @@
+{
+  "roles": [
+    {
+      "name":   "SampleParticipantRole",
+      "roleID": "SAMPLE_PARTICIPANT_ROLE"
+    },
+    {
+      "name":   "StockOwner",
+      "roleID": "STOCK_OWNER"
+    },
+    {
+      "name":   "Firm",
+      "roleID": "FIRM"
+    }
+  ]
+}

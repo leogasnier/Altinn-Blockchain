@@ -1,0 +1,14 @@
+{
+  "verbose": false,
+  "ext":     "ts,json",
+  "env":     {
+    "DEBUG": "app:config"
+  },
+  "watch":   [
+    "common/**/*",
+    "domain/**/*",
+    "server/**/*",
+    "test/**/*"
+  ],
+  "exec":    "npm run lint -s && node server.js"
+}

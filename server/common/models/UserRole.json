@@ -1,0 +1,11 @@
+{
+  "name":      "UserRole",
+  "base":      "Role",
+  "relations": {
+    "principals": {
+      "type":       "hasMany",
+      "model":      "UserRoleMapping",
+      "foreignKey": "roleId"
+    }
+  }
+}

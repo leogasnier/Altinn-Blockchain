@@ -1,0 +1,41 @@
+{
+  "name":        "ComposerParticipant",
+  "plural":      "ComposerParticipants",
+  "base":        "Model",
+  "idInjection": false,
+  "forceid":     false,
+  "properties":  {
+    "userID":           {
+      "type":      "string",
+      "id":        true,
+      "generated": false
+    },
+    "firstName":        {
+      "type":      "string",
+      "id":        true,
+      "generated": false
+    },
+    "lastName":         {
+      "type":      "string",
+      "id":        true,
+      "generated": false
+    },
+    "org":              {
+      "type":      "string",
+      "id":        true,
+      "generated": false
+    },
+    "participantClass": {
+      "type":      "string",
+      "generated": false
+    },
+    "cardName":         {
+      "type":      "string",
+      "generated": false
+    }
+  },
+  "validations": [],
+  "relations":   {
+  },
+  "methods":     {}
+}

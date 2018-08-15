@@ -1,0 +1,111 @@
+/**
+ * Access control rules for tutorial-network
+ */
+
+ rule Default {
+    description: "Allow all participants access to all resources"
+    participant: "ANY"
+    operation: ALL
+    resource: "org.altinn.*"
+    action: ALLOW
+ } 
+/* 
+rule SystemACL {
+    description:  "System ACL to permit all access"
+    participant: "ANY"
+    operation: ALL
+    resource: "org.hyperledger.composer.system.**"
+    action: ALLOW
+ } */
+
+rule Admin {
+	description: "Allow Admin access to all resources"
+  	participant: "org.hyperledger.composer.system.NetworkAdmin"
+  	operation: ALL
+    resource: "org.altinn.**"
+  	action: ALLOW
+}
+
+// -- System --
+rule SystemACL {
+  description:  "System ACL to permit all access"
+  participant: "ANY"
+  operation: ALL
+  resource: "org.hyperledger.composer.system.**"
+  action: ALLOW
+}
+
+/* // <---- BRREG ---->
+rule BRREGReadAllRegisterOfShareholders {
+	description: "Allow BRREG to read all RegisterOfShareholders"
+  	participant: "org.altinn.BRREG"
+  	operation: READ
+    resource: "org.altinn.RegisterOfShareholders"
+  	action: ALLOW
+}
+
+rule BRREGUseTransactionChangeOnFirmRegistered {
+  description: "Allow BRREG to use transaction changeOnFirmRegistered"
+  participant: "org.altinn.BRREG"
+  operation: ALL
+  resource: "org.altinn.changeOnFirmRegistered"
+  action: ALLOW
+}
+
+
+// <---- Firm ---->
+rule FirmUseTransactionRegisterChangeOnFirm {
+  description: "Allow Firm to use transaction RegisterChangeOnFirm"
+  participant: "org.altinn.Firm"
+  operation: ALL
+  resource: "org.altinn.RegisterChangeOnFirm"
+  action: ALLOW
+}
+
+
+// <---- Transaction RegisterFirm---->
+rule FirmUseTransactionRegisterFirm {
+  description: "Allow Firm to use transaction RegisterFirm"
+  participant: "org.altinn.Firm"
+  operation: ALL
+  resource: "org.altinn.RegisterFirm"
+  action: ALLOW
+}
+
+rule FirmuseTransactionRegisterFirmBrreg {
+  description: "Allow Firm to use transaction RegisterFirm"
+  participant: "org.altinn.Firm"
+  operation: ALL
+  resource: "org.altinn.BRREG"
+  transaction: "org.altinn.RegisterFirm"
+  action: ALLOW
+}
+
+rule FirmuseTransactionRegisterFirmFirm {
+  description: "Allow Firm to use transaction RegisterFirm"
+  participant: "org.altinn.Firm"
+  operation: ALL
+  resource: "org.altinn.Firm"
+  transaction: "org.altinn.RegisterFirm"
+  action: ALLOW
+}
+
+rule FirmuseTransactionRegisterFirmShareHolder {
+  description: "Allow Firm to use transaction RegisterFirm"
+  participant: "org.altinn.Firm"
+  operation: ALL
+  resource: "org.altinn.ShareHolder"
+  transaction: "org.altinn.RegisterFirm"
+  action: ALLOW
+} */
+
+/* 
+rule UpdateStockDuringSale {
+    description: "Lets ShareHolder updates owner of stock after a transaction is made"
+    participant(m): "org.altinn.ShareHolder"
+    operation: UPDATE
+    resource(v): "org.altinn.Stock"
+    transaction(tx): "org.altinn.SaleOfStock"
+    condition: (v.owner.getIdentifier() == m.getIdentifier())
+    action: ALLOW
+} */

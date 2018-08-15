@@ -1,0 +1,60 @@
+//_$orgnr = "resource:org.altinn.RegisterOfShareholders#xxxxxxxxx"
+
+query selectAllStocks {
+  description: "Select all Stock belonging to RegisterOfShareholders with orgnr _$orgnr"
+  statement:
+      SELECT org.altinn.Stock
+          WHERE (registerOfShareholders == _$orgnr)
+}
+
+//_$company  = "resource:org.altinn.RegisterofShareholder#xxxxxxxxx"
+//_ownerIn = "resource:org.altinn.ShareHolder#xxxxxxxxx"
+query getFirstStocks {
+  description: "Hent de første x antall Stocks en eier har i gitt RegisterOfShareholders"
+  statement:
+  	SELECT org.altinn.Stock
+  		WHERE (registerOfShareholders == _$company AND owner == _$ownerIn)
+  			ORDER BY [purchasedDate ASC]
+}
+
+query selectHighestStockId {
+  description: "Henter høyeste ID fra Stock for å mocke auto-increment"
+  statement:
+  	SELECT org.altinn.Stock
+  		ORDER BY [id DESC]
+}
+
+query getRegistry {
+  description: "Henter object av Aksjebok med orgnr _$orgnr"
+  statement:
+  	SELECT org.altinn.RegisterOfShareholders
+  		WHERE (orgnr == _$orgnr)
+}
+
+query getStockWallet {
+	description: "Henter alle aksjer en person eier"
+	statement:
+		SELECT org.altinn.Stock
+			WHERE (owner == _$id)
+}
+
+query getStockMarket {
+	description: "Henter alle aksjer en person IKKE eier"
+	statement:
+		SELECT org.altinn.Stock
+			WHERE (owner != _$id)
+}
+
+query getStockPurchaseRequest {
+    description: "Select a stockPurchaseRequest Event"
+    statement:
+        SELECT org.hyperledger.composer.system.HistorianRecord
+  			WHERE (transactionId == _$id)
+}
+
+query getFirmShareHolders {
+	description: "Henter alle aksjene til et firma"
+	statement:
+		SELECT org.altinn.Stock
+			WHERE(registerOfShareholders == _$register)
+}

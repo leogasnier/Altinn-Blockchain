@@ -1,0 +1,70 @@
+{
+  "_meta":               {
+    "sources": [
+      "loopback/common/models",
+      "loopback/server/models",
+      "../common/models",
+      "./models"
+    ],
+    "mixins":  [
+      "loopback/common/mixins",
+      "loopback/server/mixins",
+      "../common/mixins",
+      "./mixins"
+    ]
+  },
+  "User":                {
+    "dataSource": "private-db"
+  },
+  "LoopbackUser":        {
+    "public":     true,
+    "dataSource": "private-db"
+  },
+  "SampleAsset":         {
+    "public":     true,
+    "dataSource": "private-db"
+  },
+  "ComposerParticipant": {
+    "dataSource": "private-db",
+    "public":     false,
+    "options":    {
+      "strictObjectIDCoercion": true
+    }
+  },
+  "AccessToken":         {
+    "dataSource": "private-db",
+    "public":     false
+  },
+  "ACL":                 {
+    "dataSource": "private-db",
+    "public":     false
+  },
+  "RoleMapping":         {
+    "dataSource": "private-db",
+    "public":     false,
+    "options":    {
+      "strictObjectIDCoercion": true
+    }
+  },
+  "Role":                {
+    "dataSource": "private-db",
+    "public":     false,
+    "options":    {
+      "strictObjectIDCoercion": true
+    }
+  },
+  "Asset":               {
+    "dataSource": "private-db"
+  },
+  "UserRoleMapping":     {
+    "dataSource": "private-db",
+    "public":     false,
+    "options":    {
+      "strictObjectIDCoercion": true
+    }
+  },
+  "UserRole":            {
+    "dataSource": "private-db",
+    "public":     false
+  }
+}

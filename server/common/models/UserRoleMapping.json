@@ -1,0 +1,13 @@
+{
+  "name":        "UserRoleMapping",
+  "base":        "RoleMapping",
+  "idInjection": false,
+  "forceid":     false,
+  "relations":   {
+    "role": {
+      "type":       "belongsTo",
+      "model":      "UserRole",
+      "foreignKey": "roleId"
+    }
+  }
+}

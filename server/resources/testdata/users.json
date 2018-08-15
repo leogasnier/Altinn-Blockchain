@@ -1,0 +1,28 @@
+{
+  "users": [
+    {
+      "ID":               "lapo",
+      "firstName":        "Lapo",
+      "lastName":         "Seller",
+      "companyId":        "sellercompany",
+      "email":            "lapo@sellercompany.com",
+      "password":         "passw0rd",
+      "participantClass": "SampleParticipant",
+      "roles":            [
+        "SampleParticipantRole"
+      ]
+    },
+    {
+      "ID":               "oliver",
+      "firstName":        "Oliver",
+      "lastName":         "OtherParticipant",
+      "companyId":        "othercompany",
+      "email":            "oliver@othercompany.com",
+      "password":         "passw0rd",
+      "participantClass": "SampleParticipant",
+      "roles":            [
+        "SampleParticipantRole"
+      ]
+    }
+  ]
+}

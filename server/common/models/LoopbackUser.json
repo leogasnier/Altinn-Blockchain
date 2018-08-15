@@ -1,0 +1,56 @@
+{
+  "name":        "LoopbackUser",
+  "plural":      "LoopbackUsers",
+  "base":        "User",
+  "idInjection": false,
+  "forceid":     false,
+  "properties":  {
+    "ID":               {
+      "type": "string",
+      "id":   true
+    },
+    "firstName":        {
+      "type":     "string",
+      "required": true
+    },
+    "lastName":         {
+      "type":     "string",
+      "required": true
+    },
+    "companyId":        {
+      "type":     "string",
+      "required": false
+    },
+    "phone":            {
+      "type":     "string",
+      "required": false
+    },
+    "participantClass": {
+      "type":      "string",
+      "generated": false
+    },
+    "roles":            {
+      "type": [
+        "string"
+      ]
+    },
+    "active":           {
+      "type":     "boolean",
+      "required": false
+    }
+  },
+  "validations": [],
+  "relations":   {
+    "roleMappings":        {
+      "type":       "hasMany",
+      "model":      "UserRoleMapping",
+      "foreignKey": "principalId"
+    },
+    "composerParticipant": {
+      "type":       "hasOne",
+      "model":      "ComposerParticipant",
+      "foreignKey": "ID"
+    }
+  },
+  "methods":     {}
+}
