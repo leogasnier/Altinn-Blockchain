@@ -7,17 +7,11 @@
 - npm 5.xx (usually included in node package)
 
 ## Getting started  
-This boilerplate aims to set up your blockchain environment as a dockerized application with only one command. After writting your cto, acl. js, 
-qry files, you run the ```npm run start``` command in the root directory, fabric containers are deployed, composer cli is deploying the bna and creating the Reer Admin and Network admin cards. 
-Then, composer rest server using the network admin card creates the APIs. In composer playground we can see the network admin card where we can connect and test our blockchain network.
-Angular app is generated, from yo package using the current bna. If you are deploying your own bna, you have to recreate the angular app from the yo package 
-(keep the Dockerfile and replace it with the newly created). To make it connect to the rest server in ```generic-app/src/app/data.service.ts``` change ```this.actionUrl = 'http://localhost:3000/api/';```
-
-Navigate from the terminal to your project directory
+Get the baseimage and other images and install the node modules in local:
 ```bash
-/composer-fabric
+npm install
 ```
-Cleanup the running containers first:
+Navigate from the terminal to your project directory. Cleanup the running containers first.
 ```bash
 ./clean.sh
 ```
