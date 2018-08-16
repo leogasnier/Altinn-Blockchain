@@ -46,7 +46,7 @@ participant BusinessRegistry extends User {
   o ResponseRequest[] receivedChangeOnCompanyRequest
 }
 
-asset RegisterOfShareholders identified by companyID {
+asset RegistryOfShareHolders identified by companyID {
     o String companyID
     o Double numberOfShares
     o Double capital
@@ -62,7 +62,7 @@ asset Stock identified by stockID {
   o Double value
   o Double marketValue
   o DateTime purchasedDate
-  --> RegisterOfShareholders registerOfShareholders
+  --> RegistryOfShareHolders registerOfShareholders
   --> StockOwner owner
 }
 

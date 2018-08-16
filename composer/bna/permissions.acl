@@ -1,111 +1,370 @@
-/**
- * Access control rules for tutorial-network
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
- rule Default {
-    description: "Allow all participants access to all resources"
-    participant: "ANY"
+/**
+ * Access control rules for atninn-network
+ */
+
+rule NetworkAdminUser {
+    description: "Grant business network administrators full access to user resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
     operation: ALL
-    resource: "org.altinn.*"
+    resource: "**"
     action: ALLOW
- } 
-/* 
-rule SystemACL {
-    description:  "System ACL to permit all access"
-    participant: "ANY"
+}
+
+rule NetworkAdminSystem {
+    description: "Grant business network administrators full access to system resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
     operation: ALL
     resource: "org.hyperledger.composer.system.**"
     action: ALLOW
- } */
-
-rule Admin {
-	description: "Allow Admin access to all resources"
-  	participant: "org.hyperledger.composer.system.NetworkAdmin"
-  	operation: ALL
-    resource: "org.altinn.**"
-  	action: ALLOW
 }
 
-// -- System --
-rule SystemACL {
-  description:  "System ACL to permit all access"
-  participant: "ANY"
-  operation: ALL
-  resource: "org.hyperledger.composer.system.**"
-  action: ALLOW
-}
-
-/* // <---- BRREG ---->
-rule BRREGReadAllRegisterOfShareholders {
-	description: "Allow BRREG to read all RegisterOfShareholders"
-  	participant: "org.altinn.BRREG"
-  	operation: READ
-    resource: "org.altinn.RegisterOfShareholders"
-  	action: ALLOW
-}
-
-rule BRREGUseTransactionChangeOnFirmRegistered {
-  description: "Allow BRREG to use transaction changeOnFirmRegistered"
-  participant: "org.altinn.BRREG"
-  operation: ALL
-  resource: "org.altinn.changeOnFirmRegistered"
-  action: ALLOW
-}
-
-
-// <---- Firm ---->
-rule FirmUseTransactionRegisterChangeOnFirm {
-  description: "Allow Firm to use transaction RegisterChangeOnFirm"
-  participant: "org.altinn.Firm"
-  operation: ALL
-  resource: "org.altinn.RegisterChangeOnFirm"
-  action: ALLOW
-}
-
-
-// <---- Transaction RegisterFirm---->
-rule FirmUseTransactionRegisterFirm {
-  description: "Allow Firm to use transaction RegisterFirm"
-  participant: "org.altinn.Firm"
-  operation: ALL
-  resource: "org.altinn.RegisterFirm"
-  action: ALLOW
-}
-
-rule FirmuseTransactionRegisterFirmBrreg {
-  description: "Allow Firm to use transaction RegisterFirm"
-  participant: "org.altinn.Firm"
-  operation: ALL
-  resource: "org.altinn.BRREG"
-  transaction: "org.altinn.RegisterFirm"
-  action: ALLOW
-}
-
-rule FirmuseTransactionRegisterFirmFirm {
-  description: "Allow Firm to use transaction RegisterFirm"
-  participant: "org.altinn.Firm"
-  operation: ALL
-  resource: "org.altinn.Firm"
-  transaction: "org.altinn.RegisterFirm"
-  action: ALLOW
-}
-
-rule FirmuseTransactionRegisterFirmShareHolder {
-  description: "Allow Firm to use transaction RegisterFirm"
-  participant: "org.altinn.Firm"
-  operation: ALL
-  resource: "org.altinn.ShareHolder"
-  transaction: "org.altinn.RegisterFirm"
-  action: ALLOW
-} */
-
-/* 
-rule UpdateStockDuringSale {
-    description: "Lets ShareHolder updates owner of stock after a transaction is made"
-    participant(m): "org.altinn.ShareHolder"
-    operation: UPDATE
-    resource(v): "org.altinn.Stock"
-    transaction(tx): "org.altinn.SaleOfStock"
-    condition: (v.owner.getIdentifier() == m.getIdentifier())
+rule AllParticipantsCanReadAllResources {
+    description: "Allow all participants access to all resources"
+    participant: "ANY"
+    operation: READ
+    resource: "org.altinn.*"
     action: ALLOW
-} */
+ }
+
+/*
+ * Business Registry
+ */
+
+rule BusinessRegistryCanAccesSystem {
+     description: "Grant business registry users full access to system resources"
+     participant: "org.altinn.BusinessRegistry"
+     operation: ALL
+     resource: "org.hyperledger.composer.system.**"
+     action: ALLOW
+ }
+
+rule BusinessRegistryCanCreateChairmanOfTheBoard {
+  description: "BusinessRegistry can create chairman of the board."
+  participant: "org.altinn.BusinessRegistry"
+  operation: CREATE
+  resource: "org.altinn.CreateChairmanOfTheBoard"
+  action: ALLOW
+ }
+
+rule BusinessRegistryCreateChairmanOfTheBoard {
+  description: "BusinessRegistry can create chairman of the board."
+  participant: "org.altinn.BusinessRegistry"
+  operation: CREATE
+  resource: "org.altinn.ChairmanOfTheBoard"
+  transaction: "org.altinn.CreateChairmanOfTheBoard"
+  action: ALLOW
+ }
+
+
+rule BusinessRegistryCreateCompany {
+  description: "BusinessRegistry can create company."
+  participant: "org.altinn.BusinessRegistry"
+  operation: CREATE
+  resource: "org.altinn.CreateCompany"
+  action: ALLOW
+ }
+
+rule BusinessRegistryCanCreateCompany {
+  description: "BusinessRegistry can create company."
+  participant: "org.altinn.BusinessRegistry"
+  operation: CREATE
+  resource: "org.altinn.Company"
+  transaction: "org.altinn.CreateCompany"
+  action: ALLOW
+ }
+
+rule BusinessRegistryCanProcessCompanyRegistrationRequest {
+  description: "BusinessRegistry can proces to a company registration request."
+  participant: "org.altinn.BusinessRegistry"
+  operation: CREATE
+  resource: "org.altinn.ProcessCompanyRegistrationRequest"
+  action: ALLOW
+ }
+
+rule BusinessRegistryCanUpdateBusinessRegistry {
+  description: "BusinessRegistry can update Business Registry."
+  participant: "org.altinn.BusinessRegistry"
+  operation: UPDATE
+  resource: "org.altinn.BusinessRegistry"
+  action: ALLOW
+ }
+
+rule BusinessRegistryCanUpdateCompany {
+  description: "BusinessRegistry can update Company."
+  participant: "org.altinn.BusinessRegistry"
+  operation: UPDATE
+  resource: "org.altinn.Company"
+  action: ALLOW
+ }
+
+rule BusinessRegistryCanCreateRegistrerOfShareHolders {
+  description: "BusinessRegistry can create RegistryOfShareHolders."
+  participant: "org.altinn.BusinessRegistry"
+  operation: CREATE
+  resource: "org.altinn.RegistryOfShareHolders"
+  action: ALLOW
+ }
+
+rule BusinessRegistryCreateSampleParticipants {
+  description: "BusinessRegistry can create sample participants."
+  participant: "org.altinn.BusinessRegistry"
+  operation: CREATE
+  resource: "org.altinn.CreateSampleParticipant"
+  action: ALLOW
+ }
+
+rule BusinessRegistryCanCreateSampleParticipants {
+  description: "BusinessRegistry can create sample participants."
+  participant: "org.altinn.BusinessRegistry"
+  operation: CREATE
+  resource: "org.altinn.SampleParticipant"
+  transaction: "org.altinn.CreateSampleParticipant"
+  action: ALLOW
+ }
+
+rule BusinessRegistryCanCreateStocks {
+  description: "BusinessRegistry can create Stock."
+  participant: "org.altinn.BusinessRegistry"
+  operation: CREATE
+  resource: "org.altinn.Stock"
+  transaction: "org.altinn.ProcessCompanyRegistrationRequest"
+  action: ALLOW
+ }
+
+/*
+ * Company
+ */
+
+rule CompanyCanAccesSystem {
+     description: "Grant company users full access to system resources"
+     participant: "org.altinn.Company"
+     operation: ALL
+     resource: "org.hyperledger.composer.system.**"
+     action: ALLOW
+ }
+
+ rule CompanyCanCreateAddStockRequest {
+  description: "Company can create add stocks request."
+  participant: "org.altinn.Company"
+  operation: CREATE
+  resource: "org.altinn.AddStocksRequest"
+  action: ALLOW
+ }
+
+rule CompanyCanCreateExpandCapitalRequest {
+  description: "Company can create expand capital request."
+  participant: "org.altinn.Company"
+  operation: CREATE
+  resource: "org.altinn.ExpandCapitalRequest"
+  action: ALLOW
+ }
+
+rule CompanyCanUpdateCompany {
+  description: "Company can update company."
+  participant: "org.altinn.Company"
+  operation: UPDATE
+  resource: "org.altinn.Company"
+  action: ALLOW
+ }
+
+rule CompanyCanUpdateBusinessRegistry {
+  description: "Company can update BusinessRegistry."
+  participant: "org.altinn.Company"
+  operation: UPDATE
+  resource: "org.altinn.BusinessRegistry"
+  action: ALLOW
+ }
+
+/*
+ * Chairman of the Board
+ */
+
+rule ChairmanOfTheBoardCanAccesSystem {
+     description: "Grant chairmen of the board full access to system resources"
+     participant: "org.altinn.ChairmanOfTheBoard"
+     operation: ALL
+     resource: "org.hyperledger.composer.system.**"
+     action: ALLOW
+ }
+
+rule ChairmanOfTheBoardCanCreateStockOwnerTransaction {
+  description: "ChairmanOfTheBoard can create CreateStockOwner transaction."
+  participant: "org.altinn.ChairmanOfTheBoard"
+  operation: CREATE
+  resource: "org.altinn.CreateStockOwner"
+  action: ALLOW
+ }
+
+rule ChairmanOfTheBoardCanCreateStockOwner {
+  description: "ChairmanOfTheBoard can create stock owner using CreateStockOwner transaction."
+  participant: "org.altinn.ChairmanOfTheBoard"
+  operation: CREATE
+  resource: "org.altinn.StockOwner"
+  transaction: "org.altinn.CreateStockOwner"
+  action: ALLOW
+ }
+
+rule ChairmanOfTheBoardCanRegisterCompanyRequestTransaction {
+  description: "ChairmanOfTheBoard can create RegisterCompanyRequest transaction."
+  participant: "org.altinn.ChairmanOfTheBoard"
+  operation: CREATE
+  resource: "org.altinn.RegisterCompanyRequest"
+  action: ALLOW
+ }
+
+rule ChairmanOfTheBoardCanUpdateBusinessRegistry {
+  description: "ChairmanOfTheBoard can update BusinessRegistry."
+  participant: "org.altinn.ChairmanOfTheBoard"
+  operation: UPDATE
+  resource: "org.altinn.BusinessRegistry"
+  action: ALLOW
+ }
+
+rule ChairmanOfTheBoardCanUpdateOwnCompany {
+  description: "ChairmanOfTheBoard can update its own company."
+  participant(p): "org.altinn.ChairmanOfTheBoard"
+  operation: UPDATE
+  resource(r): "org.altinn.Company"
+  condition: (p.getIdentifier() === r.chairmanOfTheBoard.getIdentifier())
+  action: ALLOW
+ }
+
+rule ChairmanOfTheBoardCanUpdateOwnRegistryOfShareHolders {
+  description: "ChairmanOfTheBoard can update its own RegistryOfShareHolders."
+  participant(p): "org.altinn.ChairmanOfTheBoard"
+  operation: UPDATE
+  resource(r): "org.altinn.RegistryOfShareHolders"
+  condition: (p.getIdentifier() === r.companyID)
+  action: ALLOW
+ }
+
+rule ChairmanOfTheBoardCanExpandCapital {
+  description: "ChairmanOfTheBoard can expand capital."
+  participant: "org.altinn.ChairmanOfTheBoard"
+  operation: CREATE
+  resource: "org.altinn.ExpandCapital"
+  action: ALLOW
+ }
+
+rule ChairmanOfTheBoardCanUpdateStocks {
+  description: "ChairmanOfTheBoard can update Stock."
+  participant: "org.altinn.ChairmanOfTheBoard"
+  operation: UPDATE
+  resource: "org.altinn.Stock"
+  transaction: "org.altinn.ExpandCapital"
+  action: ALLOW
+ }
+
+rule ChairmanOfTheBoardCanAddStocks {
+  description: "ChairmanOfTheBoard can add stocks."
+  participant: "org.altinn.ChairmanOfTheBoard"
+  operation: CREATE
+  resource: "org.altinn.AddStocks"
+  action: ALLOW
+ }
+
+rule ChairmanOfTheBoardCanCreateSaleOfStock {
+  description: "ChairmanOfTheBoard can create sale of stocks transactions."
+  participant: "org.altinn.ChairmanOfTheBoard"
+  operation: CREATE
+  resource: "org.altinn.SaleOfStock"
+  action: ALLOW
+ }
+
+rule ChairmanOfTheBoardCanCreateStocks {
+  description: "ChairmanOfTheBoard can create Stock."
+  participant: "org.altinn.ChairmanOfTheBoard"
+  operation: CREATE
+  resource: "org.altinn.Stock"
+  transaction: "org.altinn.AddStocks"
+  action: ALLOW
+ }
+
+rule ChairmanOfTheBoardCanUpdateStockWhenApprovingPurchase {
+  description: "ChairmanOfTheBoard can update Stock when approving a purchase."
+  participant: "org.altinn.ChairmanOfTheBoard"
+  operation: UPDATE
+  resource: "org.altinn.Stock"
+  transaction: "org.altinn.SaleOfStock"
+  action: ALLOW
+ }
+
+rule ChairmanOfTheBoardCanUpdateStockOwnerWhenApprovingPurchase {
+  description: "ChairmanOfTheBoard can update StockOwner when approving a purchase."
+  participant: "org.altinn.ChairmanOfTheBoard"
+  operation: UPDATE
+  resource: "org.altinn.StockOwner"
+  transaction: "org.altinn.SaleOfStock"
+  action: ALLOW
+ }
+
+/*
+ * Stock Owner
+ */
+
+rule StockOwnerCanAccesSystem {
+     description: "Grant stock ownwers full access to system resources"
+     participant: "org.altinn.StockOwner"
+     operation: ALL
+     resource: "org.hyperledger.composer.system.**"
+     action: ALLOW
+ }
+
+rule StockOwnerCanRequestPurchase {
+  description: "StockOwner can request purchase."
+  participant: "org.altinn.StockOwner"
+  operation: CREATE
+  resource: "org.altinn.RequestPurchase"
+  action: ALLOW
+ }
+
+rule StockOwnerCanRespondToPurchaseRequest {
+  description: "StockOwner can respond to purchase request ."
+  participant: "org.altinn.StockOwner"
+  operation: CREATE
+  resource: "org.altinn.RespondToPurchaseRequest"
+  action: ALLOW
+ }
+
+rule StockOwnerCanUpdateStockOwners {
+  description: "StockOwner can update StockOwner ."
+  participant(p): "org.altinn.StockOwner"
+  operation: UPDATE
+  resource(r): "org.altinn.StockOwner"
+  transaction(t): "org.altinn.RequestPurchase"
+  condition: (p.getIdentifier() === t.customer || r.getIdentifier() === t.stockOwner)
+  action: ALLOW
+ }
+
+rule StockOwnerCanUpdateStockOwnersWhenRespondToPurchaceRequest {
+  description: "StockOwner can update StockOwner when respond to purchase request."
+  participant(p): "org.altinn.StockOwner"
+  operation: UPDATE
+  resource(r): "org.altinn.StockOwner"
+  transaction(t): "org.altinn.RespondToPurchaseRequest"
+  condition: (p.getIdentifier() === t.customer || r.getIdentifier() === t.stockOwner)
+  action: ALLOW
+ }
+
+rule StockOwnerCanUpdateTheirOwnCompany {
+  description: "StockOwner can update their own Company for a purchase ."
+  participant: "org.altinn.StockOwner"
+  operation: UPDATE
+  resource: "org.altinn.Company"
+  transaction: "org.altinn.RespondToPurchaseRequest"
+  action: ALLOW
+ }

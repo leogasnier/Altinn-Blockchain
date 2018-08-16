@@ -1,7 +1,7 @@
-//_$companyID = "resource:org.altinn.RegisterOfShareholders#xxxxxxxxx"
+//_$companyID = "resource:org.altinn.RegistryOfShareHolders#xxxxxxxxx"
 
 query selectAllStocks {
-  description: "Select all Stock belonging to RegisterOfShareholders with companyID _$companyID"
+  description: "Select all Stock belonging to RegistryOfShareHolders with companyID _$companyID"
   statement:
       SELECT org.altinn.Stock
           WHERE (registerOfShareholders == _$companyID)
@@ -10,7 +10,7 @@ query selectAllStocks {
 //_$company  = "resource:org.altinn.RegisterofShareholder#xxxxxxxxx"
 //_ownerIn = "resource:org.altinn.ShareHolder#xxxxxxxxx"
 query getFirstStocks {
-  description: "Hent de første x antall Stocks en eier har i gitt RegisterOfShareholders"
+  description: "Hent de første x antall Stocks en eier har i gitt RegistryOfShareHolders"
   statement:
   	SELECT org.altinn.Stock
   		WHERE (registerOfShareholders == _$company AND owner == _$ownerIn)
@@ -27,7 +27,7 @@ query selectHighestStockId {
 query getRegistry {
   description: "Henter object av Aksjebok med companyID _$companyID"
   statement:
-  	SELECT org.altinn.RegisterOfShareholders
+  	SELECT org.altinn.RegistryOfShareHolders
   		WHERE (companyID == _$companyID)
 }
 

@@ -48,7 +48,7 @@ async function saleOfStock(tx) {
       return "Sale was rejected by company.";
     }
 
-    const companyResource = 'resource:org.altinn.RegisterOfShareholders#' + requestData.registerOfShareholders;
+    const companyResource = 'resource:org.altinn.RegistryOfShareHolders#' + requestData.registerOfShareholders;
     const stockOwnerResource = 'resource:org.altinn.StockOwner#' + requestData.stockOwner;
 
     let firstStocks = await query('getFirstStocks', {company: companyResource, ownerIn: stockOwnerResource});

@@ -51,14 +51,14 @@ async function expandCapital(tx) {
       return "Change on Company request was rejected.";
     }
 
-    let stockBookRegistry = await getAssetRegistry(namespace + '.' + 'RegisterOfShareholders');
+    let stockBookRegistry = await getAssetRegistry(namespace + '.' + 'RegistryOfShareHolders');
     let stockbook = await stockBookRegistry.get(changeData.shareholderRegistryID);
     stockbook.capital = changeData.newCapital;
 
     await stockBookRegistry.update(stockbook);
 
     const newStockValue = changeData.newCapital / stockbook.numberOfShares;
-    const queryString = 'resource:org.altinn.RegisterOfShareholders#' + company.companyID;
+    const queryString = 'resource:org.altinn.RegistryOfShareHolders#' + company.companyID;
 
     let stockRegistry = await getAssetRegistry(namespace + '.' + 'Stock');
     let allStocksForCompany = await query('selectAllStocks', {companyID: queryString});

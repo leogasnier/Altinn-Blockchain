@@ -54,7 +54,7 @@ async function addStocks(tx) {
       return "Change on company request was rejected.";
     }
 
-    const stockBookRegistry = await getAssetRegistry(namespace + '.' + 'RegisterOfShareholders');
+    const stockBookRegistry = await getAssetRegistry(namespace + '.' + 'RegistryOfShareHolders');
 
     const stockBook = await stockBookRegistry.get(changeData.shareholderRegistryID);
     stockBook.numberOfShares = stockBook.numberOfShares + changeData.amountOfNewStocks;
@@ -63,7 +63,7 @@ async function addStocks(tx) {
 
     let allOwners = [];
     let uniqueOwners = [];
-    const queryStringStock = 'resource:org.altinn.RegisterOfShareholders#' + stockBook.companyID;
+    const queryStringStock = 'resource:org.altinn.RegistryOfShareHolders#' + stockBook.companyID;
     let allStocksForCompany = await query('selectAllStocks', {companyID: queryStringStock});
     let initialPrice = allStocksForCompany[0].denomination;
     let price = allStocksForCompany[0].value;

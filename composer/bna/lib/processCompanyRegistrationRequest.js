@@ -56,8 +56,8 @@ async function processCompanyRegistrationRequest(tx) {
       return "Establish company request was rejected.";
     }
 
-    let stockBook = factory.newResource(namespace, 'RegisterOfShareholders', companyID);
-    let assetRegistryOfRegisterOfShareHolders = await getAssetRegistry(namespace + '.' + 'RegisterOfShareholders');
+    let stockBook = factory.newResource(namespace, 'RegistryOfShareHolders', companyID);
+    let assetRegistryOfRegistryOfShareHolders = await getAssetRegistry(namespace + '.' + 'RegistryOfShareHolders');
 
     stockBook.numberOfShares = requestData.numberOfStock;
     stockBook.capital = requestData.capital;
@@ -66,7 +66,7 @@ async function processCompanyRegistrationRequest(tx) {
     stockBook.belongsTo = companyRelation;
     stockBook.approved = true;
 
-    await assetRegistryOfRegisterOfShareHolders.add(stockBook);
+    await assetRegistryOfRegistryOfShareHolders.add(stockBook);
 
     let stockWithHighestID = await query('selectHighestStockId');
     if (stockWithHighestID.length > 0 && stockWithHighestID != null && stockWithHighestID.length != null) {
