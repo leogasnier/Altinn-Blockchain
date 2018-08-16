@@ -1,10 +1,10 @@
-//_$orgnr = "resource:org.altinn.RegisterOfShareholders#xxxxxxxxx"
+//_$companyID = "resource:org.altinn.RegisterOfShareholders#xxxxxxxxx"
 
 query selectAllStocks {
-  description: "Select all Stock belonging to RegisterOfShareholders with orgnr _$orgnr"
+  description: "Select all Stock belonging to RegisterOfShareholders with companyID _$companyID"
   statement:
       SELECT org.altinn.Stock
-          WHERE (registerOfShareholders == _$orgnr)
+          WHERE (registerOfShareholders == _$companyID)
 }
 
 //_$company  = "resource:org.altinn.RegisterofShareholder#xxxxxxxxx"
@@ -21,14 +21,14 @@ query selectHighestStockId {
   description: "Henter høyeste ID fra Stock for å mocke auto-increment"
   statement:
   	SELECT org.altinn.Stock
-  		ORDER BY [id DESC]
+  		ORDER BY [stockID DESC]
 }
 
 query getRegistry {
-  description: "Henter object av Aksjebok med orgnr _$orgnr"
+  description: "Henter object av Aksjebok med companyID _$companyID"
   statement:
   	SELECT org.altinn.RegisterOfShareholders
-  		WHERE (orgnr == _$orgnr)
+  		WHERE (companyID == _$companyID)
 }
 
 query getStockWallet {

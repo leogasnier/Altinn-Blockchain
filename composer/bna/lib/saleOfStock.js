@@ -1,3 +1,19 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/* global getAssetRegistry getFactory emit */
+
 /**
  * Transaction of buy/sales between oweners of a Stock
  * @param {org.altinn.SaleOfStock} saleOfStock - the Stock to be processed
@@ -10,7 +26,7 @@ async function saleOfStock(tx) {
     if (tx.response !== 'REJECTED' && tx.response !== 'ACCEPTED')
       throw new Error('Request Response should be ACCEPTED or REJECTED');
 
-    const stockPurchaseRequests = await query('getStockPurchaseRequest', {id: tx.transID});
+    const stockPurchaseRequests = await query('getStockPurchaseRequest', {id: tx.transactionID});
     const requestData = stockPurchaseRequests[0].eventsEmitted[0];
 
     let stockOwnerRegistry = await getParticipantRegistry(namespace + '.' + 'StockOwner');
@@ -19,9 +35,9 @@ async function saleOfStock(tx) {
     let companyRegistry = await getParticipantRegistry(namespace + '.' + 'Company');
     const company = await companyRegistry.get(requestData.registerOfShareholders);
 
-    const companyIndex = await company.awaitingStockPurchase.findIndex(req => req.IdToTransactionWithEvent === tx.transID);
-    const customerIndex = await customer.pendingRequests.findIndex(req => req.IdToTransactionWithEvent === tx.transID);
-    const stockOwnerIndex = await stockOwner.receivedPurchaseRequests.findIndex(req => req.IdToTransactionWithEvent === tx.transID);
+    const companyIndex = await company.awaitingStockPurchase.findIndex(req => req.transactionID === tx.transactionID);
+    const customerIndex = await customer.pendingRequests.findIndex(req => req.transactionID === tx.transactionID);
+    const stockOwnerIndex = await stockOwner.receivedPurchaseRequests.findIndex(req => req.transactionID === tx.transactionID);
     if (tx.response === 'REJECTED') {
       company.awaitingStockPurchase.splice(companyIndex, 1);
       await companyRegistry.update(company);

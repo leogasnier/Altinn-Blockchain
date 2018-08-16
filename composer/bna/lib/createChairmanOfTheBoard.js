@@ -15,21 +15,11 @@
 /* global getAssetRegistry getFactory emit */
 
 /**
- * Create CreateCompany transaction processor function.
- * @param {org.altinn.CreateCompany} tx  - CreateCompany transaction
+ * Create CreateChairmanOfTheBoard transaction processor function.
+ * @param {org.altinn.CreateChairmanOfTheBoard} tx  - CreateChairmanOfTheBoard transaction
  * @return {Promise} Participant registry Promise
  * @transaction
  */
-async function createCompany(tx) {
-  const namespace = CONFIG.composerNamespace;
-  const factory = getFactory();
-
-  let newCompany = factory.newResource(namespace, 'Company', tx.companyID);
-  newCompany.chairmanOfTheBoard = factory.newRelationship(namespace, 'ChairmanOfTheBoard', tx.chairmanOfTheBoardUserID);
-  newCompany.companyName = tx.companyName;
-  newCompany.awaitingStockPurchase = [];
-  newCompany.establishCompanyRequest = [];
-  newCompany.changeOnCompanyRequest = [];
-
-  return addParticipantToParticipantRegistry(newCompany, 'Company');
+async function createChairmanOfTheBoard(tx) {
+  return addParticipantToParticipantRegistry(tx.chairmanOfTheBoard, 'ChairmanOfTheBoard');
 }

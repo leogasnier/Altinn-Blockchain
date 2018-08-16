@@ -1,9 +1,25 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/* global getAssetRegistry getFactory emit */
+
 /**
  * Transaction for changing value of given stocks
- * @param {org.altinn.RegisterCompany} registerCompany - creating a new stockbook for firm
+ * @param {org.altinn.RegisterCompanyRequest} registerCompanyRequest - creating a new stockbook for firm
  * @transaction
  */
-async function registerCompany(tx) {
+async function registerCompanyRequest(tx) {
   const namespace = CONFIG.composerNamespace;
   const factory = getFactory();
 
@@ -19,7 +35,7 @@ async function registerCompany(tx) {
       );
 
     const request = factory.newConcept(namespace, 'ResponseRequest');
-    request.IdToTransactionWithEvent = tx.transactionId;
+    request.transactionID = tx.transactionId;
     request.response = 'PENDING';
 
     const businessRegistryParticipantRegistry = await getParticipantRegistry(namespace + '.' + 'BusinessRegistry');
@@ -29,7 +45,7 @@ async function registerCompany(tx) {
     await businessRegistryParticipantRegistry.update(businessRegistry);
 
     const companyRegistry = await getParticipantRegistry(namespace + '.' + 'Company');
-    const company = await companyRegistry.get(tx.companyIdentifier);
+    const company = await companyRegistry.get(tx.companyID);
     company.establishCompanyRequest.push(request);
 
     await companyRegistry.update(company);
@@ -47,10 +63,10 @@ async function registerCompany(tx) {
     event.distribution = tx.distribution;
     event.company = company;
     event.newStockOwners = newStockOwners;
-    event.IdToTransactionWithEvent = tx.transactionId;
+    event.transactionID = tx.transactionId;
 
     return emit(event);
   } catch (error) {
-    throw new Error('[RegisterCompany] failed' + error);
+    throw new Error('[RegisterCompanyRequest] failed' + error);
   }
 }

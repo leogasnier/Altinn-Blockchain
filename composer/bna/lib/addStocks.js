@@ -1,3 +1,19 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/* global getAssetRegistry getFactory emit */
+
 /**
  * Increasing the amountOfNewStocks of aksjer in aksjebok and distributes among shareholders.
  * @param {org.altinn.AddStocks} addStocks - registerOfShareholders creates stock.
@@ -8,11 +24,14 @@ async function addStocks(tx) {
   const factory = getFactory();
 
   try {
-    const stockPurchaseRequest = await query('getStockPurchaseRequest', {id: tx.IdToTransactionWithEvent});
+    const stockPurchaseRequest = await query('getStockPurchaseRequest', {id: tx.transactionID});
     const changeData = stockPurchaseRequest[0].eventsEmitted[0];
 
     if (changeData.capitalChange !== 'CHANGEAMOUNT')
       throw new Error('Must be option CHANGEAMOUNT');
+
+    if (tx.response !== 'REJECTED' && tx.response !== 'ACCEPTED')
+      throw new Error('Request Response should be ACCEPTED or REJECTED');
 
     let businessRegistryParticipantRegistry = await getParticipantRegistry(namespace + '.' + 'BusinessRegistry');
     let companyRegistry = await getParticipantRegistry(namespace + '.' + 'Company');
@@ -22,12 +41,12 @@ async function addStocks(tx) {
 
     if (tx.response === 'REJECTED') {
 
-      const index = await businessRegistry.receivedChangeOnCompanyRequest.findIndex(request => request.IdToTransactionWithEvent === tx.IdToTransactionWithEvent);
+      const index = await businessRegistry.receivedChangeOnCompanyRequest.findIndex(request => request.transactionID === tx.transactionID);
       businessRegistry.receivedChangeOnCompanyRequest.splice(index, 1);
 
       await businessRegistryParticipantRegistry.update(businessRegistry);
 
-      const companyIndex = await company.changeOnCompanyRequest.findIndex(request => request.IdToTransactionWithEvent === tx.IdToTransactionWithEvent);
+      const companyIndex = await company.changeOnCompanyRequest.findIndex(request => request.transactionID === tx.transactionID);
       company.changeOnCompanyRequest[companyIndex].response = 'REJECTED';
 
       await companyRegistry.update(company);
@@ -44,13 +63,13 @@ async function addStocks(tx) {
 
     let allOwners = [];
     let uniqueOwners = [];
-    const queryStringStock = 'resource:org.altinn.RegisterOfShareholders#' + stockBook.orgnr;
-    let allStocksForCompany = await query('selectAllStocks', {orgnr: queryStringStock});
+    const queryStringStock = 'resource:org.altinn.RegisterOfShareholders#' + stockBook.companyID;
+    let allStocksForCompany = await query('selectAllStocks', {companyID: queryStringStock});
     let initialPrice = allStocksForCompany[0].denomination;
     let price = allStocksForCompany[0].value;
 
     allStocksForCompany.forEach((stock) => {
-      allOwners.push(stock.owner)
+      allOwners.push(stock.owner);
     });
     allOwners.forEach((owner) => {
       if (uniqueOwners.indexOf(owner) === -1)
@@ -58,7 +77,7 @@ async function addStocks(tx) {
     });
 
     stockBook.capital += (initialPrice * changeData.amountOfNewStocks);
-    stockBookRegistry.update(stockBook);
+    await stockBookRegistry.update(stockBook);
 
     let stocksPerItem = Math.floor(changeData.amountOfNewStocks / uniqueOwners.length);
     const remainingStocks = changeData.amountOfNewStocks % uniqueOwners.length;
@@ -66,17 +85,17 @@ async function addStocks(tx) {
     let stockWithHighestID = await query('selectHighestStockId');
     if (stockWithHighestID.length > 0 && stockWithHighestID !== null && stockWithHighestID.length !== null) {
       stockWithHighestID.sort(function (a, b) {
-        var x = parseInt(a.id), y = parseInt(b.id);
+        var x = parseInt(a.stockID), y = parseInt(b.stockID);
 
         return x > y ? -1 : x < y ? 1 : 0;
       });
-      newStockId = parseInt(stockWithHighestID[0].id) + 1;
+      newStockId = parseInt(stockWithHighestID[0].stockID) + 1;
     } else {
       newStockId = parseInt(1);
     }
 
     let stockRegistry = await getAssetRegistry(namespace + '.' + 'Stock');
-
+    let newStocks = [];
     for (var i = 0; i < uniqueOwners.length; i++) {
       if (i === (uniqueOwners.length - 1)) {
         stocksPerItem += remainingStocks;
@@ -92,17 +111,19 @@ async function addStocks(tx) {
         stock.owner = uniqueOwners[i];
         stock.marketValue = initialPrice;
         stock.purchasedDate = tx.timestamp;
-        await stockRegistry.add(stock);
+        newStocks.push(stock);
         newStockId += 1;
       }
     }
 
-    const index = await businessRegistry.receivedChangeOnCompanyRequest.findIndex(request => request.IdToTransactionWithEvent === tx.IdToTransactionWithEvent);
+    await stockRegistry.addAll(newStocks);
+
+    const index = await businessRegistry.receivedChangeOnCompanyRequest.findIndex(request => request.transactionID === tx.transactionID);
     businessRegistry.receivedChangeOnCompanyRequest.splice(index, 1);
 
     await businessRegistryParticipantRegistry.update(businessRegistry);
 
-    const companyIndex = await company.changeOnCompanyRequest.findIndex(request => request.IdToTransactionWithEvent === tx.IdToTransactionWithEvent);
+    const companyIndex = await company.changeOnCompanyRequest.findIndex(request => request.transactionID === tx.transactionID);
     company.changeOnCompanyRequest[companyIndex].response = 'ACCEPTED';
 
     await companyRegistry.update(company);
