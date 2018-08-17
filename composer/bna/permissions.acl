@@ -254,10 +254,9 @@ rule ChairmanOfTheBoardCanUpdateOwnCompany {
 
 rule ChairmanOfTheBoardCanUpdateOwnRegistryOfShareHolders {
   description: "ChairmanOfTheBoard can update its own RegistryOfShareHolders."
-  participant(p): "org.altinn.ChairmanOfTheBoard"
+  participant: "org.altinn.ChairmanOfTheBoard"
   operation: UPDATE
-  resource(r): "org.altinn.RegistryOfShareHolders"
-  condition: (p.getIdentifier() === r.companyID)
+  resource: "org.altinn.RegistryOfShareHolders"
   action: ALLOW
  }
 

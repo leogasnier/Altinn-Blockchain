@@ -21,11 +21,17 @@
  */
 async function addStocks(tx) {
   const namespace = CONFIG.composerNamespace;
+  const currentParticipant = getCurrentParticipant();
   const factory = getFactory();
 
   try {
     const stockPurchaseRequest = await query('getStockPurchaseRequest', {id: tx.transactionID});
     const changeData = stockPurchaseRequest[0].eventsEmitted[0];
+    let companyRegistry = await getParticipantRegistry(namespace + '.' + 'Company');
+    const company = await companyRegistry.get(changeData.shareholderRegistryID);
+
+    if (currentParticipant.getIdentifier() !== company.chairmanOfTheBoard.getIdentifier())
+      throw new Error('Only Chairman of the Board of this company can add stocks!');
 
     if (changeData.capitalChange !== 'CHANGEAMOUNT')
       throw new Error('Must be option CHANGEAMOUNT');
@@ -34,11 +40,9 @@ async function addStocks(tx) {
       throw new Error('Request Response should be ACCEPTED or REJECTED');
 
     let businessRegistryParticipantRegistry = await getParticipantRegistry(namespace + '.' + 'BusinessRegistry');
-    let companyRegistry = await getParticipantRegistry(namespace + '.' + 'Company');
 
     const allBusinessRegistries = await businessRegistryParticipantRegistry.getAll();
     businessRegistry = allBusinessRegistries[0];
-    const company = await companyRegistry.get(changeData.shareholderRegistryID);
 
     if (tx.response === 'REJECTED') {
 
@@ -62,7 +66,6 @@ async function addStocks(tx) {
     await stockBookRegistry.update(stockBook);
 
     let allOwners = [];
-    let uniqueOwners = [];
     const queryStringStock = 'resource:org.altinn.RegistryOfShareHolders#' + stockBook.companyID;
     let allStocksForCompany = await query('selectAllStocks', {companyID: queryStringStock});
     let initialPrice = allStocksForCompany[0].denomination;
