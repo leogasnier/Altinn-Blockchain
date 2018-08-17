@@ -62,7 +62,7 @@ asset Stock identified by stockID {
   o Double value
   o Double marketValue
   o DateTime purchasedDate
-  --> RegistryOfShareHolders registerOfShareholders
+  --> RegistryOfShareHolders registryOfShareHolders
   --> StockOwner owner
 }
 
@@ -104,7 +104,7 @@ transaction RequestPurchase {
   o Integer quantity
   o String customer
   o String stockOwner
-  o String registerOfShareholders
+  o String registryOfShareHolders
 }
 
 transaction RespondToPurchaseRequest {
@@ -112,7 +112,7 @@ transaction RespondToPurchaseRequest {
   o RequestResponse response
 }
 
-transaction SaleOfStock {
+transaction ProcessStockSale {
   o String transactionID
   o RequestResponse response
 }
@@ -165,7 +165,7 @@ event StockPurchaseRequest {
     o Integer quantity
     o String stockOwner
     o String customer
-    o String registerOfShareholders
+    o String registryOfShareHolders
 }
 
 event StockChangedValue {

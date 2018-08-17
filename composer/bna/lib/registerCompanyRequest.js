@@ -39,7 +39,8 @@ async function registerCompanyRequest(tx) {
     request.response = 'PENDING';
 
     const businessRegistryParticipantRegistry = await getParticipantRegistry(namespace + '.' + 'BusinessRegistry');
-    const businessRegistry = await businessRegistryParticipantRegistry.get('0327');
+    const allBusinessRegistries = await businessRegistryParticipantRegistry.getAll();
+    businessRegistry = allBusinessRegistries[0];
     businessRegistry.receivedEstablishCompanyRequest.push(request);
 
     await businessRegistryParticipantRegistry.update(businessRegistry);

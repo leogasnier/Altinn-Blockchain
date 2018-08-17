@@ -32,7 +32,8 @@ async function expandCapitalRequest(tx) {
     request.request = 'CHANGEVALUE';
     request.response = 'PENDING';
 
-    let businessRegistry = await businessRegistryParticipantRegistry.get('0327');
+    const allBusinessRegistries = await businessRegistryParticipantRegistry.getAll();
+    businessRegistry = allBusinessRegistries[0];
     businessRegistry.receivedChangeOnCompanyRequest.push(request);
 
     await businessRegistryParticipantRegistry.update(businessRegistry);

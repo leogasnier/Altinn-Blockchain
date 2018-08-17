@@ -34,7 +34,8 @@ async function expandCapital(tx) {
     if (tx.response !== 'REJECTED' && tx.response !== 'ACCEPTED')
       throw new Error('Request Response should be ACCEPTED or REJECTED');
 
-    const businessRegistry = await businessRegistryParticipantRegistry.get('0327');
+    const allBusinessRegistries = await businessRegistryParticipantRegistry.getAll();
+    businessRegistry = allBusinessRegistries[0];
     const company = await companyRegistry.get(changeData.shareholderRegistryID);
 
     if (tx.response === 'REJECTED') {

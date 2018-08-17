@@ -21,6 +21,7 @@
  */
 async function respondToPurchaseRequest(tx) {
   const namespace = CONFIG.composerNamespace;
+  const currentParticipant = getCurrentParticipant();
   const factory = getFactory();
 
   try {
@@ -29,6 +30,9 @@ async function respondToPurchaseRequest(tx) {
 
     const stockPurchaseRequests = await query('getStockPurchaseRequest', {id: tx.transactionID});
     const requestData = stockPurchaseRequests[0].eventsEmitted[0];
+
+    if (currentParticipant.getIdentifier() !== requestData.stockOwner)
+      throw new Error('Stock owners can respond to their own received purchase requests!');
 
     let stockOwnerRegistry = await getParticipantRegistry(namespace + '.' + 'StockOwner');
     let customer = await stockOwnerRegistry.get(requestData.customer);
@@ -45,14 +49,13 @@ async function respondToPurchaseRequest(tx) {
     }
 
     const companyRegistry = await getParticipantRegistry(namespace + '.' + 'Company');
-    const company = await companyRegistry.get(requestData.registerOfShareholders);
+    const company = await companyRegistry.get(requestData.registryOfShareHolders);
     const request = factory.newConcept(namespace, 'ResponseRequest');
     request.transactionID = tx.transactionID;
     request.response = 'PENDING';
     company.awaitingStockPurchase.push(request);
 
     return companyRegistry.update(company);
-
   } catch (error) {
     throw new Error('[RespondToPurchaseRequest] failed' + error);
   }

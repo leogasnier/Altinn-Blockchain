@@ -4,16 +4,16 @@ query selectAllStocks {
   description: "Select all Stock belonging to RegistryOfShareHolders with companyID _$companyID"
   statement:
       SELECT org.altinn.Stock
-          WHERE (registerOfShareholders == _$companyID)
+          WHERE (registryOfShareHolders == _$companyID)
 }
 
-//_$company  = "resource:org.altinn.RegisterofShareholder#xxxxxxxxx"
-//_ownerIn = "resource:org.altinn.ShareHolder#xxxxxxxxx"
+//_$company  = "resource:org.altinn.RegistryOfShareHolders#xxxxxxxxx"
+//_ownerID = "resource:org.altinn.ShareHolder#xxxxxxxxx"
 query getFirstStocks {
   description: "Hent de første x antall Stocks en eier har i gitt RegistryOfShareHolders"
   statement:
   	SELECT org.altinn.Stock
-  		WHERE (registerOfShareholders == _$company AND owner == _$ownerIn)
+  		WHERE (registryOfShareHolders == _$company AND owner == _$ownerID)
   			ORDER BY [purchasedDate ASC]
 }
 
@@ -36,6 +36,7 @@ query getStockWallet {
 	statement:
 		SELECT org.altinn.Stock
 			WHERE (owner == _$id)
+			  ORDER BY [stockID ASC]
 }
 
 query getStockMarket {
@@ -56,5 +57,5 @@ query getFirmShareHolders {
 	description: "Henter alle aksjene til et firma"
 	statement:
 		SELECT org.altinn.Stock
-			WHERE(registerOfShareholders == _$register)
+			WHERE(registryOfShareHolders == _$register)
 }

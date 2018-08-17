@@ -34,7 +34,8 @@ async function processCompanyRegistrationRequest(tx) {
     const stockPurchaseRequests = await query('getStockPurchaseRequest', {id: tx.transactionID});
     const requestData = stockPurchaseRequests[0].eventsEmitted[0];
 
-    const BusinessRegistry = await businessRegistryParticipantRegistry.get('0327');
+    const allBusinessRegistries = await businessRegistryParticipantRegistry.getAll();
+    const businessRegistry = allBusinessRegistries[0];
     const companyID = requestData.company.getIdentifier();
     const companyRelation = requestData.company;
     const company = await companyRegistry.get(companyID);
@@ -42,10 +43,10 @@ async function processCompanyRegistrationRequest(tx) {
 
     if (tx.response === 'REJECTED') {
 
-      const index = await BusinessRegistry.receivedEstablishCompanyRequest.findIndex(request => request.transactionID === requestData.transactionID);
-      BusinessRegistry.receivedEstablishCompanyRequest.splice(index, 1);
+      const index = await businessRegistry.receivedEstablishCompanyRequest.findIndex(request => request.transactionID === requestData.transactionID);
+      businessRegistry.receivedEstablishCompanyRequest.splice(index, 1);
 
-      await businessRegistryParticipantRegistry.update(BusinessRegistry);
+      await businessRegistryParticipantRegistry.update(businessRegistry);
 
 
       const companyIndex = await company.establishCompanyRequest.findIndex(request => request.transactionID === requestData.transactionID);
@@ -89,7 +90,7 @@ async function processCompanyRegistrationRequest(tx) {
         stock.value = stockBook.firstDenomination;
         stock.denomination = stockBook.firstDenomination;
         stock.marketValue = stockBook.firstDenomination;
-        stock.registerOfShareholders = stockBook;
+        stock.registryOfShareHolders = stockBook;
         stock.type = "";
         stock.purchasedDate = requestData.timestamp;
         stock.owner = owner;
@@ -100,10 +101,10 @@ async function processCompanyRegistrationRequest(tx) {
 
     await stockRegistry.addAll(newStocks);
 
-    const index = await BusinessRegistry.receivedEstablishCompanyRequest.findIndex(request => request.transactionID === requestData.transactionID);
-    BusinessRegistry.receivedEstablishCompanyRequest.splice(index, 1);
+    const index = await businessRegistry.receivedEstablishCompanyRequest.findIndex(request => request.transactionID === requestData.transactionID);
+    businessRegistry.receivedEstablishCompanyRequest.splice(index, 1);
 
-    await businessRegistryParticipantRegistry.update(BusinessRegistry);
+    await businessRegistryParticipantRegistry.update(businessRegistry);
 
     company.establishCompanyRequest.find(request => request.transactionID === requestData.transactionID).response = 'ACCEPTED';
 

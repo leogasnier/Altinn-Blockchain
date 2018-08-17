@@ -16,7 +16,7 @@
 
 /**
  * Increasing the amountOfNewStocks of aksjer in aksjebok and distributes among shareholders.
- * @param {org.altinn.AddStocks} addStocks - registerOfShareholders creates stock.
+ * @param {org.altinn.AddStocks} addStocks - registryOfShareHolders creates stock.
  * @transaction
  */
 async function addStocks(tx) {
@@ -36,7 +36,8 @@ async function addStocks(tx) {
     let businessRegistryParticipantRegistry = await getParticipantRegistry(namespace + '.' + 'BusinessRegistry');
     let companyRegistry = await getParticipantRegistry(namespace + '.' + 'Company');
 
-    let businessRegistry = await businessRegistryParticipantRegistry.get('0327');
+    const allBusinessRegistries = await businessRegistryParticipantRegistry.getAll();
+    businessRegistry = allBusinessRegistries[0];
     const company = await companyRegistry.get(changeData.shareholderRegistryID);
 
     if (tx.response === 'REJECTED') {
@@ -76,7 +77,7 @@ async function addStocks(tx) {
         uniqueOwners.push(owner);
     });
 
-    stockBook.capital += (initialPrice * changeData.amountOfNewStocks);
+    stockBook.capital += (price * changeData.amountOfNewStocks);
     await stockBookRegistry.update(stockBook);
 
     let stocksPerItem = Math.floor(changeData.amountOfNewStocks / uniqueOwners.length);
@@ -106,7 +107,7 @@ async function addStocks(tx) {
         const stock = factory.newResource(namespace, 'Stock', newId);
         stock.value = price;
         stock.denomination = initialPrice;
-        stock.registerOfShareholders = stockBook;
+        stock.registryOfShareHolders = stockBook;
         stock.type = "";
         stock.owner = uniqueOwners[i];
         stock.marketValue = initialPrice;

@@ -16,11 +16,12 @@
 
 /**
  * Transaction of buy/sales between oweners of a Stock
- * @param {org.altinn.SaleOfStock} saleOfStock - the Stock to be processed
+ * @param {org.altinn.ProcessStockSale} processStockSale - the Stock to be processed
  * @transaction
  */
-async function saleOfStock(tx) {
+async function processStockSale(tx) {
   const namespace = CONFIG.composerNamespace;
+  const factory = getFactory();
 
   try {
     if (tx.response !== 'REJECTED' && tx.response !== 'ACCEPTED')
@@ -33,7 +34,7 @@ async function saleOfStock(tx) {
     let customer = await stockOwnerRegistry.get(requestData.customer);
     let stockOwner = await stockOwnerRegistry.get(requestData.stockOwner);
     let companyRegistry = await getParticipantRegistry(namespace + '.' + 'Company');
-    const company = await companyRegistry.get(requestData.registerOfShareholders);
+    const company = await companyRegistry.get(requestData.registryOfShareHolders);
 
     const companyIndex = await company.awaitingStockPurchase.findIndex(req => req.transactionID === tx.transactionID);
     const customerIndex = await customer.pendingRequests.findIndex(req => req.transactionID === tx.transactionID);
@@ -48,10 +49,10 @@ async function saleOfStock(tx) {
       return "Sale was rejected by company.";
     }
 
-    const companyResource = 'resource:org.altinn.RegistryOfShareHolders#' + requestData.registerOfShareholders;
+    const companyResource = 'resource:org.altinn.RegistryOfShareHolders#' + requestData.registryOfShareHolders;
     const stockOwnerResource = 'resource:org.altinn.StockOwner#' + requestData.stockOwner;
 
-    let firstStocks = await query('getFirstStocks', {company: companyResource, ownerIn: stockOwnerResource});
+    let firstStocks = await query('getFirstStocks', {company: companyResource, ownerID: stockOwnerResource});
     if (firstStocks.length < requestData.quantity)
       throw new Error('Du vil ha ' + requestData.quantity + ' aksjer. Personen du prøver å kjøpe av har kun: ' + firstStocks.length);
 
@@ -60,6 +61,7 @@ async function saleOfStock(tx) {
       firstStocks[n].marketValue = requestData.bid;
       firstStocks[n].owner = customer;
       firstStocks[n].purchasedDate = requestData.timestamp;
+      firstStocks[n].owner = factory.newRelationship(namespace, 'StockOwner', requestData.customer);
     }
     await stockRegistry.updateAll(firstStocks);
 
@@ -74,6 +76,6 @@ async function saleOfStock(tx) {
 
     return "Sale was accepted by company.";
   } catch (error) {
-    throw new Error('[SaleOfStock] failed' + error);
+    throw new Error('[ProcessStockSale] failed' + error);
   }
 }

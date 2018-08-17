@@ -21,9 +21,13 @@
  */
 async function requestPurchase(tx) {
   const namespace = CONFIG.composerNamespace;
+  const currentParticipant = getCurrentParticipant();
   const factory = getFactory();
 
   try {
+    if (currentParticipant.getIdentifier() !== tx.customer)
+      throw new Error('Purchase requests are available only if you are the customer!');
+
     let stockOwnerRegistry = await getParticipantRegistry(namespace + '.' + 'StockOwner');
     let customer = await stockOwnerRegistry.get(tx.customer);
     let stockOwner = await stockOwnerRegistry.get(tx.stockOwner);
@@ -41,7 +45,7 @@ async function requestPurchase(tx) {
     event.quantity = tx.quantity;
     event.customer = tx.customer;
     event.stockOwner = tx.stockOwner;
-    event.registerOfShareholders = tx.registerOfShareholders;
+    event.registryOfShareHolders = tx.registryOfShareHolders;
 
     return emit(event);
   } catch (error) {

@@ -32,7 +32,8 @@ async function addStocksRequest(tx) {
     request.request = 'CHANGEAMOUNT';
     request.response = 'PENDING';
 
-    let businessRegistry = await businessRegistryParticipantRegistry.get('0327');
+    const allBusinessRegistries = await businessRegistryParticipantRegistry.getAll();
+    businessRegistry = allBusinessRegistries[0];
     businessRegistry.receivedChangeOnCompanyRequest.push(request);
 
     await businessRegistryParticipantRegistry.update(businessRegistry);
