@@ -56,7 +56,6 @@ async function addStocks(tx) {
     }
 
     const stockBookRegistry = await getAssetRegistry(namespace + '.' + 'RegistryOfShareHolders');
-
     const stockBook = await stockBookRegistry.get(changeData.shareholderRegistryID);
     stockBook.numberOfShares = stockBook.numberOfShares + changeData.amountOfNewStocks;
 
@@ -70,12 +69,9 @@ async function addStocks(tx) {
     let price = allStocksForCompany[0].value;
 
     allStocksForCompany.forEach((stock) => {
-      allOwners.push(stock.owner);
+      allOwners.push(stock.owner.getIdentifier());
     });
-    allOwners.forEach((owner) => {
-      if (uniqueOwners.indexOf(owner) === -1)
-        uniqueOwners.push(owner);
-    });
+    uniqueOwners = allOwners.filter((x, i, a) => a.indexOf(x) === i);
 
     stockBook.capital += (price * changeData.amountOfNewStocks);
     await stockBookRegistry.update(stockBook);
@@ -109,7 +105,7 @@ async function addStocks(tx) {
         stock.denomination = initialPrice;
         stock.registryOfShareHolders = stockBook;
         stock.type = "";
-        stock.owner = uniqueOwners[i];
+        stock.owner = factory.newRelationship(namespace, 'StockOwner', uniqueOwners[i]);
         stock.marketValue = initialPrice;
         stock.purchasedDate = tx.timestamp;
         newStocks.push(stock);
