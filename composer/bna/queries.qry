@@ -24,13 +24,6 @@ query selectHighestStockId {
   		ORDER BY [stockID DESC]
 }
 
-query getRegistry {
-  description: "Henter object av Aksjebok med companyID _$companyID"
-  statement:
-  	SELECT org.altinn.RegistryOfShareHolders
-  		WHERE (companyID == _$companyID)
-}
-
 query getStockWallet {
 	description: "Henter alle aksjer en person eier"
 	statement:

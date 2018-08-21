@@ -21,7 +21,8 @@
  * @transaction
  */
 async function createSampleParticipant(tx) {
-  let participantRegistry = await getParticipantRegistry('org.altinn.SampleParticipant');
+  const namespace = CONFIG.composerNamespace;
+  let participantRegistry = await getParticipantRegistry(namespace + '.' + 'SampleParticipant');
 
   try {
     await participantRegistry.add(tx.sampleParticipant);

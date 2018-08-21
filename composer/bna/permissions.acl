@@ -87,14 +87,6 @@ rule BusinessRegistryCanCreateCompany {
   action: ALLOW
  }
 
-rule BusinessRegistryCanProcessCompanyRegistrationRequest {
-  description: "BusinessRegistry can proces to a company registration request."
-  participant: "org.altinn.BusinessRegistry"
-  operation: CREATE
-  resource: "org.altinn.ProcessCompanyRegistrationRequest"
-  action: ALLOW
- }
-
 rule BusinessRegistryCanUpdateBusinessRegistry {
   description: "BusinessRegistry can update Business Registry."
   participant: "org.altinn.BusinessRegistry"
@@ -103,15 +95,23 @@ rule BusinessRegistryCanUpdateBusinessRegistry {
   action: ALLOW
  }
 
-rule BusinessRegistryCanUpdateCompany {
-  description: "BusinessRegistry can update Company."
+rule BusinessRegistryCanUpdateChairmanOfTheBoard {
+  description: "BusinessRegistry can update ChairmanOfTheBoard."
   participant: "org.altinn.BusinessRegistry"
   operation: UPDATE
-  resource: "org.altinn.Company"
+  resource: "org.altinn.ChairmanOfTheBoard"
   action: ALLOW
  }
 
-rule BusinessRegistryCanCreateRegistrerOfShareHolders {
+rule BusinessRegistryCanCreateRegistryOfShareHoldersTransaction {
+  description: "BusinessRegistry can create registry of share holders transaction."
+  participant: "org.altinn.BusinessRegistry"
+  operation: CREATE
+  resource: "org.altinn.CreateRegistryOfShareHolders"
+  action: ALLOW
+ }
+
+rule BusinessRegistryCanCreateRegistryOfShareHolders {
   description: "BusinessRegistry can create RegistryOfShareHolders."
   participant: "org.altinn.BusinessRegistry"
   operation: CREATE, UPDATE
@@ -136,15 +136,6 @@ rule BusinessRegistryCanCreateSampleParticipants {
   action: ALLOW
  }
 
-rule BusinessRegistryCanCreateStocks {
-  description: "BusinessRegistry can create Stock."
-  participant: "org.altinn.BusinessRegistry"
-  operation: CREATE
-  resource: "org.altinn.Stock"
-  transaction: "org.altinn.ProcessCompanyRegistrationRequest"
-  action: ALLOW
- }
-
 rule BusinessRegistryCanExpandCapital {
   description: "BusinessRegistry can expand capital."
   participant: "org.altinn.BusinessRegistry"
@@ -153,10 +144,10 @@ rule BusinessRegistryCanExpandCapital {
   action: ALLOW
  }
 
-rule BusinessRegistryCanUpdateStocks {
+rule BusinessRegistryCanCreateAndUpdateStocks {
   description: "BusinessRegistry can update Stock."
   participant: "org.altinn.BusinessRegistry"
-  operation: UPDATE
+  operation: CREATE, UPDATE
   resource: "org.altinn.Stock"
   transaction: "org.altinn.ExpandCapital"
   action: ALLOW
@@ -172,30 +163,6 @@ rule CompanyCanAccesSystem {
      operation: ALL
      resource: "org.hyperledger.composer.system.**"
      action: ALLOW
- }
-
- rule CompanyCanCreateAddStockRequest {
-  description: "Company can create add stocks request."
-  participant: "org.altinn.Company"
-  operation: CREATE
-  resource: "org.altinn.AddStocksRequest"
-  action: ALLOW
- }
-
-rule CompanyCanUpdateCompany {
-  description: "Company can update company."
-  participant: "org.altinn.Company"
-  operation: UPDATE
-  resource: "org.altinn.Company"
-  action: ALLOW
- }
-
-rule CompanyCanUpdateBusinessRegistry {
-  description: "Company can update BusinessRegistry."
-  participant: "org.altinn.Company"
-  operation: UPDATE
-  resource: "org.altinn.BusinessRegistry"
-  action: ALLOW
  }
 
 /*
@@ -227,11 +194,20 @@ rule ChairmanOfTheBoardCanCreateStockOwner {
   action: ALLOW
  }
 
-rule ChairmanOfTheBoardCanRegisterCompanyRequestTransaction {
-  description: "ChairmanOfTheBoard can create RegisterCompanyRequest transaction."
+rule ChairmanOfTheBoardCanDistributeStocksToStockOwnersTransaction {
+  description: "ChairmanOfTheBoard can create DistributeStocksToStockOwners transaction."
   participant: "org.altinn.ChairmanOfTheBoard"
   operation: CREATE
-  resource: "org.altinn.RegisterCompanyRequest"
+  resource: "org.altinn.DistributeStocksToStockOwners"
+  action: ALLOW
+ }
+
+rule ChairmanOfTheBoardCanCreateStocks {
+  description: "ChairmanOfTheBoard can create stocks."
+  participant: "org.altinn.ChairmanOfTheBoard"
+  operation: CREATE
+  resource: "org.altinn.Stock"
+  transaction: "org.altinn.DistributeStocksToStockOwners"
   action: ALLOW
  }
 
@@ -243,15 +219,6 @@ rule ChairmanOfTheBoardCanUpdateBusinessRegistry {
   action: ALLOW
  }
 
-rule ChairmanOfTheBoardCanUpdateOwnCompany {
-  description: "ChairmanOfTheBoard can update its own company."
-  participant(p): "org.altinn.ChairmanOfTheBoard"
-  operation: UPDATE
-  resource(r): "org.altinn.Company"
-  condition: (p.getIdentifier() === r.chairmanOfTheBoard.getIdentifier())
-  action: ALLOW
- }
-
 rule ChairmanOfTheBoardCanUpdateOwnRegistryOfShareHolders {
   description: "ChairmanOfTheBoard can update its own RegistryOfShareHolders."
   participant: "org.altinn.ChairmanOfTheBoard"
@@ -260,28 +227,11 @@ rule ChairmanOfTheBoardCanUpdateOwnRegistryOfShareHolders {
   action: ALLOW
  }
 
-rule ChairmanOfTheBoardCanAddStocks {
-  description: "ChairmanOfTheBoard can add stocks."
-  participant: "org.altinn.ChairmanOfTheBoard"
-  operation: CREATE
-  resource: "org.altinn.AddStocks"
-  action: ALLOW
- }
-
 rule ChairmanOfTheBoardCanCreateProcessStockSale {
   description: "ChairmanOfTheBoard can create sale of stocks transactions."
   participant: "org.altinn.ChairmanOfTheBoard"
   operation: CREATE
   resource: "org.altinn.ProcessStockSale"
-  action: ALLOW
- }
-
-rule ChairmanOfTheBoardCanCreateStocks {
-  description: "ChairmanOfTheBoard can create Stock."
-  participant: "org.altinn.ChairmanOfTheBoard"
-  operation: CREATE
-  resource: "org.altinn.Stock"
-  transaction: "org.altinn.AddStocks"
   action: ALLOW
  }
 
@@ -308,6 +258,15 @@ rule ChairmanOfTheBoardCanCreateExpandCapitalRequest {
   participant: "org.altinn.ChairmanOfTheBoard"
   operation: CREATE
   resource: "org.altinn.ExpandCapitalRequest"
+  action: ALLOW
+ }
+
+rule ChairmanOfTheBoardCanUpdateChairmanOfTheBoard {
+  description: "ChairmanOfTheBoard can update company."
+  participant(p): "org.altinn.ChairmanOfTheBoard"
+  operation: UPDATE
+  resource(r): "org.altinn.ChairmanOfTheBoard"
+  condition: (p.getIdentifier() === r.getIdentifier())
   action: ALLOW
  }
 
@@ -359,11 +318,11 @@ rule StockOwnerCanUpdateStockOwnersWhenRespondToPurchaceRequest {
   action: ALLOW
  }
 
-rule StockOwnerCanUpdateTheirOwnCompany {
-  description: "StockOwner can update their own Company for a purchase ."
+rule StockOwnerCanUpdateChairmanOfTheBoardOfTheirCompany {
+  description: "StockOwner can update the ChairmanOfTheBoard of the company for a purchase ."
   participant: "org.altinn.StockOwner"
   operation: UPDATE
-  resource: "org.altinn.Company"
+  resource: "org.altinn.ChairmanOfTheBoard"
   transaction: "org.altinn.RespondToPurchaseRequest"
   action: ALLOW
  }

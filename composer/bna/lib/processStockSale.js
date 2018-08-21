@@ -33,20 +33,21 @@ async function processStockSale(tx) {
     let stockOwnerRegistry = await getParticipantRegistry(namespace + '.' + 'StockOwner');
     let customer = await stockOwnerRegistry.get(requestData.customer);
     let stockOwner = await stockOwnerRegistry.get(requestData.stockOwner);
-    let companyRegistry = await getParticipantRegistry(namespace + '.' + 'Company');
-    const company = await companyRegistry.get(requestData.registryOfShareHolders);
+    let chairmanOfTheBoardRegistry = await getParticipantRegistry(namespace + '.' + 'ChairmanOfTheBoard');
+    let registryOfShareHoldersRegistry = await getAssetRegistry(namespace + '.' + 'RegistryOfShareHolders');
+    let registryOfShareHolders = await registryOfShareHoldersRegistry.get(requestData.registryOfShareHolders);
+    let chairmanOfTheBoard = await chairmanOfTheBoardRegistry.get(registryOfShareHolders.chairmanOfTheBoard.getIdentifier());
 
-    const companyIndex = await company.awaitingStockPurchase.findIndex(req => req.transactionID === tx.transactionID);
+    const chairmanOfTheBoardIndex = await chairmanOfTheBoard.awaitingStockPurchase.findIndex(req => req.transactionID === tx.transactionID);
     const customerIndex = await customer.pendingRequests.findIndex(req => req.transactionID === tx.transactionID);
     const stockOwnerIndex = await stockOwner.receivedPurchaseRequests.findIndex(req => req.transactionID === tx.transactionID);
     if (tx.response === 'REJECTED') {
-      company.awaitingStockPurchase.splice(companyIndex, 1);
-      await companyRegistry.update(company);
+      chairmanOfTheBoard.awaitingStockPurchase.splice(chairmanOfTheBoardIndex, 1);
+      await chairmanOfTheBoardRegistry.update(chairmanOfTheBoard);
       customer.pendingRequests[customerIndex].response = 'REJECTED';
       stockOwner.receivedPurchaseRequests[stockOwnerIndex].response = 'REJECTED';
-      await stockOwnerRegistry.updateAll([customer, stockOwner]);
 
-      return "Sale was rejected by company.";
+      return await stockOwnerRegistry.updateAll([customer, stockOwner]);
     }
 
     const companyResource = 'resource:org.altinn.RegistryOfShareHolders#' + requestData.registryOfShareHolders;
@@ -54,7 +55,7 @@ async function processStockSale(tx) {
 
     let firstStocks = await query('getFirstStocks', {company: companyResource, ownerID: stockOwnerResource});
     if (firstStocks.length < requestData.quantity)
-      throw new Error('Du vil ha ' + requestData.quantity + ' aksjer. Personen du prøver å kjøpe av har kun: ' + firstStocks.length);
+      throw new Error('You have requested ' + requestData.quantity + ' stocks. The stock owner you made the purchase request has: ' + firstStocks.length);
 
     const stockRegistry = await getAssetRegistry(namespace + '.' + 'Stock');
     for (let n = 0; n < requestData.quantity; n++) {
@@ -65,16 +66,14 @@ async function processStockSale(tx) {
     }
     await stockRegistry.updateAll(firstStocks);
 
-    company.awaitingStockPurchase.splice(companyIndex, 1);
+    chairmanOfTheBoard.awaitingStockPurchase.splice(chairmanOfTheBoardIndex, 1);
 
-    await companyRegistry.update(company);
+    await chairmanOfTheBoardRegistry.update(chairmanOfTheBoard);
 
     customer.pendingRequests[customerIndex].response = 'ACCEPTED';
     stockOwner.receivedPurchaseRequests[stockOwnerIndex].response = 'ACCEPTED';
 
-    await stockOwnerRegistry.updateAll([customer, stockOwner]);
-
-    return "Sale was accepted by company.";
+    return await stockOwnerRegistry.updateAll([customer, stockOwner]);
   } catch (error) {
     throw new Error('[ProcessStockSale] failed' + error);
   }

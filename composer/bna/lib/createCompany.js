@@ -22,14 +22,11 @@
  */
 async function createCompany(tx) {
   const namespace = CONFIG.composerNamespace;
-  const factory = getFactory();
+  let participantRegistry = await getParticipantRegistry(namespace + '.' + 'Company');
 
-  let newCompany = factory.newResource(namespace, 'Company', tx.companyID);
-  newCompany.chairmanOfTheBoard = factory.newRelationship(namespace, 'ChairmanOfTheBoard', tx.chairmanOfTheBoardUserID);
-  newCompany.companyName = tx.companyName;
-  newCompany.awaitingStockPurchase = [];
-  newCompany.establishCompanyRequest = [];
-  newCompany.changeOnCompanyRequest = [];
-
-  return addParticipantToParticipantRegistry(newCompany, 'Company');
+  try {
+    return await participantRegistry.add(tx.company);
+  } catch (error) {
+    throw new Error('[CreateCompany] An error occurred while getting the asset registry: ' + error);
+  }
 }

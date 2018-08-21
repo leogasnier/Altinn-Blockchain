@@ -22,13 +22,11 @@
  */
 async function createBusinessRegistry(tx) {
   const namespace = CONFIG.composerNamespace;
-  const factory = getFactory();
+  let participantRegistry = await getParticipantRegistry(namespace + '.' + 'BusinessRegistry');
 
-  let newBusinessRegistry = factory.newResource(namespace, 'BusinessRegistry', tx.businessRegistryID);
-  newBusinessRegistry.firstName = tx.firstName;
-  newBusinessRegistry.lastName = tx.lastName;
-  newBusinessRegistry.receivedEstablishCompanyRequest = [];
-  newBusinessRegistry.receivedChangeOnCompanyRequest = [];
-
-  return addParticipantToParticipantRegistry(newBusinessRegistry, 'BusinessRegistry');
+  try {
+    return await participantRegistry.add(tx.businessRegistry);
+  } catch (error) {
+    throw new Error('[CreateBusinessRegistry] An error occurred while getting the asset registry: ' + error);
+  }
 }

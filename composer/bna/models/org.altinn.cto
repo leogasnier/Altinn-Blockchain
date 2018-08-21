@@ -24,6 +24,8 @@ participant SampleParticipant extends User {
 }
 
 participant ChairmanOfTheBoard extends User {
+    o ResponseRequest[] changeOnCompanyRequest
+    o ResponseRequest[] awaitingStockPurchase
 }
 
 participant StockOwner extends User {
@@ -32,27 +34,21 @@ participant StockOwner extends User {
     o ResponseRequest[] receivedPurchaseRequests
 }
 
-participant Company identified by companyID {
-    o String companyID
-    o String companyName
-    --> ChairmanOfTheBoard chairmanOfTheBoard
-    o ResponseRequest[] awaitingStockPurchase
-    o ResponseRequest[] establishCompanyRequest
-    o ResponseRequest[] changeOnCompanyRequest
+participant Company extends User {
 }
 
 participant BusinessRegistry extends User {
-  o ResponseRequest[] receivedEstablishCompanyRequest
   o ResponseRequest[] receivedChangeOnCompanyRequest
 }
 
 asset RegistryOfShareHolders identified by companyID {
     o String companyID
-    o Double numberOfShares
+    o String companyName
     o Double capital
+    o Double numberOfStocks
     o Double firstDenomination
-    o Boolean approved
-    --> Company belongsTo
+    o Boolean stocksAreDistributed
+    --> ChairmanOfTheBoard chairmanOfTheBoard
 }
 
 asset Stock identified by stockID {
@@ -66,35 +62,27 @@ asset Stock identified by stockID {
   --> StockOwner owner
 }
 
-transaction RegisterCompanyRequest {
-  o Double capital
-  o Integer numberOfStock
-  o Integer[] distribution
+transaction CreateRegistryOfShareHolders {
   o String companyID
-  o String[] newStockOwners
+  o String companyName
+  o String chairmanOfTheBoardID
+  o Double capital
+  o Integer numberOfStocks
 }
 
-transaction ProcessCompanyRegistrationRequest {
-  o String transactionID
-  o RequestResponse response
+transaction DistributeStocksToStockOwners {
+  o String companyID
+  o Integer[] distribution
+  o String[] newStockOwners
 }
 
 transaction ExpandCapitalRequest {
   o Double newCapital
+  o CapitalChange capitalChange
   o String shareholderRegistryID
 }
 
 transaction ExpandCapital {
-  o String transactionID
-  o RequestResponse response
-}
-
-transaction AddStocksRequest {
-  o Integer amountOfNewStocks
-  o String shareholderRegistryID
-}
-
-transaction AddStocks {
   o String transactionID
   o RequestResponse response
 }
@@ -118,15 +106,11 @@ transaction ProcessStockSale {
 }
 
 transaction CreateBusinessRegistry {
-  o String businessRegistryID
-  o String firstName
-  o String lastName
+  o BusinessRegistry businessRegistry
 }
 
 transaction CreateCompany {
-  o String companyID
-  o String companyName
-  o String chairmanOfTheBoardUserID
+  o Company company
 }
 
 transaction CreateChairmanOfTheBoard {
@@ -134,23 +118,11 @@ transaction CreateChairmanOfTheBoard {
 }
 
 transaction CreateStockOwner {
-  o String stockOwnerID
-  o String firstName
-  o String lastName
-  o String socialSecurityNumber
+  o StockOwner stockOwner
 }
 
 transaction CreateSampleParticipant {
   o SampleParticipant sampleParticipant
-}
-
-event NewCompanyRegistered {
-  o Double capital
-  o Integer numberOfStock
-  o Integer[] distribution
-  --> Company company
-  --> StockOwner[] newStockOwners
-  o String transactionID
 }
 
 event ChangeOnCompanyRegistered {

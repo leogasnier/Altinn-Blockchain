@@ -48,14 +48,17 @@ async function respondToPurchaseRequest(tx) {
       return stockOwnerRegistry.updateAll([stockOwner, customer]);
     }
 
-    const companyRegistry = await getParticipantRegistry(namespace + '.' + 'Company');
-    const company = await companyRegistry.get(requestData.registryOfShareHolders);
+    let chairmanOfTheBoardRegistry = await getParticipantRegistry(namespace + '.' + 'ChairmanOfTheBoard');
+    let registryOfShareHoldersRegistry = await getAssetRegistry(namespace + '.' + 'RegistryOfShareHolders');
+    let registryOfShareHolders = await registryOfShareHoldersRegistry.get(requestData.registryOfShareHolders);
+
+    let chairmanOfTheBoard = await chairmanOfTheBoardRegistry.get(registryOfShareHolders.chairmanOfTheBoard.getIdentifier());
     const request = factory.newConcept(namespace, 'ResponseRequest');
     request.transactionID = tx.transactionID;
     request.response = 'PENDING';
-    company.awaitingStockPurchase.push(request);
+    chairmanOfTheBoard.awaitingStockPurchase.push(request);
 
-    return companyRegistry.update(company);
+    return chairmanOfTheBoardRegistry.update(chairmanOfTheBoard);
   } catch (error) {
     throw new Error('[RespondToPurchaseRequest] failed' + error);
   }

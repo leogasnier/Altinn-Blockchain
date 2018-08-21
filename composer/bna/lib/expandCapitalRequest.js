@@ -21,15 +21,21 @@
  */
 async function expandCapitalRequest(tx) {
   const namespace = CONFIG.composerNamespace;
+  const currentParticipant = getCurrentParticipant();
   const factory = getFactory();
 
   try {
     let businessRegistryParticipantRegistry = await getParticipantRegistry(namespace + '.' + 'BusinessRegistry');
-    let companyRegistry = await getParticipantRegistry(namespace + '.' + 'Company');
+    let chairmanOfTheBoardRegistry = await getParticipantRegistry(namespace + '.' + 'ChairmanOfTheBoard');
+    let stockBookRegistry = await getAssetRegistry(namespace + '.' + 'RegistryOfShareHolders');
+    let stockBook = await stockBookRegistry.get(tx.shareholderRegistryID);
+
+    if (currentParticipant.getIdentifier() !== stockBook.chairmanOfTheBoard.getIdentifier())
+      throw new Error('Only Chairman of the board of this company can make expand capital request transaction!');
 
     let request = factory.newConcept(namespace, 'ResponseRequest');
     request.transactionID = tx.transactionId;
-    request.request = 'CHANGEVALUE';
+    request.request = tx.capitalChange;
     request.response = 'PENDING';
 
     const allBusinessRegistries = await businessRegistryParticipantRegistry.getAll();
@@ -38,13 +44,13 @@ async function expandCapitalRequest(tx) {
 
     await businessRegistryParticipantRegistry.update(businessRegistry);
 
-    const company = await companyRegistry.get(tx.shareholderRegistryID);
-    company.changeOnCompanyRequest.push(request);
+    const chairmanOfTheBoard = await chairmanOfTheBoardRegistry.get(currentParticipant.getIdentifier());
+    chairmanOfTheBoard.changeOnCompanyRequest.push(request);
 
-    await companyRegistry.update(company);
+    await chairmanOfTheBoardRegistry.update(chairmanOfTheBoard);
 
     const event = factory.newEvent(namespace, 'ChangeOnCompanyRegistered');
-    event.capitalChange = 'CHANGEVALUE';
+    event.capitalChange = tx.capitalChange;
     event.newCapital = tx.newCapital;
     event.shareholderRegistryID = tx.shareholderRegistryID;
 

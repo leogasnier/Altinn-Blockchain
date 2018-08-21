@@ -21,5 +21,12 @@
  * @transaction
  */
 async function createChairmanOfTheBoard(tx) {
-  return addParticipantToParticipantRegistry(tx.chairmanOfTheBoard, 'ChairmanOfTheBoard');
+  const namespace = CONFIG.composerNamespace;
+  let participantRegistry = await getParticipantRegistry(namespace + '.' + 'ChairmanOfTheBoard');
+
+  try {
+    return await participantRegistry.add(tx.chairmanOfTheBoard);
+  } catch (error) {
+    throw new Error('[CreateChairmanOfTheBoard] An error occurred while getting the asset registry: ' + error);
+  }
 }

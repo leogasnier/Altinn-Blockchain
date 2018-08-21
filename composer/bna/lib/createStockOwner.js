@@ -21,14 +21,11 @@
  */
 async function createStockOwner(tx) {
   const namespace = CONFIG.composerNamespace;
-  const factory = getFactory();
+  let participantRegistry = await getParticipantRegistry(namespace + '.' + 'StockOwner');
 
-  let newStockOwner = factory.newResource(namespace, 'StockOwner', tx.stockOwnerID);
-  newStockOwner.firstName = tx.firstName;
-  newStockOwner.lastName = tx.lastName;
-  newStockOwner.socialSecurityNumber = tx.socialSecurityNumber;
-  newStockOwner.pendingRequests = [];
-  newStockOwner.receivedPurchaseRequests = [];
-
-  return addParticipantToParticipantRegistry(newStockOwner, 'StockOwner');
+  try {
+    await participantRegistry.add(tx.stockOwner);
+  } catch (error) {
+    throw new Error('[CreateStockOwner] An error occurred while getting the asset registry: ' + error);
+  }
 }

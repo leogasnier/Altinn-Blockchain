@@ -28,6 +28,13 @@ async function requestPurchase(tx) {
     if (currentParticipant.getIdentifier() !== tx.customer)
       throw new Error('Purchase requests are available only if you are the customer!');
 
+    const companyResource = 'resource:org.altinn.RegistryOfShareHolders#' + tx.registryOfShareHolders;
+    const stockOwnerResource = 'resource:org.altinn.StockOwner#' + tx.stockOwner;
+
+    let firstStocks = await query('getFirstStocks', {company: companyResource, ownerID: stockOwnerResource});
+    if (firstStocks.length < tx.quantity)
+      throw new Error('You have requested ' + tx.quantity + ' stocks. The stock owner you made the purchase request has only: ' + firstStocks.length);
+
     let stockOwnerRegistry = await getParticipantRegistry(namespace + '.' + 'StockOwner');
     let customer = await stockOwnerRegistry.get(tx.customer);
     let stockOwner = await stockOwnerRegistry.get(tx.stockOwner);
