@@ -46,7 +46,7 @@ asset RegistryOfShareHolders identified by companyID {
     o String companyName
     o Double capital
     o Double numberOfStocks
-    o Double firstDenomination
+    o Double denomination
     o Boolean stocksAreDistributed
     --> ChairmanOfTheBoard chairmanOfTheBoard
 }
@@ -55,8 +55,8 @@ asset Stock identified by stockID {
   o String stockID
   o String type
   o Double denomination
-  o Double value
-  o Double marketValue
+  o Double previousPrice
+  o Double currentPrice
   o DateTime purchasedDate
   --> RegistryOfShareHolders registryOfShareHolders
   --> StockOwner owner
@@ -77,9 +77,11 @@ transaction DistributeStocksToStockOwners {
 }
 
 transaction ExpandCapitalRequest {
-  o Double newCapital
+  o Double increasedAmountOfShareCapital
   o CapitalChange capitalChange
   o String shareholderRegistryID
+  o Integer[] distribution optional
+  o String[] newStockOwners optional
 }
 
 transaction ExpandCapital {
@@ -127,8 +129,10 @@ transaction CreateSampleParticipant {
 
 event ChangeOnCompanyRegistered {
   o CapitalChange capitalChange
-  o Double newCapital optional
+  o Double increasedAmountOfShareCapital
   o String shareholderRegistryID
+  o Integer[] distribution optional
+  o String[] newStockOwners optional
 }
 
 event StockPurchaseRequest {

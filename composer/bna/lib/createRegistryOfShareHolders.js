@@ -40,7 +40,7 @@ async function createRegistryOfShareHolders(tx) {
     newRegistryOfShareHolders.companyName = tx.companyName;
     newRegistryOfShareHolders.capital = tx.capital;
     newRegistryOfShareHolders.numberOfStocks = tx.numberOfStocks;
-    newRegistryOfShareHolders.firstDenomination = tx.capital / tx.numberOfStocks;
+    newRegistryOfShareHolders.denomination = tx.capital / tx.numberOfStocks;
     newRegistryOfShareHolders.stocksAreDistributed = false;
     newRegistryOfShareHolders.chairmanOfTheBoard = factory.newRelationship(namespace, 'ChairmanOfTheBoard', tx.chairmanOfTheBoardID);
 

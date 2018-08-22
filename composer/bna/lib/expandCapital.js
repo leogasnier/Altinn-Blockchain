@@ -55,7 +55,8 @@ async function expandCapital(tx) {
     }
 
     if (changeData.capitalChange === 'CHANGEVALUE') {
-      stockBook.capital += changeData.newCapital;
+      stockBook.capital += changeData.increasedAmountOfShareCapital;
+      stockBook.denomination = stockBook.capital / stockBook.numberOfStocks;
 
       await stockBookRegistry.update(stockBook);
 
@@ -64,8 +65,10 @@ async function expandCapital(tx) {
 
       let stockRegistry = await getAssetRegistry(namespace + '.' + 'Stock');
       let allStocksForCompany = await query('selectAllStocks', {companyID: queryString});
-      for (let n = 0; n < allStocksForCompany.length; n++)
-        allStocksForCompany[n].value = newStockValue;
+      for (let n = 0; n < allStocksForCompany.length; n++) {
+        allStocksForCompany[n].denomination = newStockValue;
+        allStocksForCompany[n].currentPrice = newStockValue;
+      }
 
       await stockRegistry.updateAll(allStocksForCompany);
 
@@ -81,62 +84,41 @@ async function expandCapital(tx) {
     }
 
     if (changeData.capitalChange === 'CHANGEAMOUNT') {
-      let currentStockValue = stockBook.capital / stockBook.numberOfStocks;
-      let numberOfNewStocks = Math.floor(changeData.newCapital / currentStockValue);
-      stockBook.numberOfStocks += numberOfNewStocks;
+      let currentStockValue = stockBook.denomination;
+      stockBook.capital += changeData.increasedAmountOfShareCapital;
+      stockBook.numberOfStocks += changeData.increasedAmountOfShareCapital / currentStockValue;
 
       await stockBookRegistry.update(stockBook);
-
-      let allOwners = [];
-      const queryStringStock = 'resource:org.altinn.RegistryOfShareHolders#' + stockBook.companyID;
-      let allStocksForCompany = await query('selectAllStocks', {companyID: queryStringStock});
-      let initialPrice = allStocksForCompany[0].denomination;
-      let price = allStocksForCompany[0].value;
-
-      allStocksForCompany.forEach((stock) => {
-        allOwners.push(stock.owner.getIdentifier());
-      });
-      uniqueOwners = allOwners.filter((x, i, a) => a.indexOf(x) === i);
-
-      stockBook.capital += (price * numberOfNewStocks);
-      await stockBookRegistry.update(stockBook);
-
-      let stocksPerItem = Math.floor(numberOfNewStocks / uniqueOwners.length);
-      const remainingStocks = numberOfNewStocks % uniqueOwners.length;
 
       let stockWithHighestID = await query('selectHighestStockId');
-      if (stockWithHighestID.length > 0 && stockWithHighestID !== null && stockWithHighestID.length !== null) {
+      if (stockWithHighestID.length > 0 && stockWithHighestID != null && stockWithHighestID.length != null) {
         stockWithHighestID.sort(function (a, b) {
           var x = parseInt(a.stockID), y = parseInt(b.stockID);
 
           return x > y ? -1 : x < y ? 1 : 0;
         });
-        newStockId = parseInt(stockWithHighestID[0].stockID) + 1;
+        newStockID = parseInt(stockWithHighestID[0].stockID) + 1;
       } else {
-        newStockId = parseInt(1);
+        newStockID = parseInt(1);
       }
 
       let stockRegistry = await getAssetRegistry(namespace + '.' + 'Stock');
       let newStocks = [];
-      for (var i = 0; i < uniqueOwners.length; i++) {
-        if (i === (uniqueOwners.length - 1)) {
-          stocksPerItem += remainingStocks;
-        }
-        for (var k = 0; k < stocksPerItem; k++) {
-
-          const newId = newStockId.toString();
-          const stock = factory.newResource(namespace, 'Stock', newId);
-          stock.value = price;
-          stock.denomination = initialPrice;
+      changeData.newStockOwners.forEach((owner, index) => {
+        for (let i = 0; i < changeData.distribution[index]; i++) {
+          const stockId = newStockID.toString();
+          const stock = factory.newResource(namespace, 'Stock', stockId);
+          stock.previousPrice = currentStockValue;
+          stock.denomination = currentStockValue;
+          stock.currentPrice = currentStockValue;
           stock.registryOfShareHolders = stockBook;
           stock.type = "";
-          stock.owner = factory.newRelationship(namespace, 'StockOwner', uniqueOwners[i]);
-          stock.marketValue = initialPrice;
           stock.purchasedDate = tx.timestamp;
+          stock.owner = factory.newRelationship(namespace, 'StockOwner', owner);
           newStocks.push(stock);
-          newStockId += 1;
+          newStockID += 1;
         }
-      }
+      });
 
       await stockRegistry.addAll(newStocks);
 

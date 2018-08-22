@@ -59,7 +59,8 @@ async function processStockSale(tx) {
 
     const stockRegistry = await getAssetRegistry(namespace + '.' + 'Stock');
     for (let n = 0; n < requestData.quantity; n++) {
-      firstStocks[n].marketValue = requestData.bid;
+      firstStocks[n].previousPrice = firstStocks[n].currentPrice;
+      firstStocks[n].currentPrice = requestData.bid;
       firstStocks[n].owner = customer;
       firstStocks[n].purchasedDate = requestData.timestamp;
       firstStocks[n].owner = factory.newRelationship(namespace, 'StockOwner', requestData.customer);
