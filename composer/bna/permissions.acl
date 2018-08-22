@@ -310,11 +310,10 @@ rule StockOwnerCanUpdateStockOwners {
 
 rule StockOwnerCanUpdateStockOwnersWhenRespondToPurchaceRequest {
   description: "StockOwner can update StockOwner when respond to purchase request."
-  participant(p): "org.altinn.StockOwner"
+  participant: "org.altinn.StockOwner"
   operation: UPDATE
-  resource(r): "org.altinn.StockOwner"
-  transaction(t): "org.altinn.RespondToPurchaseRequest"
-  condition: (p.getIdentifier() === t.customer || r.getIdentifier() === t.stockOwner)
+  resource: "org.altinn.StockOwner"
+  transaction: "org.altinn.RespondToPurchaseRequest"
   action: ALLOW
  }
 

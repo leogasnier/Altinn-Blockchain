@@ -24,6 +24,12 @@ async function createRegistryOfShareHolders(tx) {
   const factory = getFactory();
 
   try {
+    let chairmanOfTheBoardRegistry = await getParticipantRegistry(namespace + '.' + 'ChairmanOfTheBoard');
+    let chairmanOfTheBoard = await chairmanOfTheBoardRegistry.get(tx.chairmanOfTheBoardID);
+
+    if (!chairmanOfTheBoard)
+      throw new Error('Chairman of the Board with ID: ' + tx.chairmanOfTheBoardID + ' does not exist!');
+
     if (tx.capital <= 0)
       throw new Error('Please enter a valid capital!');
 

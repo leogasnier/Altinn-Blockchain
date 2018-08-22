@@ -128,7 +128,6 @@ transaction CreateSampleParticipant {
 event ChangeOnCompanyRegistered {
   o CapitalChange capitalChange
   o Double newCapital optional
-  o Integer amountOfNewStocks optional
   o String shareholderRegistryID
 }
 
@@ -138,21 +137,6 @@ event StockPurchaseRequest {
     o String stockOwner
     o String customer
     o String registryOfShareHolders
-}
-
-event StockChangedValue {
-	o Double oldValue
-  o Double newValue
-  o String message
-  --> Stock stock
-}
-
-event StockSale {
-	o String message
-  o Double bid
-  o Integer quantity
-  o DateTime date
-  --> StockOwner newOwner
 }
 
 concept ResponseRequest {

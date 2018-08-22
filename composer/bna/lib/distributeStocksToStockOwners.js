@@ -30,7 +30,7 @@ async function distributeStocksToStockOwners(tx) {
     let registryOfShareHolders = await registryOfShareHoldersRegistry.get(tx.companyID);
 
     if (!registryOfShareHolders)
-      throw new Error('Registry of Share Holders is not created!');
+      throw new Error('Registry of Share Holders does not exist!');
 
     if (registryOfShareHolders.stocksAreDistributed === true)
       throw new Error('Stocks for this company have been already distributed!');
