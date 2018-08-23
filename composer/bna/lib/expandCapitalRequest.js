@@ -15,7 +15,7 @@
 /* global getAssetRegistry getFactory emit */
 
 /**
- * Transaction for changing value of given stocks
+ * Transaction for requesting increase of amount of share capital
  * @param {org.altinn.ExpandCapitalRequest} expandCapitalRequest - creating a new expand capital request
  * @transaction
  */

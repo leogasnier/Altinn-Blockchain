@@ -15,8 +15,8 @@
 /* global getAssetRegistry getFactory emit */
 
 /**
- * Transaction for making purchase request
- * @param {org.altinn.RequestPurchase} requestPurchase - request purchase
+ * Transaction for making purchase request for stocks
+ * @param {org.altinn.RequestPurchase} requestPurchase - request stocks purchase
  * @transaction
  */
 async function requestPurchase(tx) {

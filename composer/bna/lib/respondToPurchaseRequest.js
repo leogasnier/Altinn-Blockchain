@@ -15,8 +15,8 @@
 /* global getAssetRegistry getFactory emit */
 
 /**
- * Transaction for responding on a purchase request
- * @param {org.altinn.RespondToPurchaseRequest} respondToPurchaseRequest - respond to a purchase request
+ * Transaction for responding on a purchase request as stock owner
+ * @param {org.altinn.RespondToPurchaseRequest} respondToPurchaseRequest - respond to a purchase request as stock owner
  * @transaction
  */
 async function respondToPurchaseRequest(tx) {
@@ -40,7 +40,7 @@ async function respondToPurchaseRequest(tx) {
 
     if (tx.response === 'REJECTED') {
       const stockOwnerIndex = await stockOwner.receivedPurchaseRequests.findIndex(req => req.transactionID === tx.transactionID);
-      stockOwner.receivedPurchaseRequests.splice(stockOwnerIndex, 1);
+      stockOwner.receivedPurchaseRequests[stockOwnerIndex].response = 'REJECTED';
 
       const customerIndex = await customer.pendingRequests.findIndex(req => req.transactionID === tx.transactionID);
       customer.pendingRequests[customerIndex].response = 'REJECTED';

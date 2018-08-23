@@ -16,7 +16,7 @@
 
 /**
  * Transaction for creating a Registry of ShareHolders
- * @param {org.altinn.CreateRegistryOfShareHolders} createRegistryOfShareHolders - creating a new stockBook for firm
+ * @param {org.altinn.CreateRegistryOfShareHolders} createRegistryOfShareHolders - creating a new registry of shareholders for company
  * @transaction
  */
 async function createRegistryOfShareHolders(tx) {

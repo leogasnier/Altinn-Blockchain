@@ -15,8 +15,8 @@
 /* global getAssetRegistry getFactory emit */
 
 /**
- * Transaction of buy/sales between oweners of a Stock
- * @param {org.altinn.ProcessStockSale} processStockSale - the Stock to be processed
+ * Transaction process the purchase request stocks
+ * @param {org.altinn.ProcessStockSale} processStockSale - process the purchase request stocks
  * @transaction
  */
 async function processStockSale(tx) {
