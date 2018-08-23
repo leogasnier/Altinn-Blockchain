@@ -15,33 +15,16 @@
           "optional": false
         },
         {
-          "arg":      "companyID",
-          "type":     "string",
-          "optional": false
-        },
-        {
-          "arg":      "companyName",
-          "type":     "string",
-          "optional": false
-        },
-        {
-          "arg":      "chairmanOfTheBoardID",
-          "type":     "string",
-          "optional": false
-        },
-        {
-          "arg":      "capital",
-          "type":     "number",
-          "optional": false
-        },
-        {
-          "arg":      "numberOfStocks",
-          "type":     "number",
-          "optional": false
+          "arg":      "registryOfShareHolders",
+          "type":     "Object",
+          "optional": false,
+          "http":     {
+            "source": "body"
+          }
         }
       ],
       "returns": {
-        "arg":  "registryOfShareHolder",
+        "arg":  "registryOfShareHolders",
         "type": "Object"
       },
       "http":    {

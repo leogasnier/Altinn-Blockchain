@@ -1,5 +1,5 @@
 {
-  "_meta":               {
+  "_meta":                  {
     "sources": [
       "loopback/common/models",
       "loopback/server/models",
@@ -13,57 +13,61 @@
       "./mixins"
     ]
   },
-  "User":                {
+  "User":                   {
     "dataSource": "private-db"
   },
-  "LoopbackUser":        {
+  "LoopbackUser":           {
     "public":     true,
     "dataSource": "private-db"
   },
-  "ComposerParticipant": {
+  "ComposerParticipant":    {
     "dataSource": "private-db",
     "public":     false,
     "options":    {
       "strictObjectIDCoercion": true
     }
   },
-  "RegistryOfShareHolders":   {
+  "RegistryOfShareHolders": {
     "public":     true,
     "dataSource": "private-db"
   },
-  "AccessToken":         {
-    "dataSource": "private-db",
-    "public":     false
-  },
-  "ACL":                 {
-    "dataSource": "private-db",
-    "public":     false
-  },
-  "RoleMapping":         {
-    "dataSource": "private-db",
-    "public":     false,
-    "options":    {
-      "strictObjectIDCoercion": true
-    }
-  },
-  "Role":                {
-    "dataSource": "private-db",
-    "public":     false,
-    "options":    {
-      "strictObjectIDCoercion": true
-    }
-  },
-  "Asset":               {
+  "Stock":                  {
+    "public":     true,
     "dataSource": "private-db"
   },
-  "UserRoleMapping":     {
+  "AccessToken":            {
+    "dataSource": "private-db",
+    "public":     false
+  },
+  "ACL":                    {
+    "dataSource": "private-db",
+    "public":     false
+  },
+  "RoleMapping":            {
     "dataSource": "private-db",
     "public":     false,
     "options":    {
       "strictObjectIDCoercion": true
     }
   },
-  "UserRole":            {
+  "Role":                   {
+    "dataSource": "private-db",
+    "public":     false,
+    "options":    {
+      "strictObjectIDCoercion": true
+    }
+  },
+  "Asset":                  {
+    "dataSource": "private-db"
+  },
+  "UserRoleMapping":        {
+    "dataSource": "private-db",
+    "public":     false,
+    "options":    {
+      "strictObjectIDCoercion": true
+    }
+  },
+  "UserRole":               {
     "dataSource": "private-db",
     "public":     false
   }

@@ -17,8 +17,11 @@ export class ExpandCapitalRequestTransaction extends TransactionBuilder {
     const factory: Factory = await this.getFactory();
     let transaction        = await factory.newTransaction(this.composerNameSpace, this.transactionType);
 
-    transaction.increasedAmountOfShareCapital            = data.increasedAmountOfShareCapital;
-    transaction.shareholderRegistryID = data.shareholderRegistryID;
+    transaction.increasedAmountOfShareCapital = data.increasedAmountOfShareCapital;
+    transaction.shareholderRegistryID         = data.shareholderRegistryID;
+    transaction.capitalChange                 = data.capitalChange;
+    transaction.distribution                  = data.distribution;
+    transaction.newStockOwners                = data.newStockOwners;
 
     return transaction;
   }

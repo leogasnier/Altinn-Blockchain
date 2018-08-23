@@ -1,0 +1,161 @@
+{
+  "name":        "Stock",
+  "plural":      "Stocks",
+  "idInjection": false,
+  "forceid":     false,
+  "http":        {
+    "path": "/stocks"
+  },
+  "methods":     {
+    "distributeStocksToStockOwners": {
+      "accepts": [
+        {
+          "arg":      "options",
+          "type":     "Object",
+          "optional": false
+        },
+        {
+          "arg":      "request",
+          "type":     "Object",
+          "optional": false,
+          "http":     {
+            "source": "body"
+          }
+        }
+      ],
+      "returns": {
+        "arg":  "stocks",
+        "type": "Object"
+      },
+      "http":    {
+        "path": "/distributeStocksToStockOwners",
+        "verb": "post"
+      }
+    },
+    "expandCapitalRequest":          {
+      "accepts": [
+        {
+          "arg":      "options",
+          "type":     "Object",
+          "optional": false
+        },
+        {
+          "arg":      "request",
+          "type":     "Object",
+          "optional": false,
+          "http":     {
+            "source": "body"
+          }
+        }
+      ],
+      "returns": {
+        "arg":  "stocks",
+        "type": "Object"
+      },
+      "http":    {
+        "path": "/expandCapitalRequest",
+        "verb": "post"
+      }
+    },
+    "expandCapital":                 {
+      "accepts": [
+        {
+          "arg":      "options",
+          "type":     "Object",
+          "optional": false
+        },
+        {
+          "arg":      "response",
+          "type":     "Object",
+          "optional": false,
+          "http":     {
+            "source": "body"
+          }
+        }
+      ],
+      "returns": {
+        "arg":  "stocks",
+        "type": "Object"
+      },
+      "http":    {
+        "path": "/expandCapital",
+        "verb": "post"
+      }
+    },
+    "requestPurchase":               {
+      "accepts": [
+        {
+          "arg":      "options",
+          "type":     "Object",
+          "optional": false
+        },
+        {
+          "arg":      "request",
+          "type":     "Object",
+          "optional": false,
+          "http":     {
+            "source": "body"
+          }
+        }
+      ],
+      "returns": {
+        "arg":  "stocks",
+        "type": "Object"
+      },
+      "http":    {
+        "path": "/requestPurchase",
+        "verb": "post"
+      }
+    },
+    "respondToPurchaseRequest":      {
+      "accepts": [
+        {
+          "arg":      "options",
+          "type":     "Object",
+          "optional": false
+        },
+        {
+          "arg":      "response",
+          "type":     "Object",
+          "optional": false,
+          "http":     {
+            "source": "body"
+          }
+        }
+      ],
+      "returns": {
+        "arg":  "stocks",
+        "type": "Object"
+      },
+      "http":    {
+        "path": "/respondToPurchaseRequest",
+        "verb": "post"
+      }
+    },
+    "processStockSale":              {
+      "accepts": [
+        {
+          "arg":      "options",
+          "type":     "Object",
+          "optional": false
+        },
+        {
+          "arg":      "response",
+          "type":     "Object",
+          "optional": false,
+          "http":     {
+            "source": "body"
+          }
+        }
+      ],
+      "returns": {
+        "arg":  "stocks",
+        "type": "Object"
+      },
+      "http":    {
+        "path": "/processStockSale",
+        "verb": "post"
+      }
+    }
+  }
+}

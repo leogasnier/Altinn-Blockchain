@@ -17,10 +17,11 @@ export class CreateRegistryOfShareHoldersTransaction extends TransactionBuilder 
     const factory: Factory = await this.getFactory();
     let transaction        = await factory.newTransaction(this.composerNameSpace, this.transactionType);
 
-    transaction.capital       = data.capital;
-    transaction.numberOfStock = data.numberOfStock;
-    transaction.distribution  = data.distribution;
-    transaction.companyID     = data.companyID;
+    transaction.companyID            = data.companyID;
+    transaction.companyName          = data.companyName;
+    transaction.chairmanOfTheBoardID = data.chairmanOfTheBoardID;
+    transaction.capital              = data.capital;
+    transaction.numberOfStocks       = data.numberOfStocks;
 
     return transaction;
   }
