@@ -5,12 +5,20 @@
       "roleID": "SAMPLE_PARTICIPANT_ROLE"
     },
     {
-      "name":   "StockOwner",
-      "roleID": "STOCK_OWNER"
+      "name":   "BusinessRegitryRole",
+      "roleID": "BUSINESS_REGISTRY_ROLE"
     },
     {
-      "name":   "Firm",
-      "roleID": "FIRM"
+      "name":   "ChairmanOfTheBoardRole",
+      "roleID": "CHAIRMAN_OF_THE_BOARD_ROLE"
+    },
+    {
+      "name":   "CompanyRole",
+      "roleID": "COMPANY_ROLE"
+    },
+    {
+      "name":   "StockOwnerRole",
+      "roleID": "STOCK_OWNER_ROLE"
     }
   ]
 }

@@ -5,31 +5,35 @@
   "idInjection": false,
   "forceid":     false,
   "properties":  {
-    "userID":           {
+    "userID":               {
       "type":      "string",
       "id":        true,
       "generated": false
     },
-    "firstName":        {
+    "firstName":            {
       "type":      "string",
       "id":        true,
       "generated": false
     },
-    "lastName":         {
+    "lastName":             {
       "type":      "string",
       "id":        true,
       "generated": false
     },
-    "org":              {
+    "socialSecurityNumber": {
+      "type":     "string",
+      "optional": true
+    },
+    "org":                  {
       "type":      "string",
       "id":        true,
       "generated": false
     },
-    "participantClass": {
+    "participantClass":     {
       "type":      "string",
       "generated": false
     },
-    "cardName":         {
+    "cardName":             {
       "type":      "string",
       "generated": false
     }

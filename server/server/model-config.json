@@ -20,16 +20,16 @@
     "public":     true,
     "dataSource": "private-db"
   },
-  "SampleAsset":         {
-    "public":     true,
-    "dataSource": "private-db"
-  },
   "ComposerParticipant": {
     "dataSource": "private-db",
     "public":     false,
     "options":    {
       "strictObjectIDCoercion": true
     }
+  },
+  "RegistryOfShareHolders":   {
+    "public":     true,
+    "dataSource": "private-db"
   },
   "AccessToken":         {
     "dataSource": "private-db",

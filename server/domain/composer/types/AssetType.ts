@@ -1,4 +1,4 @@
 export const enum AssetType {
-  sampleAsset = 'SampleAsset',
-  sampleOrg = 'SampleOrg'
+  registryOfShareHolders = 'RegistryOfShareHolders',
+  stock                  = 'Stock'
 }

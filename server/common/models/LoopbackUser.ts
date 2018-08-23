@@ -11,11 +11,12 @@ class LoopbackUser {
   private createComposerUser(ctx: any, next: any): void {
     if (ctx.instance) {
       ctx.instance.composerParticipant.create({
-        userID:           ctx.instance.ID,
-        firstName:        ctx.instance.firstName,
-        lastName:         ctx.instance.lastName,
-        org:              ctx.instance.companyId,
-        participantClass: ctx.instance.participantClass,
+        userID:               ctx.instance.ID,
+        firstName:            ctx.instance.firstName,
+        lastName:             ctx.instance.lastName,
+        org:                  ctx.instance.companyId,
+        socialSecurityNumber: ctx.instance.socialSecurityNumber,
+        participantClass:     ctx.instance.participantClass,
       }).then(() => {
         next();
       });

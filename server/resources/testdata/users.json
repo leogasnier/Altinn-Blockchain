@@ -19,9 +19,59 @@
       "companyId":        "othercompany",
       "email":            "oliver@othercompany.com",
       "password":         "passw0rd",
-      "participantClass": "SampleParticipant",
+      "participantClass": "Company",
       "roles":            [
-        "SampleParticipantRole"
+        "Company"
+      ]
+    },
+    {
+      "ID":               "john",
+      "firstName":        "John",
+      "lastName":         "Doe",
+      "companyId":        "4444",
+      "email":            "john@123.com",
+      "password":         "passw0rd",
+      "participantClass": "BusinessRegistry",
+      "roles":            [
+        "BusinessRegistryRole"
+      ]
+    },
+    {
+      "ID":               "alan",
+      "firstName":        "Alan",
+      "lastName":         "Walter",
+      "companyId":        "123",
+      "email":            "alan@123.com",
+      "password":         "passw0rd",
+      "participantClass": "ChairmanOfTheBoard",
+      "roles":            [
+        "ChairmanOfTheBoardRole"
+      ]
+    },
+    {
+      "ID":                   "david",
+      "firstName":            "David",
+      "lastName":             "Lorens",
+      "socialSecurityNumber": "123456789",
+      "companyId":            "othercompany",
+      "email":                "david@123.com",
+      "password":             "passw0rd",
+      "participantClass":     "StockOwner",
+      "roles":                [
+        "StockOwnerRole"
+      ]
+    },
+    {
+      "ID":                   "katie",
+      "firstName":            "Katie",
+      "lastName":             "White",
+      "socialSecurityNumber": "987654321",
+      "companyId":            "othercompany",
+      "email":                "katie@123.com",
+      "password":             "passw0rd",
+      "participantClass":     "StockOwner",
+      "roles":                [
+        "StockOwnerRole"
       ]
     }
   ]

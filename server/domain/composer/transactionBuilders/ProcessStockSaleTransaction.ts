@@ -3,14 +3,14 @@ import {TransactionBuilder} from './TransactionBuilder';
 import {ParticipantHandler} from '../participants/ParticipantHandler';
 import {Factory} from 'composer-common';
 
-export class RespondToPurchaseRequestTransaction extends TransactionBuilder {
+export class ProcessStockSaleTransaction extends TransactionBuilder {
   protected transactionType: TransactionType;
   protected participantHandler: ParticipantHandler;
 
   public constructor() {
     super();
     this.participantHandler = new ParticipantHandler();
-    this.transactionType    = TransactionType.respondToPurchaseRequest;
+    this.transactionType    = TransactionType.processStockSale;
   }
 
   public async create(data: any): Promise<any> {

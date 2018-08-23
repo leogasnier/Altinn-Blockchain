@@ -1,6 +1,15 @@
 export const enum TransactionType {
-  createSampleOrg         = 'CreateSampleOrg',
-  createSampleParticipant = 'CreateSampleParticipant',
-  createSampleAsset       = 'CreateSampleAsset',
-  updateSampleAsset       = 'UpdateSampleAsset'
+  createBusinessRegistry        = 'CreateBusinessRegistry',
+  createCompany                 = 'CreateCompany',
+  createChairmanOfTheBoard      = 'CreateChairmanOfTheBoard',
+  createStockOwner              = 'CreateStockOwner',
+  createSampleParticipant       = 'CreateSampleParticipant',
+  createRegistryOfShareHolders  = 'CreateRegistryOfShareHolders',
+  distributeStocksToStockOwners = 'DistributeStocksToStockOwners',
+  expandCapitalRequest          = 'ExpandCapitalRequest',
+  expandCapital                 = 'ExpandCapital',
+  requestPurchase               = 'RequestPurchase',
+  respondToPurchaseRequest      = 'RespondToPurchaseRequest',
+  processStockSale              = 'ProcessStockSale'
+
 }

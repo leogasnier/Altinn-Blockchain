@@ -3,25 +3,22 @@ import {TransactionBuilder} from './TransactionBuilder';
 import {ParticipantHandler} from '../participants/ParticipantHandler';
 import {Factory} from 'composer-common';
 
-export class RequestPurchaseTransaction extends TransactionBuilder {
+export class RespondToPurchaseRequestTransaction extends TransactionBuilder {
   protected transactionType: TransactionType;
   protected participantHandler: ParticipantHandler;
 
   public constructor() {
     super();
     this.participantHandler = new ParticipantHandler();
-    this.transactionType    = TransactionType.requestPurchase;
+    this.transactionType    = TransactionType.respondToPurchaseRequest;
   }
 
   public async create(data: any): Promise<any> {
     const factory: Factory = await this.getFactory();
     let transaction        = await factory.newTransaction(this.composerNameSpace, this.transactionType);
 
-    transaction.bid      = data.bid;
-    transaction.quantity = data.quantity;
-    transaction.customer = data.customer;
-    transaction.stockOwner = data.stockOwner;
-    transaction.registryOfShareHolders = data.registryOfShareHolders;
+    transaction.transactionID = data.transactionID;
+    transaction.response      = data.response;
 
     return transaction;
   }

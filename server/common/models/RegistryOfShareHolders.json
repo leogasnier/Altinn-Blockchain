@@ -1,0 +1,53 @@
+{
+  "name":        "RegistryOfShareHolders",
+  "plural":      "RegistriesOfShareHolders",
+  "idInjection": false,
+  "forceid":     false,
+  "http":        {
+    "path": "/registryOfShareHolders"
+  },
+  "methods":     {
+    "createRegistryOfShareHolders": {
+      "accepts": [
+        {
+          "arg":      "options",
+          "type":     "Object",
+          "optional": false
+        },
+        {
+          "arg":      "companyID",
+          "type":     "string",
+          "optional": false
+        },
+        {
+          "arg":      "companyName",
+          "type":     "string",
+          "optional": false
+        },
+        {
+          "arg":      "chairmanOfTheBoardID",
+          "type":     "string",
+          "optional": false
+        },
+        {
+          "arg":      "capital",
+          "type":     "number",
+          "optional": false
+        },
+        {
+          "arg":      "numberOfStocks",
+          "type":     "number",
+          "optional": false
+        }
+      ],
+      "returns": {
+        "arg":  "registryOfShareHolder",
+        "type": "Object"
+      },
+      "http":    {
+        "path": "/createRegistryOfShareHolders",
+        "verb": "post"
+      }
+    }
+  }
+}
