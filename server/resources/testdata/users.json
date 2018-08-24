@@ -4,8 +4,8 @@
       "ID":               "lapo",
       "firstName":        "Lapo",
       "lastName":         "Seller",
-      "companyId":        "sellercompany",
-      "email":            "lapo@sellercompany.com",
+      "companyId":        "910597019",
+      "email":            "lapo@flornes.com",
       "password":         "passw0rd",
       "participantClass": "SampleParticipant",
       "roles":            [
@@ -15,9 +15,9 @@
     {
       "ID":               "oliver",
       "firstName":        "Oliver",
-      "lastName":         "OtherParticipant",
-      "companyId":        "othercompany",
-      "email":            "oliver@othercompany.com",
+      "lastName":         "Bold",
+      "companyId":        "910597019",
+      "email":            "oliver@frogner.com",
       "password":         "passw0rd",
       "participantClass": "Company",
       "roles":            [
@@ -28,8 +28,8 @@
       "ID":               "john",
       "firstName":        "John",
       "lastName":         "Doe",
-      "companyId":        "4444",
-      "email":            "john@123.com",
+      "companyId":        "974760673",
+      "email":            "john@businessregistry.com",
       "password":         "passw0rd",
       "participantClass": "BusinessRegistry",
       "roles":            [
@@ -40,8 +40,8 @@
       "ID":               "alan",
       "firstName":        "Alan",
       "lastName":         "Walter",
-      "companyId":        "123",
-      "email":            "alan@123.com",
+      "companyId":        "910597019",
+      "email":            "alan@flornes.com",
       "password":         "passw0rd",
       "participantClass": "ChairmanOfTheBoard",
       "roles":            [
@@ -54,7 +54,7 @@
       "lastName":             "Lorens",
       "socialSecurityNumber": "123456789",
       "companyId":            "othercompany",
-      "email":                "david@123.com",
+      "email":                "david@host.com",
       "password":             "passw0rd",
       "participantClass":     "StockOwner",
       "roles":                [
@@ -67,7 +67,7 @@
       "lastName":             "White",
       "socialSecurityNumber": "987654321",
       "companyId":            "othercompany",
-      "email":                "katie@123.com",
+      "email":                "katie@host.com",
       "password":             "passw0rd",
       "participantClass":     "StockOwner",
       "roles":                [
