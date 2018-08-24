@@ -55,7 +55,7 @@ asset Stock identified by stockID {
   o String stockID
   o String type
   o Double denomination
-  o Double previousPrice
+  o Double previousPrice optional
   o Double currentPrice
   o DateTime purchasedDate
   --> RegistryOfShareHolders registryOfShareHolders
@@ -73,6 +73,7 @@ transaction CreateRegistryOfShareHolders {
 transaction DistributeStocksToStockOwners {
   o String companyID
   o Integer[] distribution
+  o Double [] purchasedValuesOfStocks
   o String[] newStockOwners
 }
 
@@ -81,6 +82,7 @@ transaction ExpandCapitalRequest {
   o CapitalChange capitalChange
   o String shareholderRegistryID
   o Integer[] distribution optional
+  o Double[] purchasedValuesOfStocks optional
   o String[] newStockOwners optional
 }
 
@@ -132,6 +134,7 @@ event ChangeOnCompanyRegistered {
   o Double increasedAmountOfShareCapital
   o String shareholderRegistryID
   o Integer[] distribution optional
+  o Double[] purchasedValuesOfStocks optional
   o String[] newStockOwners optional
 }
 
@@ -147,6 +150,7 @@ concept ResponseRequest {
   o String transactionID
   o CapitalChange request optional
   o RequestResponse response
+  o Boolean purchaseRequestAcceptedByStockOwner optional
 }
 
 enum RequestResponse {

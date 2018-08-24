@@ -67,6 +67,7 @@ async function expandCapital(tx) {
       let allStocksForCompany = await query('selectAllStocks', {companyID: queryString});
       for (let n = 0; n < allStocksForCompany.length; n++) {
         allStocksForCompany[n].denomination = newStockValue;
+        allStocksForCompany[n].previousPrice = allStocksForCompany[n].currentPrice;
         allStocksForCompany[n].currentPrice = newStockValue;
       }
 
@@ -108,9 +109,8 @@ async function expandCapital(tx) {
         for (let i = 0; i < changeData.distribution[index]; i++) {
           const stockId = newStockID.toString();
           const stock = factory.newResource(namespace, 'Stock', stockId);
-          stock.previousPrice = currentStockValue;
           stock.denomination = currentStockValue;
-          stock.currentPrice = currentStockValue;
+          stock.currentPrice = changeData.purchasedValuesOfStocks[index];
           stock.registryOfShareHolders = stockBook;
           stock.type = "";
           stock.purchasedDate = tx.timestamp;

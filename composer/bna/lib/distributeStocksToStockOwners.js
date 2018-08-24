@@ -68,9 +68,8 @@ async function distributeStocksToStockOwners(tx) {
       for (let i = 0; i < tx.distribution[index]; i++) {
         const stockId = newStockID.toString();
         const stock = factory.newResource(namespace, 'Stock', stockId);
-        stock.previousPrice = registryOfShareHolders.denomination;
         stock.denomination = registryOfShareHolders.denomination;
-        stock.currentPrice = registryOfShareHolders.denomination;
+        stock.currentPrice = tx.purchasedValuesOfStocks[index];
         stock.registryOfShareHolders = registryOfShareHolders;
         stock.type = "";
         stock.purchasedDate = tx.timestamp;

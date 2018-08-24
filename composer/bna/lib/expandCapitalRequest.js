@@ -51,6 +51,9 @@ async function expandCapitalRequest(tx) {
       if (tx.newStockOwners.length === 0)
         throw new Error('Please enter new stock owners!');
 
+      if(tx.newStockOwners.length !== tx.purchasedValuesOfStocks.length)
+        throw new Error('Please enter stock puchased values for each stock owner!');
+
       for (let i = 0; i < tx.newStockOwners.length; i++) {
         let stockOwner = await stockOwnersRegistry.get(tx.newStockOwners[i]);
         if (!stockOwner)
@@ -78,6 +81,7 @@ async function expandCapitalRequest(tx) {
       event.increasedAmountOfShareCapital = tx.increasedAmountOfShareCapital;
       event.shareholderRegistryID = tx.shareholderRegistryID;
       event.distribution = tx.distribution;
+      event.purchasedValuesOfStocks = tx.purchasedValuesOfStocks;
       event.newStockOwners = tx.newStockOwners;
 
       return emit(event);

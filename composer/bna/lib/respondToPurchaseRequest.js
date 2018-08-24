@@ -37,16 +37,19 @@ async function respondToPurchaseRequest(tx) {
     let stockOwnerRegistry = await getParticipantRegistry(namespace + '.' + 'StockOwner');
     let customer = await stockOwnerRegistry.get(requestData.customer);
     let stockOwner = await stockOwnerRegistry.get(requestData.stockOwner);
+    const stockOwnerIndex = await stockOwner.receivedPurchaseRequests.findIndex(req => req.transactionID === tx.transactionID);
+    const customerIndex = await customer.pendingRequests.findIndex(req => req.transactionID === tx.transactionID);
 
     if (tx.response === 'REJECTED') {
-      const stockOwnerIndex = await stockOwner.receivedPurchaseRequests.findIndex(req => req.transactionID === tx.transactionID);
       stockOwner.receivedPurchaseRequests[stockOwnerIndex].response = 'REJECTED';
-
-      const customerIndex = await customer.pendingRequests.findIndex(req => req.transactionID === tx.transactionID);
       customer.pendingRequests[customerIndex].response = 'REJECTED';
 
-      return stockOwnerRegistry.updateAll([stockOwner, customer]);
+      return await stockOwnerRegistry.updateAll([stockOwner, customer]);
     }
+    stockOwner.receivedPurchaseRequests[stockOwnerIndex].purchaseRequestAcceptedByStockOwner = true;
+    customer.pendingRequests[customerIndex].purchaseRequestAcceptedByStockOwner = true;
+
+    await stockOwnerRegistry.updateAll([stockOwner, customer]);
 
     let chairmanOfTheBoardRegistry = await getParticipantRegistry(namespace + '.' + 'ChairmanOfTheBoard');
     let registryOfShareHoldersRegistry = await getAssetRegistry(namespace + '.' + 'RegistryOfShareHolders');

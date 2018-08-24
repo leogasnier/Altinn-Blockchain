@@ -21,6 +21,7 @@ export class ExpandCapitalRequestTransaction extends TransactionBuilder {
     transaction.shareholderRegistryID         = data.shareholderRegistryID;
     transaction.capitalChange                 = data.capitalChange;
     transaction.distribution                  = data.distribution;
+    transaction.purchasedValuesOfStocks       = data.purchasedValuesOfStocks;
     transaction.newStockOwners                = data.newStockOwners;
 
     return transaction;

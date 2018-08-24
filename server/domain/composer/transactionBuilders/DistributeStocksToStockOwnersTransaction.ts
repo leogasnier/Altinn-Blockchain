@@ -17,9 +17,10 @@ export class DistributeStocksToStockOwnersTransaction extends TransactionBuilder
     const factory: Factory = await this.getFactory();
     let transaction        = await factory.newTransaction(this.composerNameSpace, this.transactionType);
     console.log('data', data);
-    transaction.companyID      = data.companyID;
-    transaction.distribution   = data.distribution;
-    transaction.newStockOwners = data.newStockOwners;
+    transaction.companyID               = data.companyID;
+    transaction.distribution            = data.distribution;
+    transaction.purchasedValuesOfStocks = data.purchasedValuesOfStocks;
+    transaction.newStockOwners          = data.newStockOwners;
 
     return transaction;
   }
