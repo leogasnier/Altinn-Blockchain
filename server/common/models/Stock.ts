@@ -35,7 +35,7 @@ class Stock {
     } catch (error) {
       this.logger.error(error);
 
-      return Promise.reject(error);
+      return error;
     }
   }
 
@@ -53,7 +53,7 @@ class Stock {
     } catch (error) {
       console.log(error);
 
-      return Promise.reject(error);
+      return error;
     }
   }
 
@@ -71,7 +71,7 @@ class Stock {
     } catch (error) {
       console.log(error);
 
-      return Promise.reject(error);
+      return error;
     }
   }
 
@@ -89,7 +89,7 @@ class Stock {
     } catch (error) {
       console.log(error);
 
-      return Promise.reject(error);
+      return error;
     }
   }
 
@@ -107,7 +107,7 @@ class Stock {
     } catch (error) {
       console.log(error);
 
-      return Promise.reject(error);
+      return error;
     }
   }
 
@@ -125,7 +125,7 @@ class Stock {
     } catch (error) {
       console.log(error);
 
-      return Promise.reject(error);
+      return error;
     }
   }
 
@@ -143,7 +143,7 @@ class Stock {
     } catch (error) {
       console.log(error);
 
-      return Promise.reject(error);
+      return error;
     }
   }
 }

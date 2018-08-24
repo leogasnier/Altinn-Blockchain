@@ -1,11 +1,11 @@
 {
   "users": [
     {
-      "ID":               "lapo",
-      "firstName":        "Lapo",
-      "lastName":         "Seller",
+      "ID":               "sampleParticipant",
+      "firstName":        "Sample",
+      "lastName":         "Participant",
       "companyId":        "910597019",
-      "email":            "lapo@flornes.com",
+      "email":            "sampleparticipant@flornes.com",
       "password":         "passw0rd",
       "participantClass": "SampleParticipant",
       "roles":            [
@@ -13,11 +13,11 @@
       ]
     },
     {
-      "ID":               "oliver",
-      "firstName":        "Oliver",
-      "lastName":         "Bold",
+      "ID":               "companyParticipant",
+      "firstName":        "Company",
+      "lastName":         "Participant",
       "companyId":        "910597019",
-      "email":            "oliver@frogner.com",
+      "email":            "companyparticipant@frogner.com",
       "password":         "passw0rd",
       "participantClass": "Company",
       "roles":            [
@@ -37,11 +37,23 @@
       ]
     },
     {
-      "ID":               "alan",
-      "firstName":        "Alan",
-      "lastName":         "Walter",
+      "ID":               "bendik",
+      "firstName":        "Bendik",
+      "lastName":         "Askildsen",
       "companyId":        "910597019",
-      "email":            "alan@flornes.com",
+      "email":            "bendik@flornes.com",
+      "password":         "passw0rd",
+      "participantClass": "ChairmanOfTheBoard",
+      "roles":            [
+        "ChairmanOfTheBoardRole"
+      ]
+    },
+    {
+      "ID":               "lucas",
+      "firstName":        "Lucas",
+      "lastName":         "Horn",
+      "companyId":        "910597213",
+      "email":            "lucas@korshamn.com",
       "password":         "passw0rd",
       "participantClass": "ChairmanOfTheBoard",
       "roles":            [
@@ -53,7 +65,7 @@
       "firstName":            "David",
       "lastName":             "Lorens",
       "socialSecurityNumber": "123456789",
-      "companyId":            "othercompany",
+      "companyId":            "Company_A",
       "email":                "david@host.com",
       "password":             "passw0rd",
       "participantClass":     "StockOwner",
@@ -66,8 +78,21 @@
       "firstName":            "Katie",
       "lastName":             "White",
       "socialSecurityNumber": "987654321",
-      "companyId":            "othercompany",
+      "companyId":            "Company_B",
       "email":                "katie@host.com",
+      "password":             "passw0rd",
+      "participantClass":     "StockOwner",
+      "roles":                [
+        "StockOwnerRole"
+      ]
+    },
+    {
+      "ID":                   "leo",
+      "firstName":            "Leo",
+      "lastName":             "Kolt",
+      "socialSecurityNumber": "987654321",
+      "companyId":            "otherCompany",
+      "email":                "leo@host.com",
       "password":             "passw0rd",
       "participantClass":     "StockOwner",
       "roles":                [

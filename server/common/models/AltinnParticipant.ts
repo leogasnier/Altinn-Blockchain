@@ -32,7 +32,7 @@ class AltinnParticipant {
     } catch (error) {
       this.logger.error(error);
 
-      return Promise.reject(error);
+      return error;
     }
   }
 
@@ -48,7 +48,7 @@ class AltinnParticipant {
     } catch (error) {
       this.logger.error(error);
 
-      return Promise.reject(error);
+      return error;
     }
   }
 
@@ -64,7 +64,7 @@ class AltinnParticipant {
     } catch (error) {
       this.logger.error(error);
 
-      return Promise.reject(error);
+      return error;
     }
   }
 }

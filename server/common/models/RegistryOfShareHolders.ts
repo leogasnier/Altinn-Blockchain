@@ -30,7 +30,7 @@ class RegistryOfShareHolders {
     } catch (error) {
       this.logger.error(error);
 
-      return Promise.reject(error);
+      return error;
     }
   }
 
@@ -48,7 +48,7 @@ class RegistryOfShareHolders {
     } catch (error) {
       console.log(error);
 
-      return Promise.reject(error);
+      return error;
     }
   }
 }

@@ -22,7 +22,7 @@ class ComposerParticipant {
 
       ctx.instance.cardName = ctx.instance.ID + '@hlfv1';
     } catch (error) {
-      return Promise.reject(error);
+      return error;
     }
 
     next();

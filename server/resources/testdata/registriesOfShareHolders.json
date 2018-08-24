@@ -1,0 +1,18 @@
+{
+  "registriesOfShareHolders": [
+    {
+      "companyID":            "910597019",
+      "companyName":          "FLORNES OG BØRSELV AS",
+      "chairmanOfTheBoardID": "bendik",
+      "capital":              725000,
+      "numberOfStocks":       1450
+    },
+    {
+      "companyID":            "910597213",
+      "companyName":          "KORSHAMN OG SØRLI",
+      "chairmanOfTheBoardID": "lucas",
+      "capital":              4777100,
+      "numberOfStocks":       7130
+    }
+  ]
+}

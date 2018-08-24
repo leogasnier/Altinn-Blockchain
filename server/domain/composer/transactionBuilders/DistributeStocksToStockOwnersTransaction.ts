@@ -16,7 +16,7 @@ export class DistributeStocksToStockOwnersTransaction extends TransactionBuilder
   public async create(data: any): Promise<any> {
     const factory: Factory = await this.getFactory();
     let transaction        = await factory.newTransaction(this.composerNameSpace, this.transactionType);
-    console.log('data', data);
+
     transaction.companyID               = data.companyID;
     transaction.distribution            = data.distribution;
     transaction.purchasedValuesOfStocks = data.purchasedValuesOfStocks;
