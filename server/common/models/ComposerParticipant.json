@@ -4,6 +4,9 @@
   "base":        "Model",
   "idInjection": false,
   "forceid":     false,
+  "http":        {
+    "path": "/composerParticipants"
+  },
   "properties":  {
     "userID":               {
       "type":      "string",
@@ -41,5 +44,30 @@
   "validations": [],
   "relations":   {
   },
-  "methods":     {}
+  "methods":     {
+    "getBusinessRegistry": {
+      "accepts": [
+        {
+          "arg":      "options",
+          "type":     "Object",
+          "optional": false
+        },
+        {
+          "arg":  "businessRegistryID",
+          "type": "string",
+          "http": {
+            "source": "path"
+          }
+        }
+      ],
+      "returns": {
+        "arg":  "businessRegistries",
+        "type": "array"
+      },
+      "http":    {
+        "path": "/getBusinessRegistry/:businessRegistryID",
+        "verb": "get"
+      }
+    }
+  }
 }

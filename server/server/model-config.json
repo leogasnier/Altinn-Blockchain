@@ -20,6 +20,10 @@
     "public":     true,
     "dataSource": "private-db"
   },
+  "AltinnParticipant":      {
+    "public":     true,
+    "dataSource": "private-db"
+  },
   "ComposerParticipant":    {
     "dataSource": "private-db",
     "public":     false,

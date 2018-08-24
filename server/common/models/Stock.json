@@ -7,6 +7,23 @@
     "path": "/stocks"
   },
   "methods":     {
+    "getAllStocks":                  {
+      "accepts": [
+        {
+          "arg":      "options",
+          "type":     "Object",
+          "optional": false
+        }
+      ],
+      "returns": {
+        "arg":  "stocks",
+        "type": "Object"
+      },
+      "http":    {
+        "path": "/getAllStocks",
+        "verb": "get"
+      }
+    },
     "distributeStocksToStockOwners": {
       "accepts": [
         {

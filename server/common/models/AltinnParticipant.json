@@ -1,0 +1,83 @@
+{
+  "name":        "AltinnParticipant",
+  "plural":      "AltinnParticipants",
+  "idInjection": false,
+  "forceid":     false,
+  "http":        {
+    "path": "/altinnParticipant"
+  },
+  "methods":     {
+    "getBusinessRegistry":   {
+      "accepts": [
+        {
+          "arg":      "options",
+          "type":     "Object",
+          "optional": false
+        },
+        {
+          "arg":  "businessRegistryID",
+          "type": "string",
+          "http": {
+            "source": "path"
+          }
+        }
+      ],
+      "returns": {
+        "arg":  "businessRegistry",
+        "type": "object"
+      },
+      "http":    {
+        "path": "/getBusinessRegistry/:businessRegistryID",
+        "verb": "get"
+      }
+    },
+    "getChairmanOfTheBoard": {
+      "accepts": [
+        {
+          "arg":      "options",
+          "type":     "Object",
+          "optional": false
+        },
+        {
+          "arg":  "chairmanOfTheBoardID",
+          "type": "string",
+          "http": {
+            "source": "path"
+          }
+        }
+      ],
+      "returns": {
+        "arg":  "chairmanOfTheBoard",
+        "type": "object"
+      },
+      "http":    {
+        "path": "/getChairmanOfTheBoard/:chairmanOfTheBoardID",
+        "verb": "get"
+      }
+    },
+    "getStockOwner":         {
+      "accepts": [
+        {
+          "arg":      "options",
+          "type":     "Object",
+          "optional": false
+        },
+        {
+          "arg":  "stockOwnerID",
+          "type": "string",
+          "http": {
+            "source": "path"
+          }
+        }
+      ],
+      "returns": {
+        "arg":  "stockOwner",
+        "type": "object"
+      },
+      "http":    {
+        "path": "/getStockOwner/:stockOwnerID",
+        "verb": "get"
+      }
+    }
+  }
+}

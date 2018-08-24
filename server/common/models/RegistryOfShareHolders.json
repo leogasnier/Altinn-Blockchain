@@ -7,6 +7,23 @@
     "path": "/registryOfShareHolders"
   },
   "methods":     {
+    "getAllRegistriesOfShareHolders": {
+      "accepts": [
+        {
+          "arg":      "options",
+          "type":     "Object",
+          "optional": false
+        }
+      ],
+      "returns": {
+        "arg":  "registryOfShareHolders",
+        "type": "Object"
+      },
+      "http":    {
+        "path": "/getAllRegistriesOfShareHolders",
+        "verb": "get"
+      }
+    },
     "createRegistryOfShareHolders": {
       "accepts": [
         {

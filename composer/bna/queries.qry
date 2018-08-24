@@ -52,3 +52,38 @@ query getFirmShareHolders {
 		SELECT org.altinn.Stock
 			WHERE(registryOfShareHolders == _$register)
 }
+
+query getAllStocks {
+  description: "Get all stocks"
+  statement:
+      SELECT org.altinn.Stock
+       ORDER BY [stockID ASC]
+}
+
+query getAllRegistriesOfShareHolders {
+  description: "Get all registries of share holders"
+  statement:
+      SELECT org.altinn.RegistryOfShareHolders
+       ORDER BY [companyID ASC]
+}
+
+query getBusinessRegistry {
+description: "Get Business Registry"
+	statement:
+		SELECT org.altinn.BusinessRegistry
+			WHERE (userID == _$userID)
+}
+
+query getChairmanOfTheBoard {
+description: "Get Chairman of the Board"
+	statement:
+		SELECT org.altinn.ChairmanOfTheBoard
+			WHERE (userID == _$userID)
+}
+
+query getStockOwner {
+description: "Get Stock Owner"
+	statement:
+		SELECT org.altinn.StockOwner
+			WHERE (userID == _$userID)
+}
