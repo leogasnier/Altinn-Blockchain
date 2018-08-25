@@ -18,6 +18,7 @@ class AltinnParticipant {
     this.model.getBusinessRegistry   = this.getBusinessRegistry;
     this.model.getChairmanOfTheBoard = this.getChairmanOfTheBoard;
     this.model.getStockOwner         = this.getStockOwner;
+    this.model.getTransaction        = this.getTransaction;
   }
 
   public async getBusinessRegistry(options: any, businessRegistryID: string): Promise<any> {
@@ -30,8 +31,6 @@ class AltinnParticipant {
         userID: businessRegistryID
       });
     } catch (error) {
-      this.logger.error(error);
-
       return error;
     }
   }
@@ -46,8 +45,6 @@ class AltinnParticipant {
         userID: chairmanOfTheBoardID
       });
     } catch (error) {
-      this.logger.error(error);
-
       return error;
     }
   }
@@ -62,8 +59,20 @@ class AltinnParticipant {
         userID: stockOwnerID
       });
     } catch (error) {
-      this.logger.error(error);
+      return error;
+    }
+  }
 
+  public async getTransaction(options: any, transactionId: string): Promise<any> {
+    try {
+      const composerParticipantCard = options.currentComposerUser.cardName;
+      const businessNetworkHandler  = new BusinessNetworkHandler();
+      const transactionHandler      = new TransactionHandler(businessNetworkHandler);
+
+      return await transactionHandler.query(composerParticipantCard, QueryType.getTransaction, {
+        transactionId: transactionId
+      });
+    } catch (error) {
       return error;
     }
   }

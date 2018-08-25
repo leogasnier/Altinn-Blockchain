@@ -78,6 +78,30 @@
         "path": "/getStockOwner/:stockOwnerID",
         "verb": "get"
       }
+    },
+    "getTransaction":        {
+      "accepts": [
+        {
+          "arg":      "options",
+          "type":     "Object",
+          "optional": false
+        },
+        {
+          "arg":  "transactionId",
+          "type": "string",
+          "http": {
+            "source": "path"
+          }
+        }
+      ],
+      "returns": {
+        "arg":  "transactions",
+        "type": "array"
+      },
+      "http":    {
+        "path": "/getTransaction/:transactionId",
+        "verb": "get"
+      }
     }
   }
 }

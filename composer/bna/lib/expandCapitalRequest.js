@@ -35,7 +35,6 @@ async function expandCapitalRequest(tx) {
     if (currentParticipant.getIdentifier() !== stockBook.chairmanOfTheBoard.getIdentifier())
       throw new Error('Only Chairman of the board of this company can make expand capital request transaction!');
 
-
     if (tx.capitalChange === 'CHANGEAMOUNT') {
       if (tx.increasedAmountOfShareCapital % stockBook.denomination !== 0)
         throw new Error('Please enter increased amount of share capital multiple to the denomination: ' + stockBook.denomination);
@@ -51,7 +50,7 @@ async function expandCapitalRequest(tx) {
       if (tx.newStockOwners.length === 0)
         throw new Error('Please enter new stock owners!');
 
-      if(tx.newStockOwners.length !== tx.purchasedValuesOfStocks.length)
+      if (tx.newStockOwners.length !== tx.purchasedValuesOfStocks.length)
         throw new Error('Please enter stock puchased values for each stock owner!');
 
       for (let i = 0; i < tx.newStockOwners.length; i++) {
@@ -66,10 +65,11 @@ async function expandCapitalRequest(tx) {
       request.response = 'PENDING';
 
       const allBusinessRegistries = await businessRegistryParticipantRegistry.getAll();
-      businessRegistry = allBusinessRegistries[0];
-      businessRegistry.receivedChangeOnCompanyRequest.push(request);
+      allBusinessRegistries.forEach(businessRegistry => {
+        businessRegistry.receivedChangeOnCompanyRequest.push(request);
+      });
 
-      await businessRegistryParticipantRegistry.update(businessRegistry);
+      await businessRegistryParticipantRegistry.updateAll(allBusinessRegistries);
 
       const chairmanOfTheBoard = await chairmanOfTheBoardRegistry.get(currentParticipant.getIdentifier());
       chairmanOfTheBoard.changeOnCompanyRequest.push(request);
@@ -93,10 +93,11 @@ async function expandCapitalRequest(tx) {
     request.response = 'PENDING';
 
     const allBusinessRegistries = await businessRegistryParticipantRegistry.getAll();
-    businessRegistry = allBusinessRegistries[0];
-    businessRegistry.receivedChangeOnCompanyRequest.push(request);
+    allBusinessRegistries.forEach(businessRegistry => {
+      businessRegistry.receivedChangeOnCompanyRequest.push(request);
+    });
 
-    await businessRegistryParticipantRegistry.update(businessRegistry);
+    await businessRegistryParticipantRegistry.updateAll(allBusinessRegistries);
 
     const chairmanOfTheBoard = await chairmanOfTheBoardRegistry.get(currentParticipant.getIdentifier());
     chairmanOfTheBoard.changeOnCompanyRequest.push(request);

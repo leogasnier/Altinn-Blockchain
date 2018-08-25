@@ -26,8 +26,8 @@ async function expandCapital(tx) {
   try {
     let businessRegistryParticipantRegistry = await getParticipantRegistry(namespace + '.' + 'BusinessRegistry');
     let chairmanOfTheBoardRegistry = await getParticipantRegistry(namespace + '.' + 'ChairmanOfTheBoard');
-    let stockPurchaceRequest = await query('getStockPurchaseRequest', {id: tx.transactionID});
-    let changeData = stockPurchaceRequest[0].eventsEmitted[0];
+    let expandCapitalRequest = await query('getTransaction', {transactionId: tx.transactionID});
+    let changeData = expandCapitalRequest[0].eventsEmitted[0];
 
     if (changeData.capitalChange !== 'CHANGEVALUE' && changeData.capitalChange !== 'CHANGEAMOUNT')
       throw new Error('Must be option CHANGEVALUE or CHANGEAMOUNT');
@@ -42,12 +42,14 @@ async function expandCapital(tx) {
     let stockBook = await stockBookRegistry.get(changeData.shareholderRegistryID);
     const chairmanOfTheBoard = await chairmanOfTheBoardRegistry.get(stockBook.chairmanOfTheBoard.getIdentifier());
 
-    if (tx.response === 'REJECTED') {
-      const index = await businessRegistry.receivedChangeOnCompanyRequest.findIndex(request => request.transactionID === tx.transactionID);
+    allBusinessRegistries.forEach(businessRegistry => {
+      const index = businessRegistry.receivedChangeOnCompanyRequest.findIndex(request => request.transactionID === tx.transactionID);
       businessRegistry.receivedChangeOnCompanyRequest.splice(index, 1);
+    });
 
-      await businessRegistryParticipantRegistry.update(businessRegistry);
+    await businessRegistryParticipantRegistry.updateAll(allBusinessRegistries);
 
+    if (tx.response === 'REJECTED') {
       const chairmanOfTheBoardIndex = await chairmanOfTheBoard.changeOnCompanyRequest.findIndex(request => request.transactionID === tx.transactionID);
       chairmanOfTheBoard.changeOnCompanyRequest[chairmanOfTheBoardIndex].response = 'REJECTED';
 
@@ -72,11 +74,6 @@ async function expandCapital(tx) {
       }
 
       await stockRegistry.updateAll(allStocksForCompany);
-
-      const index = await businessRegistry.receivedChangeOnCompanyRequest.findIndex(request => request.transactionID === tx.transactionID)
-      businessRegistry.receivedChangeOnCompanyRequest.splice(index, 1);
-
-      await businessRegistryParticipantRegistry.update(businessRegistry);
 
       const chairmanOfTheBoardIndex = await chairmanOfTheBoard.changeOnCompanyRequest.findIndex(request => request.transactionID === tx.transactionID)
       chairmanOfTheBoard.changeOnCompanyRequest[chairmanOfTheBoardIndex].response = 'ACCEPTED';

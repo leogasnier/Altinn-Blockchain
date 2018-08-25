@@ -24,6 +24,30 @@
         "verb": "get"
       }
     },
+    "getStockWallet":                {
+      "accepts": [
+        {
+          "arg":      "options",
+          "type":     "Object",
+          "optional": false
+        },
+        {
+          "arg":  "stockOwnerID",
+          "type": "string",
+          "http": {
+            "source": "path"
+          }
+        }
+      ],
+      "returns": {
+        "arg":  "stocks",
+        "type": "Object"
+      },
+      "http":    {
+        "path": "/getStockWallet/:stockOwnerID",
+        "verb": "get"
+      }
+    },
     "distributeStocksToStockOwners": {
       "accepts": [
         {

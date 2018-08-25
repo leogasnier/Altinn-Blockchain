@@ -1,16 +1,12 @@
-//_$companyID = "resource:org.altinn.RegistryOfShareHolders#xxxxxxxxx"
-
 query selectAllStocks {
-  description: "Select all Stock belonging to RegistryOfShareHolders with companyID _$companyID"
+  description: "Get all Stock belonging to RegistryOfShareHolders with companyID "
   statement:
       SELECT org.altinn.Stock
           WHERE (registryOfShareHolders == _$companyID)
 }
 
-//_$company  = "resource:org.altinn.RegistryOfShareHolders#xxxxxxxxx"
-//_ownerID = "resource:org.altinn.ShareHolder#xxxxxxxxx"
 query getFirstStocks {
-  description: "Hent de første x antall Stocks en eier har i gitt RegistryOfShareHolders"
+  description: "Get first stocks for a company and owner"
   statement:
   	SELECT org.altinn.Stock
   		WHERE (registryOfShareHolders == _$company AND owner == _$ownerID)
@@ -18,7 +14,7 @@ query getFirstStocks {
 }
 
 query selectHighestStockId {
-  description: "Henter høyeste ID fra Stock for å mocke auto-increment"
+  description: "Get stock with the highest stockID"
   statement:
   	SELECT org.altinn.Stock
   		ORDER BY [stockID DESC]
@@ -28,7 +24,7 @@ query getStockWallet {
 	description: "Henter alle aksjer en person eier"
 	statement:
 		SELECT org.altinn.Stock
-			WHERE (owner == _$id)
+			WHERE (owner == _$owner)
 			  ORDER BY [stockID ASC]
 }
 
@@ -39,15 +35,15 @@ query getStockMarket {
 			WHERE (owner != _$id)
 }
 
-query getStockPurchaseRequest {
-    description: "Select a stockPurchaseRequest Event"
+query getTransaction {
+    description: "Get a transaction where an event has been emitted"
     statement:
         SELECT org.hyperledger.composer.system.HistorianRecord
-  			WHERE (transactionId == _$id)
+  			WHERE (transactionId == _$transactionId)
 }
 
-query getFirmShareHolders {
-	description: "Henter alle aksjene til et firma"
+query getRegistryOfShareHolders {
+	description: "Get registry of shareholders"
 	statement:
 		SELECT org.altinn.Stock
 			WHERE(registryOfShareHolders == _$register)

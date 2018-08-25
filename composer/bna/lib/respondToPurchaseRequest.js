@@ -28,8 +28,8 @@ async function respondToPurchaseRequest(tx) {
     if (tx.response !== 'REJECTED' && tx.response !== 'ACCEPTED')
       throw new Error('Request Response should be ACCEPTED or REJECTED');
 
-    const stockPurchaseRequests = await query('getStockPurchaseRequest', {id: tx.transactionID});
-    const requestData = stockPurchaseRequests[0].eventsEmitted[0];
+    const stockPurchaseRequest = await query('getTransaction', {transactionId: tx.transactionID});
+    const requestData = stockPurchaseRequest[0].eventsEmitted[0];
 
     if (currentParticipant.getIdentifier() !== requestData.stockOwner)
       throw new Error('Stock owners can respond to their own received purchase requests!');

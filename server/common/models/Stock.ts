@@ -17,6 +17,7 @@ class Stock {
     this.logger = Container.get(LoggerFactory).get('Stock');
 
     this.model.getAllStocks                  = this.getAllStocks;
+    this.model.getStockWallet                = this.getStockWallet;
     this.model.distributeStocksToStockOwners = this.distributeStocksToStockOwners;
     this.model.expandCapitalRequest          = this.expandCapitalRequest;
     this.model.expandCapital                 = this.expandCapital;
@@ -33,8 +34,20 @@ class Stock {
 
       return await transactionHandler.query(composerParticipantCard, QueryType.getAllStocks);
     } catch (error) {
-      this.logger.error(error);
+      return error;
+    }
+  }
 
+  public async getStockWallet(options: any, stockOwnerID: string): Promise<any> {
+    try {
+      const composerParticipantCard = options.currentComposerUser.cardName;
+      const businessNetworkHandler  = new BusinessNetworkHandler();
+      const transactionHandler      = new TransactionHandler(businessNetworkHandler);
+
+      return await transactionHandler.query(composerParticipantCard, QueryType.getStockWallet, {
+        owner: 'resource:org.altinn.StockOwner#' + stockOwnerID
+      });
+    } catch (error) {
       return error;
     }
   }
@@ -51,8 +64,6 @@ class Stock {
         data
       );
     } catch (error) {
-      console.log(error);
-
       return error;
     }
   }
@@ -69,8 +80,6 @@ class Stock {
         data
       );
     } catch (error) {
-      console.log(error);
-
       return error;
     }
   }
@@ -87,8 +96,6 @@ class Stock {
         data
       );
     } catch (error) {
-      console.log(error);
-
       return error;
     }
   }
@@ -105,8 +112,6 @@ class Stock {
         data
       );
     } catch (error) {
-      console.log(error);
-
       return error;
     }
   }
@@ -123,8 +128,6 @@ class Stock {
         data
       );
     } catch (error) {
-      console.log(error);
-
       return error;
     }
   }
@@ -141,8 +144,6 @@ class Stock {
         data
       );
     } catch (error) {
-      console.log(error);
-
       return error;
     }
   }

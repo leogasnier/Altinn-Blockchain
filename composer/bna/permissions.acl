@@ -52,6 +52,23 @@ rule BusinessRegistryCanAccesSystem {
      action: ALLOW
  }
 
+rule BusinessRegistryCanCreateBusinessRegistry {
+  description: "BusinessRegistry can create chairman of the board."
+  participant: "org.altinn.BusinessRegistry"
+  operation: CREATE
+  resource: "org.altinn.CreateBusinessRegistry"
+  action: ALLOW
+ }
+
+rule BusinessRegistryCreateBusinessRegistry {
+  description: "BusinessRegistry can create business registry."
+  participant: "org.altinn.BusinessRegistry"
+  operation: CREATE
+  resource: "org.altinn.BusinessRegistry"
+  transaction: "org.altinn.CreateBusinessRegistry"
+  action: ALLOW
+ }
+
 rule BusinessRegistryCanCreateChairmanOfTheBoard {
   description: "BusinessRegistry can create chairman of the board."
   participant: "org.altinn.BusinessRegistry"
@@ -68,7 +85,6 @@ rule BusinessRegistryCreateChairmanOfTheBoard {
   transaction: "org.altinn.CreateChairmanOfTheBoard"
   action: ALLOW
  }
-
 
 rule BusinessRegistryCreateCompany {
   description: "BusinessRegistry can create company."
