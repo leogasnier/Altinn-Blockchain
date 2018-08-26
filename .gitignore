@@ -66,6 +66,7 @@ typings/
 .tscache/
 *.bna
 dist/
+cloud/
 composer/bna/*.bna
 config/credentials
 out/

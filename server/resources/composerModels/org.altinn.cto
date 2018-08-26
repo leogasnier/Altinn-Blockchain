@@ -1,0 +1,166 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+namespace org.altinn
+
+abstract participant User identified by userID {
+  o String userID
+  o String firstName
+  o String lastName
+}
+
+participant SampleParticipant extends User {
+}
+
+participant ChairmanOfTheBoard extends User {
+    o ResponseRequest[] changeOnCompanyRequest
+    o ResponseRequest[] awaitingStockPurchase
+}
+
+participant StockOwner extends User {
+    o String socialSecurityNumber
+    o ResponseRequest[] pendingRequests
+    o ResponseRequest[] receivedPurchaseRequests
+}
+
+participant Company extends User {
+}
+
+participant BusinessRegistry extends User {
+  o ResponseRequest[] receivedChangeOnCompanyRequest
+}
+
+asset RegistryOfShareHolders identified by companyID {
+    o String companyID
+    o String companyName
+    o Double capital
+    o Double numberOfStocks
+    o Double denomination
+    o Boolean stocksAreDistributed
+    --> ChairmanOfTheBoard chairmanOfTheBoard
+}
+
+asset Stock identified by stockID {
+  o String stockID
+  o String type
+  o Double denomination
+  o Double previousPrice optional
+  o Double currentPrice
+  o DateTime purchasedDate
+  --> RegistryOfShareHolders registryOfShareHolders
+  --> StockOwner owner
+}
+
+transaction CreateRegistryOfShareHolders {
+  o String companyID
+  o String companyName
+  o String chairmanOfTheBoardID
+  o Double capital
+  o Integer numberOfStocks
+}
+
+transaction DistributeStocksToStockOwners {
+  o String companyID
+  o Integer[] distribution
+  o Double [] purchasedValuesOfStocks
+  o String[] newStockOwners
+}
+
+transaction ExpandCapitalRequest {
+  o Double increasedAmountOfShareCapital
+  o CapitalChange capitalChange
+  o String shareholderRegistryID
+  o Integer[] distribution optional
+  o Double[] purchasedValuesOfStocks optional
+  o String[] newStockOwners optional
+}
+
+transaction ExpandCapital {
+  o String transactionID
+  o RequestResponse response
+}
+
+transaction RequestPurchase {
+  o Double bid
+  o Integer quantity
+  o String customer
+  o String stockOwner
+  o String registryOfShareHolders
+}
+
+transaction RespondToPurchaseRequest {
+  o String transactionID
+  o RequestResponse response
+}
+
+transaction ProcessStockSale {
+  o String transactionID
+  o RequestResponse response
+}
+
+transaction CreateBusinessRegistry {
+  o BusinessRegistry businessRegistry
+}
+
+transaction CreateCompany {
+  o Company company
+}
+
+transaction CreateChairmanOfTheBoard {
+  o ChairmanOfTheBoard chairmanOfTheBoard
+}
+
+transaction CreateStockOwner {
+  o StockOwner stockOwner
+}
+
+transaction CreateSampleParticipant {
+  o SampleParticipant sampleParticipant
+}
+
+event ChangeOnCompanyRegistered {
+  o CapitalChange capitalChange
+  o Double increasedAmountOfShareCapital
+  o String shareholderRegistryID
+  o Integer[] distribution optional
+  o Double[] purchasedValuesOfStocks optional
+  o String[] newStockOwners optional
+}
+
+event StockPurchaseRequest {
+    o Double bid
+    o Integer quantity
+    o String stockOwner
+    o String customer
+    o String registryOfShareHolders
+}
+
+concept ResponseRequest {
+  o String transactionID
+  o CapitalChange request optional
+  o RequestResponse response
+  o Boolean purchaseRequestAcceptedByStockOwner optional
+}
+
+enum RequestResponse {
+  o PENDING
+  o REJECTED
+  o ACCEPTED
+  o WITHDRAWN
+}
+
+enum CapitalChange {
+  o CHANGEVALUE
+  o CHANGEAMOUNT
+}
