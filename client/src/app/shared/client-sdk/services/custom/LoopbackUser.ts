@@ -1,16 +1,15 @@
 /* tslint:disable */
-import {Injectable, Inject, Optional} from '@angular/core';
-import {Http, Response} from '@angular/http';
-import {SDKModels} from './SDKModels';
-import {BaseLoopBackApi} from '../core/base.service';
-import {LoopBackConfig} from '../../lb.config';
-import {LoopBackAuth} from '../core/auth.service';
-import {LoopBackFilter, SDKToken, AccessToken} from '../../models/BaseModels';
-import {JSONSearchParams} from '../core/search.params';
-import {ErrorHandler} from '../core/error.service';
-import {Subject} from 'rxjs/Subject';
-import {Observable} from 'rxjs/Rx';
-import {LoopbackUser} from '../../models/LoopbackUser';
+import { Injectable, Inject, Optional } from '@angular/core';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { SDKModels } from './SDKModels';
+import { BaseLoopBackApi } from '../core/base.service';
+import { LoopBackConfig } from '../../lb.config';
+import { LoopBackAuth } from '../core/auth.service';
+import { LoopBackFilter, SDKToken, AccessToken } from '../../models/BaseModels';
+import { ErrorHandler } from '../core/error.service';
+import { Observable, Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { LoopbackUser } from '../../models/LoopbackUser';
 
 
 /**
@@ -19,12 +18,13 @@ import {LoopbackUser} from '../../models/LoopbackUser';
 @Injectable()
 export class LoopbackUserApi extends BaseLoopBackApi {
 
-  constructor(@Inject(Http) protected http: Http,
-              @Inject(SDKModels) protected models: SDKModels,
-              @Inject(LoopBackAuth) protected auth: LoopBackAuth,
-              @Inject(JSONSearchParams) protected searchParams: JSONSearchParams,
-              @Optional() @Inject(ErrorHandler) protected errorHandler: ErrorHandler) {
-    super(http, models, auth, searchParams, errorHandler);
+  constructor(
+    @Inject(HttpClient) protected http: HttpClient,
+    @Inject(SDKModels) protected models: SDKModels,
+    @Inject(LoopBackAuth) protected auth: LoopBackAuth,
+    @Optional() @Inject(ErrorHandler) protected errorHandler: ErrorHandler
+  ) {
+    super(http,  models, auth, errorHandler);
   }
 
   /**
@@ -44,14 +44,14 @@ export class LoopbackUserApi extends BaseLoopBackApi {
    * </em>
    */
   public getComposerParticipant(id: any, refresh: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string   = "GET";
-    let _url: string      = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/LoopbackUsers/:id/composerParticipant";
+    let _method: string = "GET";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/LoopbackUsers/:id/composerParticipant";
     let _routeParams: any = {
       id: id
     };
-    let _postBody: any    = {};
-    let _urlParams: any   = {};
+    let _postBody: any = {};
+    let _urlParams: any = {};
     if (typeof refresh !== 'undefined' && refresh !== null) _urlParams.refresh = refresh;
     let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
@@ -76,17 +76,17 @@ export class LoopbackUserApi extends BaseLoopBackApi {
    * </em>
    */
   public createComposerParticipant(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string   = "POST";
-    let _url: string      = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/LoopbackUsers/:id/composerParticipant";
+    let _method: string = "POST";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/LoopbackUsers/:id/composerParticipant";
     let _routeParams: any = {
       id: id
     };
-    let _postBody: any    = {
+    let _postBody: any = {
       data: data
     };
-    let _urlParams: any   = {};
-    let result            = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -109,17 +109,17 @@ export class LoopbackUserApi extends BaseLoopBackApi {
    * </em>
    */
   public updateComposerParticipant(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string   = "PUT";
-    let _url: string      = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/LoopbackUsers/:id/composerParticipant";
+    let _method: string = "PUT";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/LoopbackUsers/:id/composerParticipant";
     let _routeParams: any = {
       id: id
     };
-    let _postBody: any    = {
+    let _postBody: any = {
       data: data
     };
-    let _urlParams: any   = {};
-    let result            = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -135,15 +135,15 @@ export class LoopbackUserApi extends BaseLoopBackApi {
    * This method returns no data.
    */
   public destroyComposerParticipant(id: any, customHeaders?: Function): Observable<any> {
-    let _method: string   = "DELETE";
-    let _url: string      = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/LoopbackUsers/:id/composerParticipant";
+    let _method: string = "DELETE";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/LoopbackUsers/:id/composerParticipant";
     let _routeParams: any = {
       id: id
     };
-    let _postBody: any    = {};
-    let _urlParams: any   = {};
-    let result            = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -164,16 +164,16 @@ export class LoopbackUserApi extends BaseLoopBackApi {
    * </em>
    */
   public findByIdAccessTokens(id: any, fk: any, customHeaders?: Function): Observable<any> {
-    let _method: string   = "GET";
-    let _url: string      = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/LoopbackUsers/:id/accessTokens/:fk";
+    let _method: string = "GET";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/LoopbackUsers/:id/accessTokens/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
     };
-    let _postBody: any    = {};
-    let _urlParams: any   = {};
-    let result            = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -191,16 +191,16 @@ export class LoopbackUserApi extends BaseLoopBackApi {
    * This method returns no data.
    */
   public destroyByIdAccessTokens(id: any, fk: any, customHeaders?: Function): Observable<any> {
-    let _method: string   = "DELETE";
-    let _url: string      = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/LoopbackUsers/:id/accessTokens/:fk";
+    let _method: string = "DELETE";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/LoopbackUsers/:id/accessTokens/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
     };
-    let _postBody: any    = {};
-    let _urlParams: any   = {};
-    let result            = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -225,18 +225,18 @@ export class LoopbackUserApi extends BaseLoopBackApi {
    * </em>
    */
   public updateByIdAccessTokens(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string   = "PUT";
-    let _url: string      = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/LoopbackUsers/:id/accessTokens/:fk";
+    let _method: string = "PUT";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/LoopbackUsers/:id/accessTokens/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
     };
-    let _postBody: any    = {
+    let _postBody: any = {
       data: data
     };
-    let _urlParams: any   = {};
-    let result            = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -257,16 +257,16 @@ export class LoopbackUserApi extends BaseLoopBackApi {
    * </em>
    */
   public findByIdRoleMappings(id: any, fk: any, customHeaders?: Function): Observable<any> {
-    let _method: string   = "GET";
-    let _url: string      = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/LoopbackUsers/:id/roleMappings/:fk";
+    let _method: string = "GET";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/LoopbackUsers/:id/roleMappings/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
     };
-    let _postBody: any    = {};
-    let _urlParams: any   = {};
-    let result            = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -284,16 +284,16 @@ export class LoopbackUserApi extends BaseLoopBackApi {
    * This method returns no data.
    */
   public destroyByIdRoleMappings(id: any, fk: any, customHeaders?: Function): Observable<any> {
-    let _method: string   = "DELETE";
-    let _url: string      = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/LoopbackUsers/:id/roleMappings/:fk";
+    let _method: string = "DELETE";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/LoopbackUsers/:id/roleMappings/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
     };
-    let _postBody: any    = {};
-    let _urlParams: any   = {};
-    let result            = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -318,18 +318,18 @@ export class LoopbackUserApi extends BaseLoopBackApi {
    * </em>
    */
   public updateByIdRoleMappings(id: any, fk: any, data: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string   = "PUT";
-    let _url: string      = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/LoopbackUsers/:id/roleMappings/:fk";
+    let _method: string = "PUT";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/LoopbackUsers/:id/roleMappings/:fk";
     let _routeParams: any = {
       id: id,
       fk: fk
     };
-    let _postBody: any    = {
+    let _postBody: any = {
       data: data
     };
-    let _urlParams: any   = {};
-    let result            = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -350,14 +350,14 @@ export class LoopbackUserApi extends BaseLoopBackApi {
    * </em>
    */
   public getAccessTokens(id: any, filter: LoopBackFilter = {}, customHeaders?: Function): Observable<any> {
-    let _method: string   = "GET";
-    let _url: string      = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/LoopbackUsers/:id/accessTokens";
+    let _method: string = "GET";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/LoopbackUsers/:id/accessTokens";
     let _routeParams: any = {
       id: id
     };
-    let _postBody: any    = {};
-    let _urlParams: any   = {};
+    let _postBody: any = {};
+    let _urlParams: any = {};
     if (typeof filter !== 'undefined' && filter !== null) _urlParams.filter = filter;
     let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
@@ -382,17 +382,17 @@ export class LoopbackUserApi extends BaseLoopBackApi {
    * </em>
    */
   public createAccessTokens(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string   = "POST";
-    let _url: string      = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/LoopbackUsers/:id/accessTokens";
+    let _method: string = "POST";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/LoopbackUsers/:id/accessTokens";
     let _routeParams: any = {
       id: id
     };
-    let _postBody: any    = {
+    let _postBody: any = {
       data: data
     };
-    let _urlParams: any   = {};
-    let result            = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -408,15 +408,15 @@ export class LoopbackUserApi extends BaseLoopBackApi {
    * This method returns no data.
    */
   public deleteAccessTokens(id: any, customHeaders?: Function): Observable<any> {
-    let _method: string   = "DELETE";
-    let _url: string      = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/LoopbackUsers/:id/accessTokens";
+    let _method: string = "DELETE";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/LoopbackUsers/:id/accessTokens";
     let _routeParams: any = {
       id: id
     };
-    let _postBody: any    = {};
-    let _urlParams: any   = {};
-    let result            = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -436,14 +436,14 @@ export class LoopbackUserApi extends BaseLoopBackApi {
    *  - `count` – `{number}` - 
    */
   public countAccessTokens(id: any, where: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string   = "GET";
-    let _url: string      = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/LoopbackUsers/:id/accessTokens/count";
+    let _method: string = "GET";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/LoopbackUsers/:id/accessTokens/count";
     let _routeParams: any = {
       id: id
     };
-    let _postBody: any    = {};
-    let _urlParams: any   = {};
+    let _postBody: any = {};
+    let _urlParams: any = {};
     if (typeof where !== 'undefined' && where !== null) _urlParams.where = where;
     let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
@@ -466,14 +466,14 @@ export class LoopbackUserApi extends BaseLoopBackApi {
    * </em>
    */
   public getRoleMappings(id: any, filter: LoopBackFilter = {}, customHeaders?: Function): Observable<any> {
-    let _method: string   = "GET";
-    let _url: string      = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/LoopbackUsers/:id/roleMappings";
+    let _method: string = "GET";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/LoopbackUsers/:id/roleMappings";
     let _routeParams: any = {
       id: id
     };
-    let _postBody: any    = {};
-    let _urlParams: any   = {};
+    let _postBody: any = {};
+    let _urlParams: any = {};
     if (typeof filter !== 'undefined' && filter !== null) _urlParams.filter = filter;
     let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
@@ -498,17 +498,17 @@ export class LoopbackUserApi extends BaseLoopBackApi {
    * </em>
    */
   public createRoleMappings(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string   = "POST";
-    let _url: string      = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/LoopbackUsers/:id/roleMappings";
+    let _method: string = "POST";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/LoopbackUsers/:id/roleMappings";
     let _routeParams: any = {
       id: id
     };
-    let _postBody: any    = {
+    let _postBody: any = {
       data: data
     };
-    let _urlParams: any   = {};
-    let result            = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -524,15 +524,15 @@ export class LoopbackUserApi extends BaseLoopBackApi {
    * This method returns no data.
    */
   public deleteRoleMappings(id: any, customHeaders?: Function): Observable<any> {
-    let _method: string   = "DELETE";
-    let _url: string      = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/LoopbackUsers/:id/roleMappings";
+    let _method: string = "DELETE";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/LoopbackUsers/:id/roleMappings";
     let _routeParams: any = {
       id: id
     };
-    let _postBody: any    = {};
-    let _urlParams: any   = {};
-    let result            = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -552,14 +552,14 @@ export class LoopbackUserApi extends BaseLoopBackApi {
    *  - `count` – `{number}` - 
    */
   public countRoleMappings(id: any, where: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string   = "GET";
-    let _url: string      = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/LoopbackUsers/:id/roleMappings/count";
+    let _method: string = "GET";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/LoopbackUsers/:id/roleMappings/count";
     let _routeParams: any = {
       id: id
     };
-    let _postBody: any    = {};
-    let _urlParams: any   = {};
+    let _postBody: any = {};
+    let _urlParams: any = {};
     if (typeof where !== 'undefined' && where !== null) _urlParams.where = where;
     let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
@@ -582,15 +582,15 @@ export class LoopbackUserApi extends BaseLoopBackApi {
    * </em>
    */
   public patchOrCreate(data: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string   = "PATCH";
-    let _url: string      = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/LoopbackUsers";
+    let _method: string = "PATCH";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/LoopbackUsers";
     let _routeParams: any = {};
-    let _postBody: any    = {
+    let _postBody: any = {
       data: data
     };
-    let _urlParams: any   = {};
-    let result            = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -613,17 +613,17 @@ export class LoopbackUserApi extends BaseLoopBackApi {
    * </em>
    */
   public patchAttributes(id: any, data: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string   = "PATCH";
-    let _url: string      = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/LoopbackUsers/:id";
+    let _method: string = "PATCH";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/LoopbackUsers/:id";
     let _routeParams: any = {
       id: id
     };
-    let _postBody: any    = {
+    let _postBody: any = {
       data: data
     };
-    let _urlParams: any   = {};
-    let result            = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -653,25 +653,27 @@ export class LoopbackUserApi extends BaseLoopBackApi {
    *
    */
   public login(credentials: any, include: any = 'user', rememberMe: boolean = true, customHeaders?: Function): Observable<any> {
-    let _method: string   = "POST";
-    let _url: string      = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/LoopbackUsers/login";
+    let _method: string = "POST";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/LoopbackUsers/login";
     let _routeParams: any = {};
-    let _postBody: any    = {
+    let _postBody: any = {
       credentials: credentials
     };
-    let _urlParams: any   = {};
+    let _urlParams: any = {};
     if (typeof include !== 'undefined' && include !== null) _urlParams.include = include;
     let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders)
-      .map(
+      .pipe(
+        map(
         (response: any) => {
-          response.ttl        = parseInt(response.ttl);
+          response.ttl = parseInt(response.ttl);
           response.rememberMe = rememberMe;
           this.auth.setToken(response);
           return response;
         }
+      )
       );
-    return result;
+      return result;
       
   }
 
@@ -689,13 +691,13 @@ export class LoopbackUserApi extends BaseLoopBackApi {
    * This method returns no data.
    */
   public logout(customHeaders?: Function): Observable<any> {
-    let _method: string     = "POST";
-    let _url: string        = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/LoopbackUsers/logout";
-    let _routeParams: any   = {};
-    let _postBody: any      = {};
-    let _urlParams: any     = {};
-    _urlParams.access_token = this.auth.getAccessTokenId();
+    let _method: string = "POST";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/LoopbackUsers/logout";
+    let _routeParams: any = {};
+    let _postBody: any = {};
+    let _urlParams: any = {};
+       _urlParams.access_token = this.auth.getAccessTokenId();
     this.auth.clear(); 
     let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
@@ -717,15 +719,15 @@ export class LoopbackUserApi extends BaseLoopBackApi {
    * This method returns no data.
    */
   public verify(id: any, customHeaders?: Function): Observable<any> {
-    let _method: string   = "POST";
-    let _url: string      = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/LoopbackUsers/:id/verify";
+    let _method: string = "POST";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/LoopbackUsers/:id/verify";
     let _routeParams: any = {
       id: id
     };
-    let _postBody: any    = {};
-    let _urlParams: any   = {};
-    let result            = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    let _postBody: any = {};
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -745,12 +747,12 @@ export class LoopbackUserApi extends BaseLoopBackApi {
    * This method returns no data.
    */
   public confirm(uid: any, token: any, redirect: any = {}, customHeaders?: Function): Observable<any> {
-    let _method: string   = "GET";
-    let _url: string      = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/LoopbackUsers/confirm";
+    let _method: string = "GET";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/LoopbackUsers/confirm";
     let _routeParams: any = {};
-    let _postBody: any    = {};
-    let _urlParams: any   = {};
+    let _postBody: any = {};
+    let _urlParams: any = {};
     if (typeof uid !== 'undefined' && uid !== null) _urlParams.uid = uid;
     if (typeof token !== 'undefined' && token !== null) _urlParams.token = token;
     if (typeof redirect !== 'undefined' && redirect !== null) _urlParams.redirect = redirect;
@@ -772,15 +774,15 @@ export class LoopbackUserApi extends BaseLoopBackApi {
    * This method returns no data.
    */
   public resetPassword(options: any, customHeaders?: Function): Observable<any> {
-    let _method: string   = "POST";
-    let _url: string      = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/LoopbackUsers/reset";
+    let _method: string = "POST";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/LoopbackUsers/reset";
     let _routeParams: any = {};
-    let _postBody: any    = {
+    let _postBody: any = {
       options: options
     };
-    let _urlParams: any   = {};
-    let result            = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -800,18 +802,18 @@ export class LoopbackUserApi extends BaseLoopBackApi {
    * This method returns no data.
    */
   public changePassword(oldPassword: any, newPassword: any, customHeaders?: Function): Observable<any> {
-    let _method: string   = "POST";
-    let _url: string      = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/LoopbackUsers/change-password";
+    let _method: string = "POST";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/LoopbackUsers/change-password";
     let _routeParams: any = {};
-    let _postBody: any    = {
+    let _postBody: any = {
       data: {
         oldPassword: oldPassword,
         newPassword: newPassword
       }
     };
-    let _urlParams: any   = {};
-    let result            = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -829,17 +831,17 @@ export class LoopbackUserApi extends BaseLoopBackApi {
    * This method returns no data.
    */
   public setPassword(newPassword: any, customHeaders?: Function): Observable<any> {
-    let _method: string   = "POST";
-    let _url: string      = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/LoopbackUsers/reset-password";
+    let _method: string = "POST";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/LoopbackUsers/reset-password";
     let _routeParams: any = {};
-    let _postBody: any    = {
+    let _postBody: any = {
       data: {
         newPassword: newPassword
       }
     };
-    let _urlParams: any   = {};
-    let result            = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -862,17 +864,17 @@ export class LoopbackUserApi extends BaseLoopBackApi {
    * </em>
    */
   public createManyComposerParticipant(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
-    let _method: string   = "POST";
-    let _url: string      = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/LoopbackUsers/:id/composerParticipant";
+    let _method: string = "POST";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/LoopbackUsers/:id/composerParticipant";
     let _routeParams: any = {
       id: id
     };
-    let _postBody: any    = {
+    let _postBody: any = {
       data: data
     };
-    let _urlParams: any   = {};
-    let result            = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -895,17 +897,17 @@ export class LoopbackUserApi extends BaseLoopBackApi {
    * </em>
    */
   public createManyAccessTokens(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
-    let _method: string   = "POST";
-    let _url: string      = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/LoopbackUsers/:id/accessTokens";
+    let _method: string = "POST";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/LoopbackUsers/:id/accessTokens";
     let _routeParams: any = {
       id: id
     };
-    let _postBody: any    = {
+    let _postBody: any = {
       data: data
     };
-    let _urlParams: any   = {};
-    let result            = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
 
@@ -928,17 +930,17 @@ export class LoopbackUserApi extends BaseLoopBackApi {
    * </em>
    */
   public createManyRoleMappings(id: any, data: any[] = [], customHeaders?: Function): Observable<any> {
-    let _method: string   = "POST";
-    let _url: string      = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
-      "/LoopbackUsers/:id/roleMappings";
+    let _method: string = "POST";
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() +
+    "/LoopbackUsers/:id/roleMappings";
     let _routeParams: any = {
       id: id
     };
-    let _postBody: any    = {
+    let _postBody: any = {
       data: data
     };
-    let _urlParams: any   = {};
-    let result            = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
+    let _urlParams: any = {};
+    let result = this.request(_method, _url, _routeParams, _urlParams, _postBody, null, customHeaders);
     return result;
   }
   /**
@@ -957,13 +959,13 @@ export class LoopbackUserApi extends BaseLoopBackApi {
    */
   public getCurrent(filter: LoopBackFilter = {}): Observable<any> {
     let _method: string = "GET";
-    let _url: string    = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() + "/LoopbackUsers" + "/:id";
-    let id: any         = this.auth.getCurrentUserId();
+    let _url: string = LoopBackConfig.getPath() + "/" + LoopBackConfig.getApiVersion() + "/LoopbackUsers" + "/:id";
+    let id: any = this.auth.getCurrentUserId();
     if (id == null)
-      id = '__anonymous__';
-    let _routeParams: any = {id: id};
-    let _urlParams: any   = {};
-    let _postBody: any    = {};
+    id = '__anonymous__';
+    let _routeParams: any = { id: id };
+    let _urlParams: any = {};
+    let _postBody: any = {};
     if (filter) _urlParams.filter = filter;
     return this.request(_method, _url, _routeParams, _urlParams, _postBody);
   }

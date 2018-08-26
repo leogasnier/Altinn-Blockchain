@@ -16,7 +16,7 @@
 * ============================================================================
 * import { NgModule }       from '@angular/core';
 * import { BrowserModule }  from '@angular/platform-browser';
-* // App Root
+* // App Root 
 * import { AppComponent }   from './app.component';
 * // Feature Modules
 * import { SDK[Browser|Node|Native]Module } from './shared/sdk/sdk.module';
@@ -34,19 +34,21 @@
 * export class AppModule { }
 *
 **/
-import { JSONSearchParams } from './services/core/search.params';
 import { ErrorHandler } from './services/core/error.service';
 import { LoopBackAuth } from './services/core/auth.service';
 import { LoggerService } from './services/custom/logger.service';
 import { SDKModels } from './services/custom/SDKModels';
 import { InternalStorage, SDKStorage } from './storage/storage.swaps';
-import {HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CookieBrowser } from './storage/cookie.browser';
 import { StorageBrowser } from './storage/storage.browser';
 import { UserApi } from './services/custom/User';
 import { LoopbackUserApi } from './services/custom/LoopbackUser';
+import { AltinnParticipantApi } from './services/custom/AltinnParticipant';
+import { RegistryOfShareHoldersApi } from './services/custom/RegistryOfShareHolders';
+import { StockApi } from './services/custom/Stock';
 import { AssetApi } from './services/custom/Asset';
 /**
 * @module SDKBrowserModule
@@ -75,10 +77,12 @@ export class SDKBrowserModule {
       providers : [
         LoopBackAuth,
         LoggerService,
-        JSONSearchParams,
         SDKModels,
         UserApi,
         LoopbackUserApi,
+        AltinnParticipantApi,
+        RegistryOfShareHoldersApi,
+        StockApi,
         AssetApi,
         internalStorageProvider,
         { provide: SDKStorage, useClass: StorageBrowser }

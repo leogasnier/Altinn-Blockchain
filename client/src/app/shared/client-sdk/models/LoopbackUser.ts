@@ -50,45 +50,45 @@ export class LoopbackUser implements LoopbackUserInterface {
     return "LoopbackUser";
   }
   /**
-   * @method factory
-   * @author Jonathan Casarrubias
-   * @license MIT
-   * This method creates an instance of LoopbackUser for dynamic purposes.
-   **/
-  public static factory(data: LoopbackUserInterface): LoopbackUser {
+  * @method factory
+  * @author Jonathan Casarrubias
+  * @license MIT
+  * This method creates an instance of LoopbackUser for dynamic purposes.
+  **/
+  public static factory(data: LoopbackUserInterface): LoopbackUser{
     return new LoopbackUser(data);
   }
   /**
-   * @method getModelDefinition
-   * @author Julien Ledun
-   * @license MIT
-   * This method returns an object that represents some of the model
-   * definitions.
-   **/
+  * @method getModelDefinition
+  * @author Julien Ledun
+  * @license MIT
+  * This method returns an object that represents some of the model
+  * definitions.
+  **/
   public static getModelDefinition() {
     return {
-      name:       'LoopbackUser',
-      plural:     'LoopbackUsers',
-      path:       'LoopbackUsers',
-      idName:     'ID',
+      name: 'LoopbackUser',
+      plural: 'LoopbackUsers',
+      path: 'LoopbackUsers',
+      idName: 'ID',
       properties: {
-        "ID":               {
+        "ID": {
           name: 'ID',
           type: 'string'
         },
-        "firstName":        {
+        "firstName": {
           name: 'firstName',
           type: 'string'
         },
-        "lastName":         {
+        "lastName": {
           name: 'lastName',
           type: 'string'
         },
-        "companyId":        {
+        "companyId": {
           name: 'companyId',
           type: 'string'
         },
-        "phone":            {
+        "phone": {
           name: 'phone',
           type: 'string'
         },
@@ -96,63 +96,63 @@ export class LoopbackUser implements LoopbackUserInterface {
           name: 'participantClass',
           type: 'string'
         },
-        "roles":            {
+        "roles": {
           name: 'roles',
           type: 'Array&lt;any&gt;'
         },
-        "active":           {
+        "active": {
           name: 'active',
           type: 'boolean'
         },
-        "realm":            {
+        "realm": {
           name: 'realm',
           type: 'string'
         },
-        "username":         {
+        "username": {
           name: 'username',
           type: 'string'
         },
-        "email":            {
+        "email": {
           name: 'email',
           type: 'string'
         },
-        "emailVerified":    {
+        "emailVerified": {
           name: 'emailVerified',
           type: 'boolean'
         },
-        "_rev":             {
+        "_rev": {
           name: '_rev',
           type: 'string'
         },
-        "password":         {
+        "password": {
           name: 'password',
           type: 'string'
         },
       },
-      relations:  {
+      relations: {
         composerParticipant: {
-          name:         'composerParticipant',
-          type:         'any',
-          model:        '',
+          name: 'composerParticipant',
+          type: 'any',
+          model: '',
           relationType: 'hasOne',
-          keyFrom:      'ID',
-          keyTo:        'ID'
+                  keyFrom: 'ID',
+          keyTo: 'ID'
         },
-        accessTokens:        {
-          name:         'accessTokens',
-          type:         'any[]',
-          model:        '',
+        accessTokens: {
+          name: 'accessTokens',
+          type: 'any[]',
+          model: '',
           relationType: 'hasMany',
-          keyFrom:      'ID',
-          keyTo:        'userId'
+                  keyFrom: 'ID',
+          keyTo: 'userId'
         },
-        roleMappings:        {
-          name:         'roleMappings',
-          type:         'any[]',
-          model:        '',
+        roleMappings: {
+          name: 'roleMappings',
+          type: 'any[]',
+          model: '',
           relationType: 'hasMany',
-          keyFrom:      'ID',
-          keyTo:        'principalId'
+                  keyFrom: 'ID',
+          keyTo: 'principalId'
         },
       }
     }

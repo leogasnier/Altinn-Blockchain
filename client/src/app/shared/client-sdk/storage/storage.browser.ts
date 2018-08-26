@@ -1,14 +1,13 @@
 /* tslint:disable */
-import {Injectable} from '@angular/core';
-
+import { Injectable } from '@angular/core';
 /**
- * @author Jonathan Casarrubias <twitter:@johncasarrubias> <github:@mean-expert-official>
- * @module StorageBrowser
- * @license MIT
- * @description
- * This module handle localStorage, it will be provided using DI Swapping according the
- * SDK Socket Driver Available currently supporting Angular 2 for web and NativeScript 2.
- **/
+* @author Jonathan Casarrubias <twitter:@johncasarrubias> <github:@mean-expert-official>
+* @module StorageBrowser
+* @license MIT
+* @description
+* This module handle localStorage, it will be provided using DI Swapping according the
+* SDK Socket Driver Available currently supporting Angular 2 for web and NativeScript 2.
+**/
 @Injectable()
 export class StorageBrowser {
   /**
@@ -60,9 +59,9 @@ export class StorageBrowser {
    **/
   private parse(value: any) {
     try {
-      return JSON.parse(value);
+        return JSON.parse(value);
     } catch (e) {
-      return value;
+        return value;
     }
   }
 }

@@ -32,37 +32,37 @@ export class User implements UserInterface {
     return "User";
   }
   /**
-   * @method factory
-   * @author Jonathan Casarrubias
-   * @license MIT
-   * This method creates an instance of User for dynamic purposes.
-   **/
-  public static factory(data: UserInterface): User {
+  * @method factory
+  * @author Jonathan Casarrubias
+  * @license MIT
+  * This method creates an instance of User for dynamic purposes.
+  **/
+  public static factory(data: UserInterface): User{
     return new User(data);
   }
   /**
-   * @method getModelDefinition
-   * @author Julien Ledun
-   * @license MIT
-   * This method returns an object that represents some of the model
-   * definitions.
-   **/
+  * @method getModelDefinition
+  * @author Julien Ledun
+  * @license MIT
+  * This method returns an object that represents some of the model
+  * definitions.
+  **/
   public static getModelDefinition() {
     return {
-      name:       'User',
-      plural:     'Users',
-      path:       'Users',
-      idName:     'id',
+      name: 'User',
+      plural: 'Users',
+      path: 'Users',
+      idName: 'id',
       properties: {
-        "realm":         {
+        "realm": {
           name: 'realm',
           type: 'string'
         },
-        "username":      {
+        "username": {
           name: 'username',
           type: 'string'
         },
-        "email":         {
+        "email": {
           name: 'email',
           type: 'string'
         },
@@ -70,27 +70,27 @@ export class User implements UserInterface {
           name: 'emailVerified',
           type: 'boolean'
         },
-        "id":            {
+        "id": {
           name: 'id',
           type: 'string'
         },
-        "_rev":          {
+        "_rev": {
           name: '_rev',
           type: 'string'
         },
-        "password":      {
+        "password": {
           name: 'password',
           type: 'string'
         },
       },
-      relations:  {
+      relations: {
         accessTokens: {
-          name:         'accessTokens',
-          type:         'any[]',
-          model:        '',
+          name: 'accessTokens',
+          type: 'any[]',
+          model: '',
           relationType: 'hasMany',
-          keyFrom:      'id',
-          keyTo:        'userId'
+                  keyFrom: 'id',
+          keyTo: 'userId'
         },
       }
     }

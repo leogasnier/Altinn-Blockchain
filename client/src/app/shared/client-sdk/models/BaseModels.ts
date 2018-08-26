@@ -40,36 +40,36 @@ export class AccessToken implements AccessTokenInterface {
     return "AccessToken";
   }
   /**
-   * @method factory
-   * @author Jonathan Casarrubias
-   * @license MIT
-   * This method creates an instance of AccessToken for dynamic purposes.
-   **/
-  public static factory(data: AccessTokenInterface): AccessToken {
+  * @method factory
+  * @author Jonathan Casarrubias
+  * @license MIT
+  * This method creates an instance of AccessToken for dynamic purposes.
+  **/
+  public static factory(data: AccessTokenInterface): AccessToken{
     return new AccessToken(data);
   }  
   /**
-   * @method getModelDefinition
-   * @author Julien Ledun
-   * @license MIT
-   * This method returns an object that represents some of the model
-   * definitions.
-   **/
+  * @method getModelDefinition
+  * @author Julien Ledun
+  * @license MIT
+  * This method returns an object that represents some of the model
+  * definitions.
+  **/
   public static getModelDefinition() {
     return {
-      name:       'AccessToken',
-      plural:     'AccessTokens',
+      name: 'AccessToken',
+      plural: 'AccessTokens',
       properties: {
-        "id":      {
+        "id": {
           name: 'id',
           type: 'string'
         },
-        "ttl":     {
-          name:    'ttl',
-          type:    'number',
+        "ttl": {
+          name: 'ttl',
+          type: 'number',
           default: 1209600
         },
-        "scopes":  {
+        "scopes": {
           name: 'scopes',
           type: '["string"]'
         },
@@ -77,15 +77,15 @@ export class AccessToken implements AccessTokenInterface {
           name: 'created',
           type: 'Date'
         },
-        "userId":  {
+        "userId": {
           name: 'userId',
           type: 'string'
         },
       },
-      relations:  {
+      relations: {
         user: {
-          name:  'user',
-          type:  'User',
+          name: 'user',
+          type: 'User',
           model: 'User'
         },
       }
@@ -94,33 +94,33 @@ export class AccessToken implements AccessTokenInterface {
 }
 
 export class SDKToken implements AccessTokenInterface {
-  id: any             = null;
-  ttl: number         = null;
-  scopes: any         = null;
-  created: any        = null;
-  userId: any         = null;
-  user: any           = null;
+  id: any = null;
+  ttl: number = null;
+  scopes: any = null;
+  created: any = null;
+  userId: any = null;
+  user: any = null;
   rememberMe: boolean = null;
   constructor(data?: AccessTokenInterface) {
     Object.assign(this, data);
   }
 }
 /**
- * This GeoPoint represents both, LoopBack and MongoDB GeoPoint
- **/
-export interface GeoPoint {
-  lat?: number;
-  lng?: number;
-  type?: string;
-  coordinates?: number[];
+* This GeoPoint represents both, LoopBack and MongoDB GeoPoint
+**/
+export interface GeoPoint  {
+    lat?: number;
+    lng?: number;
+    type?: string;
+    coordinates?: number[];
 }
 
 export interface StatFilter {
-  range: string,
-  custom?: {
-    start: string,
-    end: string
-  },
-  where?: {},
-  groupBy?: string
+    range: string,
+    custom?: {
+      start: string,
+      end: string
+    },
+    where?: {},
+    groupBy?: string
 }

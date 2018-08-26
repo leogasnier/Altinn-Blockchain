@@ -1,18 +1,14 @@
 /* tslint:disable */
-import {Injectable} from '@angular/core';
-
-export interface CookieInterface {
-  [key: string]: any
-}
-
+import { Injectable } from '@angular/core';
+export interface CookieInterface { [key: string]: any }
 /**
- * @author Jonathan Casarrubias <twitter:@johncasarrubias> <github:@mean-expert-official>
- * @module CookieBrowser
- * @license MIT
- * @description
- * This module handle cookies, it will be provided using DI Swapping according the
- * SDK Socket Driver Available currently supporting Angular 2 for web and NativeScript 2.
- **/
+* @author Jonathan Casarrubias <twitter:@johncasarrubias> <github:@mean-expert-official>
+* @module CookieBrowser
+* @license MIT
+* @description
+* This module handle cookies, it will be provided using DI Swapping according the
+* SDK Socket Driver Available currently supporting Angular 2 for web and NativeScript 2.
+**/
 @Injectable()
 export class CookieBrowser {
   /**
@@ -29,8 +25,8 @@ export class CookieBrowser {
   get(key: string): any {
     if (!this.cookies[key]) {
       let cookie = window.document
-        .cookie.split('; ')
-        .filter((item: any) => item.split('=')[0] === key).pop();
+                         .cookie.split('; ')
+                         .filter((item: any) => item.split('=')[0] === key).pop();
       if (!cookie) {
         return null;
       }
@@ -50,8 +46,8 @@ export class CookieBrowser {
    * The setter will return any type of data persisted in cookies.
    **/
   set(key: string, value: any, expires?: Date): void {
-    this.cookies[key]      = value;
-    let cookie             = `${key}=${value}; path=/${expires ? `; expires=${ expires.toUTCString() }` : ''}`;
+    this.cookies[key] = value;
+    let cookie = `${key}=${encodeURI(value)}; path=/${expires ? `; expires=${ expires.toUTCString() }` : ''}`;
     window.document.cookie = cookie;
   }
   /**
@@ -75,9 +71,9 @@ export class CookieBrowser {
    **/
   private parse(value: any) {
     try {
-      return JSON.parse(value);
+        return JSON.parse(decodeURI(value));
     } catch (e) {
-      return value;
+        return value;
     }
   }
 }

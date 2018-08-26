@@ -1,24 +1,23 @@
 /* tslint:disable */
 declare var Object: any;
-import {Injectable, Inject} from '@angular/core';
-import {InternalStorage} from '../../storage/storage.swaps';
-import {SDKToken} from '../../models/BaseModels';
-
+import { Injectable, Inject } from '@angular/core';
+import { InternalStorage } from '../../storage/storage.swaps';
+import { SDKToken } from '../../models/BaseModels';
 /**
- * @author Jonathan Casarrubias <twitter:@johncasarrubias> <github:@mean-expert-official>
- * @module SocketConnection
- * @license MIT
- * @description
- * This module handle socket connections and return singleton instances for each
- * connection, it will use the SDK Socket Driver Available currently supporting
- * Angular 2 for web, NativeScript 2 and Angular Universal.
- **/
+* @author Jonathan Casarrubias <twitter:@johncasarrubias> <github:@mean-expert-official>
+* @module SocketConnection
+* @license MIT
+* @description
+* This module handle socket connections and return singleton instances for each
+* connection, it will use the SDK Socket Driver Available currently supporting
+* Angular 2 for web, NativeScript 2 and Angular Universal.
+**/
 @Injectable()
 export class LoopBackAuth {
   /**
    * @type {SDKToken}
    **/
-  private token: SDKToken  = new SDKToken();
+  private token: SDKToken = new SDKToken();
   /**
    * @type {string}
    **/
@@ -30,11 +29,11 @@ export class LoopBackAuth {
    * The constructor will initialize the token loading data from storage
    **/
   constructor(@Inject(InternalStorage) protected storage: InternalStorage) {
-    this.token.id         = this.load('id');
-    this.token.user       = this.load('user');
-    this.token.userId     = this.load('userId');
-    this.token.created    = this.load('created');
-    this.token.ttl        = this.load('ttl');
+    this.token.id = this.load('id');
+    this.token.user = this.load('user');
+    this.token.userId = this.load('userId');
+    this.token.created = this.load('created');
+    this.token.ttl = this.load('ttl');
     this.token.rememberMe = this.load('rememberMe');
   }
   /**
@@ -114,15 +113,15 @@ export class LoopBackAuth {
    * But only if rememberMe is enabled.
    **/
   public save(): boolean {
-    let today   = new Date();
-    let expires = new Date(today.getTime() + (this.token.ttl * 1000));
-    this.persist('id', this.token.id, expires);
-    this.persist('user', this.token.user, expires);
-    this.persist('userId', this.token.userId, expires);
-    this.persist('created', this.token.created, expires);
-    this.persist('ttl', this.token.ttl, expires);
-    this.persist('rememberMe', this.token.rememberMe, expires);
-    return true;
+      let today = new Date();
+      let expires = new Date(today.getTime() + (this.token.ttl * 1000));
+      this.persist('id', this.token.id, expires);
+      this.persist('user', this.token.user, expires);
+      this.persist('userId', this.token.userId, expires);
+      this.persist('created', this.token.created, expires);
+      this.persist('ttl', this.token.ttl, expires);
+      this.persist('rememberMe', this.token.rememberMe, expires);
+      return true;
   };
   /**
    * @method load
@@ -155,7 +154,7 @@ export class LoopBackAuth {
       this.storage.set(
         `${this.prefix}${prop}`,
         (typeof value === 'object') ? JSON.stringify(value) : value,
-        this.token.rememberMe ? expires : null
+        this.token.rememberMe?expires:null
       );
     }
     catch (err) {

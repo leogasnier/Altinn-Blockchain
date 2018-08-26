@@ -1,32 +1,32 @@
 /* tslint:disable */
 
 declare var Object: any;
-export interface AssetInterface {
-  "assetID": string;
+export interface StockInterface {
+  "id"?: string;
   "_rev"?: string;
 }
 
-export class Asset implements AssetInterface {
-  "assetID": string;
+export class Stock implements StockInterface {
+  "id": string;
   "_rev": string;
-  constructor(data?: AssetInterface) {
+  constructor(data?: StockInterface) {
     Object.assign(this, data);
   }
   /**
    * The name of the model represented by this $resource,
-   * i.e. `Asset`.
+   * i.e. `Stock`.
    */
   public static getModelName() {
-    return "Asset";
+    return "Stock";
   }
   /**
   * @method factory
   * @author Jonathan Casarrubias
   * @license MIT
-  * This method creates an instance of Asset for dynamic purposes.
+  * This method creates an instance of Stock for dynamic purposes.
   **/
-  public static factory(data: AssetInterface): Asset{
-    return new Asset(data);
+  public static factory(data: StockInterface): Stock{
+    return new Stock(data);
   }
   /**
   * @method getModelDefinition
@@ -37,13 +37,13 @@ export class Asset implements AssetInterface {
   **/
   public static getModelDefinition() {
     return {
-      name: 'Asset',
-      plural: 'Assets',
-      path: 'Assets',
+      name: 'Stock',
+      plural: 'Stocks',
+      path: '/stocks',
       idName: 'id',
       properties: {
-        "assetID": {
-          name: 'assetID',
+        "id": {
+          name: 'id',
           type: 'string'
         },
         "_rev": {
