@@ -2,6 +2,7 @@ import * as debug from 'debug';
 import {DefaultConfig} from './default.config';
 import {DevelopmentConfig} from './development.config';
 import {ProductionConfig} from './production.config';
+import {StarterPlanConfig} from './starterPlan.config';
 import {Settings} from './settings.interface';
 
 export class Config {
@@ -45,6 +46,9 @@ export class Config {
         break;
       case 'production':
         envSettings = ProductionConfig.settings;
+        break;
+      case 'starterplan':
+        envSettings = StarterPlanConfig.settings;
         break;
       default:
         debug(this.NAMESPACE)(`WARNING: no environment settings for ${process.env.NODE_ENV}.`);

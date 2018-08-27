@@ -1,0 +1,7 @@
+applications:
+- name: loopbackserver
+  memory: 1G
+  disk_quota: 1G
+  env:
+    OPTIMIZE_MEMORY: true
+    NODE_ENV: starterplan

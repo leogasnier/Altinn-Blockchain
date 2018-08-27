@@ -14,18 +14,18 @@
     ]
   },
   "User":                   {
-    "dataSource": "private-db"
+    "dataSource": "db"
   },
   "LoopbackUser":           {
     "public":     true,
-    "dataSource": "private-db"
+    "dataSource": "db"
   },
   "AltinnParticipant":      {
     "public":     true,
-    "dataSource": "private-db"
+    "dataSource": "db"
   },
   "ComposerParticipant":    {
-    "dataSource": "private-db",
+    "dataSource": "db",
     "public":     false,
     "options":    {
       "strictObjectIDCoercion": true
@@ -33,46 +33,46 @@
   },
   "RegistryOfShareHolders": {
     "public":     true,
-    "dataSource": "private-db"
+    "dataSource": "db"
   },
   "Stock":                  {
     "public":     true,
-    "dataSource": "private-db"
+    "dataSource": "db"
   },
   "AccessToken":            {
-    "dataSource": "private-db",
+    "dataSource": "db",
     "public":     false
   },
   "ACL":                    {
-    "dataSource": "private-db",
+    "dataSource": "db",
     "public":     false
   },
   "RoleMapping":            {
-    "dataSource": "private-db",
+    "dataSource": "db",
     "public":     false,
     "options":    {
       "strictObjectIDCoercion": true
     }
   },
   "Role":                   {
-    "dataSource": "private-db",
+    "dataSource": "db",
     "public":     false,
     "options":    {
       "strictObjectIDCoercion": true
     }
   },
   "Asset":                  {
-    "dataSource": "private-db"
+    "dataSource": "db"
   },
   "UserRoleMapping":        {
-    "dataSource": "private-db",
+    "dataSource": "db",
     "public":     false,
     "options":    {
       "strictObjectIDCoercion": true
     }
   },
   "UserRole":               {
-    "dataSource": "private-db",
+    "dataSource": "db",
     "public":     false
   }
 }

@@ -6,16 +6,16 @@ const dataSources = {
   'db': {
     'name': 'db',
     'connector': 'memory',
-  },
-  'private-db': {
-    'name': 'private-db',
-    'connector': 'couch',
-    'db': config.couchdb.database,
-    'host': config.couchdb.host,
-    'url': config.couchdb.host + ':' + config.couchdb.port,
-    'port': config.couchdb.port,
-    'protocol': 'http',
-  },
+  }
+  // 'private-db': {
+  //   'name': 'private-db',
+  //   'connector': 'couch',
+  //   'db': config.couchdb.database,
+  //   'host': config.couchdb.host,
+  //   'url': config.couchdb.host + ':' + config.couchdb.port,
+  //   'port': config.couchdb.port,
+  //   'protocol': 'http',
+  // },
 };
 
 module.exports = dataSources;
