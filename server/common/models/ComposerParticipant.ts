@@ -2,7 +2,7 @@ import {Model} from '@mean-expert/model';
 import {ParticipantHandler} from '../../domain/composer/participants/ParticipantHandler';
 import {Container} from 'typedi';
 import {ParticipantTypeMap} from '../../domain/composer/participants/ParticipantTypeMap';
-import {log} from "util";
+import {Config} from '../../domain/config';
 
 @Model()
 class ComposerParticipant {
@@ -20,7 +20,7 @@ class ComposerParticipant {
         ParticipantTypeMap.getParticipantTypeByParticipantClass(ctx.instance.participantClass)
       );
 
-      ctx.instance.cardName = ctx.instance.ID + '@hlfv1';
+      ctx.instance.cardName = ctx.instance.ID + '@' + Config.settings.composer.channelName;
     } catch (error) {
       return error;
     }

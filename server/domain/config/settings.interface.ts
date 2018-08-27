@@ -22,7 +22,7 @@ export interface Settings {
   port?: number | string;
   winston?: LoggerOptions;
   serverSecret: string;
-  privateDB: {
+  privateDB?: {
     host: string,
     port: string
   };
