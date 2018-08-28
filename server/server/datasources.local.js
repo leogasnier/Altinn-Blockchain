@@ -6,6 +6,7 @@ const dataSources = {
   'db': {
     'name': 'db',
     'connector': 'memory',
+    'file':'./db.json'
   }
   // 'private-db': {
   //   'name': 'private-db',
