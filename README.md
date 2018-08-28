@@ -7,11 +7,11 @@
 - npm 5.xx (usually included in node package)
 
 ## Getting started  
-Get the baseimage and other images and install the node modules in local:
+Navigate from the terminal to your project directory. Get the baseimage and other images and install the node modules in local:
 ```bash
 npm install
 ```
-Navigate from the terminal to your project directory. Cleanup the running containers first.
+Cleanup the running containers and deleted files from previous run. 
 ```bash
 ./clean.sh
 ```
