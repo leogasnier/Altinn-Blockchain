@@ -1,12 +1,33 @@
-# Generic-Network on Blockchain
+# Shareholderbook on Blockchain
 
+## Trying out the Hyperledger Shareholderbook PoC hosted in Azure
+We have deployed the PoC to Azure. 
+So if you prefer, you can first checkout the functionlity there.
+
+The different components are reachable on this uri's:
+Launch composer-rest-server explorer
+http://23.102.36.231:3000/explorer/
+
+Launch composer-playground
+http://23.102.36.231:8090/
+
+Launch loopback-server
+http://23.102.36.231:8080/explorer/
+
+Launch generic client
+http://23.102.36.231:4200/
+
+OR... maybe the most convinient way will be to use a client like Postman to access the BC PoC through the loopback server.
+In the Postman directory of the repos you will find the necessary environment and collection files so that you can configure and test the shareholderbook via Postman.
+
+## Getting the Hyperledger PoC up and running on your own
 ## Prerequisites
 - Mac or Linux  
 - Docker and docker-compose (https://www.docker.com/)  
 - node 6.xx
 - npm 5.xx (usually included in node package)
 
-## Getting started  
+## Installation and test uri's 
 Navigate from the terminal to your project directory. Get the baseimage and other images and install the node modules in local:
 ```bash
 npm install
@@ -39,5 +60,3 @@ Stop the application
 ```bash
 ./clean.sh
 ```
-## Testing using Postman
-In the Postman directory you will find the necessary collection and environment file to test against Aksjeeierboken (Shareholderbook).
