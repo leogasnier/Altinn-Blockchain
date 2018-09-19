@@ -18,7 +18,8 @@ Launch generic client
 http://23.102.36.231:4200/
 
 OR... maybe the most convinient way will be to use a client like Postman to access the BC PoC through the loopback server.
-In the Postman directory of the repos you will find the necessary environment and collection files so that you can configure and test the shareholderbook via Postman.
+In the Postman folder of the repos you will find the necessary environment and collection files so that you can configure Postman to make requests against the blockchain.
+In the documentation folder you will find the user journey file that indicates the preferred sequence of calls/requests to the blockchain.
 
 ## Getting the Hyperledger PoC up and running on your own
 ## Prerequisites
