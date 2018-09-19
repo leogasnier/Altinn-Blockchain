@@ -39,3 +39,5 @@ Stop the application
 ```bash
 ./clean.sh
 ```
+## Testing using Postman
+In the Postman directory you will find the necessary collection and environment file to test against Aksjeeierboken (Shareholderbook).
