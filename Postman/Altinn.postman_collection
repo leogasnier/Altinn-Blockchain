@@ -1,0 +1,1090 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Altinn",
+		"_postman_id": "eb28bd7d-626e-1bc3-fe71-f391ee61ca3d",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login Business Registry",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"businessRegistryTocken\", jsonData.id);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{LoopbackUrl}}/LoopbackUsers/login",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"email\": \"john@businessregistry.com\",\n\"password\": \"passw0rd\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Login Chairman Of The Board Bendik",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"chairmanOfTheBoardBendikToken\", jsonData.id);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{LoopbackUrl}}/LoopbackUsers/login",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"email\": \"bendik@flornes.com\",\n\"password\": \"passw0rd\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Login Chairman Of The Board Lucas",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"chairmanOfTheBoardLucasToken\", jsonData.id);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{LoopbackUrl}}/LoopbackUsers/login",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"email\": \"lucas@korshamn.com\",\n\"password\": \"passw0rd\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Login Stock Owner Katie",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"stockOwnerKatieToken\", jsonData.id);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{LoopbackUrl}}/LoopbackUsers/login",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"email\": \"katie@host.com\",\n\"password\": \"passw0rd\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Login Stock Owner David",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"stockOwnerDavidToken\", jsonData.id);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{LoopbackUrl}}/LoopbackUsers/login",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"email\": \"david@host.com\",\n\"password\": \"passw0rd\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Login Stock Owner Leo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"stockOwnerLeoToken\", jsonData.id);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{LoopbackUrl}}/LoopbackUsers/login",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"email\": \"leo@host.com\",\n\"password\": \"passw0rd\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create Business Registry",
+			"request": {
+				"url": "{{LoopbackUrl}}/LoopbackUsers",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					},
+					{
+						"key": "X-Access-Token",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					},
+					{
+						"key": "access_token",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"ID\":               \"jake\",\n      \"firstName\":        \"Jake\",\n      \"lastName\":         \"Adam\",\n      \"companyId\":        \"974760673\",\n      \"email\":            \"jake@businessregistry.com\",\n      \"password\":         \"passw0rd\",\n      \"participantClass\": \"BusinessRegistry\",\n      \"roles\":            [\n        \"BusinessRegistryRole\"\n      ]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create Chairman Of The Board",
+			"request": {
+				"url": "{{LoopbackUrl}}/LoopbackUsers",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					},
+					{
+						"key": "X-Access-Token",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					},
+					{
+						"key": "access_token",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"ID\":               \"ottem\",\n      \"firstName\":        \"Ottem\",\n      \"lastName\":         \"Markus\",\n      \"companyId\":        \"910623842\",\n      \"email\":            \"ottem@frogner.com\",\n      \"password\":         \"passw0rd\",\n      \"participantClass\": \"ChairmanOfTheBoard\",\n      \"roles\":            [\n        \"ChairmanOfTheBoardRole\"\n      ]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create Company Participant",
+			"request": {
+				"url": "{{LoopbackUrl}}/LoopbackUsers",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					},
+					{
+						"key": "X-Access-Token",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					},
+					{
+						"key": "access_token",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"ID\":               \"companyParticipant2\",\n      \"firstName\":        \"Company2\",\n      \"lastName\":         \"Participant\",\n      \"companyId\":        \"910597019\",\n      \"email\":            \"companyparticipant2@frogner.com\",\n      \"password\":         \"passw0rd\",\n      \"participantClass\": \"Company\",\n      \"roles\":            [\n        \"Company\"\n      ]\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create SampleParticipant",
+			"request": {
+				"url": "{{LoopbackUrl}}/LoopbackUsers",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					},
+					{
+						"key": "X-Access-Token",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					},
+					{
+						"key": "access_token",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"ID\":               \"sampleParticipant2\",\n      \"firstName\":        \"Sample\",\n      \"lastName\":         \"Participant\",\n      \"companyId\":        \"910597019\",\n      \"email\":            \"sampleparticipant2@flornes.com\",\n      \"password\":         \"passw0rd\",\n      \"participantClass\": \"SampleParticipant\",\n      \"roles\":            [\n        \"SampleParticipantRole\"\n      ]\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create StockOwner",
+			"request": {
+				"url": "{{LoopbackUrl}}/LoopbackUsers",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "{{chairmanOfTheBoardLucasToken}}",
+						"description": ""
+					},
+					{
+						"key": "X-Access-Token",
+						"value": "{{chairmanOfTheBoardLucasToken}}",
+						"description": ""
+					},
+					{
+						"key": "access_token",
+						"value": "{{chairmanOfTheBoardLucasToken}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"ID\":                   \"lora\",\n      \"firstName\":            \"Lora\",\n      \"lastName\":             \"David\",\n      \"socialSecurityNumber\": \"657675678\",\n      \"companyId\":            \"Company_A\",\n      \"email\":                \"lora@host.com\",\n      \"password\":             \"passw0rd\",\n      \"participantClass\":     \"StockOwner\",\n      \"roles\":                [\n        \"StockOwnerRole\"\n      ]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create Registry Of ShareHolders FLORNES",
+			"request": {
+				"url": "{{LoopbackUrl}}/registryOfShareHolders/createRegistryOfShareHolders",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					},
+					{
+						"key": "X-Access-Token",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					},
+					{
+						"key": "access_token",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"companyID\": \"910597019\",\n  \"companyName\": \"FLORNES OG BØRSELV AS\",\n  \"chairmanOfTheBoardID\": \"bendik\",\n  \"capital\": 100,\n  \"numberOfStocks\": 5\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create Registry Of ShareHolders KORSHAMN",
+			"request": {
+				"url": "{{LoopbackUrl}}/registryOfShareHolders/createRegistryOfShareHolders",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					},
+					{
+						"key": "X-Access-Token",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					},
+					{
+						"key": "access_token",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"companyID\": \"910597213\",\n  \"companyName\": \"KORSHAMN OG SØRLI\",\n  \"chairmanOfTheBoardID\": \"lucas\",\n  \"capital\": 16,\n  \"numberOfStocks\": 4\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Registries Of ShareHolders",
+			"request": {
+				"url": "{{LoopbackUrl}}/registryOfShareHolders/getAllRegistriesOfShareHolders",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					},
+					{
+						"key": "X-Access-Token",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					},
+					{
+						"key": "access_token",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"ID\":                   \"3333\",\n      \"firstName\":            \"TEst\",\n      \"lastName\":             \"Muller\",\n      \"socialSecurityNumber\": \"123456789\",\n      \"companyId\":            \"123\",\n      \"email\":                \"test@1235.com\",\n      \"password\":             \"passw0rd\",\n      \"participantClass\":     \"ChairmanOfTheBoard\",\n      \"roles\":                [\n        \"ChairmanOfTheBoardRole\"\n      ]\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Distribute Stocks to Stock Owners FLORNES",
+			"request": {
+				"url": "{{LoopbackUrl}}/stocks/distributeStocksToStockOwners",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "{{chairmanOfTheBoardBendikToken}}",
+						"description": ""
+					},
+					{
+						"key": "X-Access-Token",
+						"value": "{{chairmanOfTheBoardBendikToken}}",
+						"description": ""
+					},
+					{
+						"key": "access_token",
+						"value": "{{chairmanOfTheBoardBendikToken}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"companyID\": \"910597019\",\n  \"distribution\": [3,2],\n  \"purchasedValuesOfStocks\": [50,10],\n  \"newStockOwners\": [\"katie\",\"leo\"]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Distribute Stocks to Stock Owners KORSHAMN",
+			"request": {
+				"url": "{{LoopbackUrl}}/stocks/distributeStocksToStockOwners",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "{{chairmanOfTheBoardLucasToken}}",
+						"description": ""
+					},
+					{
+						"key": "X-Access-Token",
+						"value": "{{chairmanOfTheBoardLucasToken}}",
+						"description": ""
+					},
+					{
+						"key": "access_token",
+						"value": "{{chairmanOfTheBoardLucasToken}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"companyID\": \"910597213\",\n  \"distribution\": [2,2],\n  \"purchasedValuesOfStocks\": [50,10],\n  \"newStockOwners\": [\"katie\",\"david\"]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Stocks",
+			"request": {
+				"url": "{{LoopbackUrl}}/stocks/getAllStocks",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					},
+					{
+						"key": "X-Access-Token",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					},
+					{
+						"key": "access_token",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"ID\":                   \"3333\",\n      \"firstName\":            \"TEst\",\n      \"lastName\":             \"Muller\",\n      \"socialSecurityNumber\": \"123456789\",\n      \"companyId\":            \"123\",\n      \"email\":                \"test@1235.com\",\n      \"password\":             \"passw0rd\",\n      \"participantClass\":     \"ChairmanOfTheBoard\",\n      \"roles\":                [\n        \"ChairmanOfTheBoardRole\"\n      ]\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Expand Capital Request FLORNES CHANGEVALUE",
+			"request": {
+				"url": "{{LoopbackUrl}}/stocks/expandCapitalRequest\n",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "{{chairmanOfTheBoardBendikToken}}",
+						"description": ""
+					},
+					{
+						"key": "X-Access-Token",
+						"value": "{{chairmanOfTheBoardBendikToken}}",
+						"description": ""
+					},
+					{
+						"key": "access_token",
+						"value": "{{chairmanOfTheBoardBendikToken}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"increasedAmountOfShareCapital\": 100,\n  \"capitalChange\": \"CHANGEVALUE\",\n  \"shareholderRegistryID\": \"910597019\",\n  \"distribution\": [],\n  \"purchasedValuesOfStocks\": [],\n  \"newStockOwners\": []\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Expand Capital Request FLORNES CHANGEAMOUNT",
+			"request": {
+				"url": "{{LoopbackUrl}}/stocks/expandCapitalRequest\n",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "{{chairmanOfTheBoardBendikToken}}",
+						"description": ""
+					},
+					{
+						"key": "X-Access-Token",
+						"value": "{{chairmanOfTheBoardBendikToken}}",
+						"description": ""
+					},
+					{
+						"key": "access_token",
+						"value": "{{chairmanOfTheBoardBendikToken}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"increasedAmountOfShareCapital\": 120,\n  \"capitalChange\": \"CHANGEAMOUNT\",\n  \"shareholderRegistryID\": \"910597019\",\n  \"distribution\": [2,1],\n  \"purchasedValuesOfStocks\": [33,22],\n  \"newStockOwners\": [\"katie\",\"david\"]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Business Registry",
+			"request": {
+				"url": "{{LoopbackUrl}}/altinnParticipant/getBusinessRegistry/john",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					},
+					{
+						"key": "X-Access-Token",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					},
+					{
+						"key": "access_token",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"ID\":                   \"3333\",\n      \"firstName\":            \"TEst\",\n      \"lastName\":             \"Muller\",\n      \"socialSecurityNumber\": \"123456789\",\n      \"companyId\":            \"123\",\n      \"email\":                \"test@1235.com\",\n      \"password\":             \"passw0rd\",\n      \"participantClass\":     \"ChairmanOfTheBoard\",\n      \"roles\":                [\n        \"ChairmanOfTheBoardRole\"\n      ]\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Chairman Of The Board Bendik",
+			"request": {
+				"url": "{{LoopbackUrl}}/altinnParticipant/getChairmanOfTheBoard/bendik",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					},
+					{
+						"key": "X-Access-Token",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					},
+					{
+						"key": "access_token",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"ID\":                   \"3333\",\n      \"firstName\":            \"TEst\",\n      \"lastName\":             \"Muller\",\n      \"socialSecurityNumber\": \"123456789\",\n      \"companyId\":            \"123\",\n      \"email\":                \"test@1235.com\",\n      \"password\":             \"passw0rd\",\n      \"participantClass\":     \"ChairmanOfTheBoard\",\n      \"roles\":                [\n        \"ChairmanOfTheBoardRole\"\n      ]\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Chairman Of The Board Lucas",
+			"request": {
+				"url": "{{LoopbackUrl}}/altinnParticipant/getChairmanOfTheBoard/lucas",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					},
+					{
+						"key": "X-Access-Token",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					},
+					{
+						"key": "access_token",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"ID\":                   \"3333\",\n      \"firstName\":            \"TEst\",\n      \"lastName\":             \"Muller\",\n      \"socialSecurityNumber\": \"123456789\",\n      \"companyId\":            \"123\",\n      \"email\":                \"test@1235.com\",\n      \"password\":             \"passw0rd\",\n      \"participantClass\":     \"ChairmanOfTheBoard\",\n      \"roles\":                [\n        \"ChairmanOfTheBoardRole\"\n      ]\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Expand Capital",
+			"request": {
+				"url": "{{LoopbackUrl}}/stocks/expandCapital\n",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					},
+					{
+						"key": "X-Access-Token",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					},
+					{
+						"key": "access_token",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"transactionID\": \"5e6a046e462533ba8e4d1402800f9fede94cdd12b33469fe063d5721e3f796c6\",\n  \"response\": \"ACCEPTED\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Purchase Request",
+			"request": {
+				"url": "{{LoopbackUrl}}/stocks/requestPurchase\n",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "{{stockOwnerKatieToken}}",
+						"description": ""
+					},
+					{
+						"key": "X-Access-Token",
+						"value": "{{stockOwnerKatieToken}}",
+						"description": ""
+					},
+					{
+						"key": "access_token",
+						"value": "{{stockOwnerKatieToken}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"bid\": 99,\n  \"quantity\": 2,\n  \"customer\": \"katie\",\n  \"stockOwner\": \"leo\",\n  \"registryOfShareHolders\": \"910597019\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Respond To Purchase Request",
+			"request": {
+				"url": "{{LoopbackUrl}}/stocks/respondToPurchaseRequest",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "{{stockOwnerLeoToken}}",
+						"description": ""
+					},
+					{
+						"key": "X-Access-Token",
+						"value": "{{stockOwnerLeoToken}}",
+						"description": ""
+					},
+					{
+						"key": "access_token",
+						"value": "{{stockOwnerLeoToken}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"transactionID\": \"9a29d4698ded1e7c643d18f1422b8bf552c5acd5e9d91b21b25e93c078bf4d09\",\n  \"response\": \"ACCEPTED\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Process Stock Sale",
+			"request": {
+				"url": "{{LoopbackUrl}}/stocks/processStockSale",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "{{chairmanOfTheBoardBendikToken}}",
+						"description": ""
+					},
+					{
+						"key": "X-Access-Token",
+						"value": "{{chairmanOfTheBoardBendikToken}}",
+						"description": ""
+					},
+					{
+						"key": "access_token",
+						"value": "{{chairmanOfTheBoardBendikToken}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"transactionID\": \"a083b9a081c071b293e76dd949821eda5d8f11dcf928004a673f5a6c04665afe\",\n  \"response\": \"ACCEPTED\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Stock Owner Katie",
+			"request": {
+				"url": "{{LoopbackUrl}}/altinnParticipant/getStockOwner/katie",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					},
+					{
+						"key": "X-Access-Token",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					},
+					{
+						"key": "access_token",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"ID\":                   \"3333\",\n      \"firstName\":            \"TEst\",\n      \"lastName\":             \"Muller\",\n      \"socialSecurityNumber\": \"123456789\",\n      \"companyId\":            \"123\",\n      \"email\":                \"test@1235.com\",\n      \"password\":             \"passw0rd\",\n      \"participantClass\":     \"ChairmanOfTheBoard\",\n      \"roles\":                [\n        \"ChairmanOfTheBoardRole\"\n      ]\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Stock Owner David",
+			"request": {
+				"url": "{{LoopbackUrl}}/altinnParticipant/getStockOwner/david",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					},
+					{
+						"key": "X-Access-Token",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					},
+					{
+						"key": "access_token",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"ID\":                   \"3333\",\n      \"firstName\":            \"TEst\",\n      \"lastName\":             \"Muller\",\n      \"socialSecurityNumber\": \"123456789\",\n      \"companyId\":            \"123\",\n      \"email\":                \"test@1235.com\",\n      \"password\":             \"passw0rd\",\n      \"participantClass\":     \"ChairmanOfTheBoard\",\n      \"roles\":                [\n        \"ChairmanOfTheBoardRole\"\n      ]\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Stock Owner Leo",
+			"request": {
+				"url": "{{LoopbackUrl}}/altinnParticipant/getStockOwner/leo",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					},
+					{
+						"key": "X-Access-Token",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					},
+					{
+						"key": "access_token",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"ID\":                   \"3333\",\n      \"firstName\":            \"TEst\",\n      \"lastName\":             \"Muller\",\n      \"socialSecurityNumber\": \"123456789\",\n      \"companyId\":            \"123\",\n      \"email\":                \"test@1235.com\",\n      \"password\":             \"passw0rd\",\n      \"participantClass\":     \"ChairmanOfTheBoard\",\n      \"roles\":                [\n        \"ChairmanOfTheBoardRole\"\n      ]\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Transaction",
+			"request": {
+				"url": "{{LoopbackUrl}}/altinnParticipant/getTransaction/1995a07783a53c4e227d8b12cf99ed22ec2a2f1d5448ff9dd8511e10273ddf0a",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					},
+					{
+						"key": "X-Access-Token",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					},
+					{
+						"key": "access_token",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"ID\":                   \"3333\",\n      \"firstName\":            \"TEst\",\n      \"lastName\":             \"Muller\",\n      \"socialSecurityNumber\": \"123456789\",\n      \"companyId\":            \"123\",\n      \"email\":                \"test@1235.com\",\n      \"password\":             \"passw0rd\",\n      \"participantClass\":     \"ChairmanOfTheBoard\",\n      \"roles\":                [\n        \"ChairmanOfTheBoardRole\"\n      ]\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get StockWallet",
+			"request": {
+				"url": "{{LoopbackUrl}}/stocks/getStockWallet/katie",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					},
+					{
+						"key": "X-Access-Token",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					},
+					{
+						"key": "access_token",
+						"value": "{{businessRegistryTocken}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"ID\":                   \"3333\",\n      \"firstName\":            \"TEst\",\n      \"lastName\":             \"Muller\",\n      \"socialSecurityNumber\": \"123456789\",\n      \"companyId\":            \"123\",\n      \"email\":                \"test@1235.com\",\n      \"password\":             \"passw0rd\",\n      \"participantClass\":     \"ChairmanOfTheBoard\",\n      \"roles\":                [\n        \"ChairmanOfTheBoardRole\"\n      ]\n    }"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
