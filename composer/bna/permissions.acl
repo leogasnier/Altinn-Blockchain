@@ -33,7 +33,7 @@ rule NetworkAdminSystem {
 }
 
 rule AllParticipantsCanReadAllResources {
-    description: "Allow all participants access to all resources"
+    description: "Allow all participants read access to all resources"
     participant: "ANY"
     operation: READ
     resource: "org.altinn.*"
