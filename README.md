@@ -1,4 +1,4 @@
-# Shareholderbook on Blockchain
+# Shareholders record on Blockchain
 
 ## Trying out the Hyperledger Shareholderbook PoC hosted in Azure
 We have deployed the PoC to Azure. 
